@@ -1,8 +1,9 @@
-import express from 'express';
+import express from 'express'
+import loginController from '../../app/controllers/v1/LoginControllers'
 
-const router = express.Router();
+const router = express.Router()
 
-// 404 Page
-router.get('*', (req, res, next) => {
+router.get('/login', loginController.loginRender)
 
-})
+
+export default router

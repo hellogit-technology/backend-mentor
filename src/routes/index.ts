@@ -1,8 +1,11 @@
 import { Application } from 'express';
-import routeV1 from './v1';
+import siteRouter from './v1/site';
+import utilRouter from './v1/util'
 
 const route = (app: Application) => {
-  app.use('/', routeV1);
+  app.use('/', siteRouter);
+
+  app.use('/util', utilRouter)
 };
 
 export default route;
