@@ -14,19 +14,21 @@
     <!-- Custom styles -->
     <link href="/css/main.min.css" rel="stylesheet">
 
-    <!-- Jquery -->
-    <script defer src="/lib/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
     <script defer src="/lib/bootstrap/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/login/login.min.css">
+    
+    <!-- Jquery -->
+    <script defer src="/lib/jquery/jquery.min.js"></script>
+    <script defer src="/lib/jquery-validate/jquery.validate.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script defer src="/lib/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script defer src="/js/main.min.js"></script>
+    <script defer src="/js/login/login.min.js"></script>
 
 </head>
 <body class="bg-gradient-primary">
@@ -50,31 +52,34 @@
                                     <div class="text-center mt-2">
                                         <h1 class="h4 text-gray-900 mb-4" style="font-size: 30px;">Login</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" id="login-form-input">
                                         <div class="mb-3">
                                             <label for="inputCampus" class="form-label">Campus</label>
-                                            <select id="inputCampus" class="form-select">
+                                            <select id="inputCampus" class="form-select" name="campus">
                                                 <option selected>Select Campus</option>
                                                 <option value="">...</option>
                                             </select>
                                             <div class="invalid-feedback d-block">
+                                                <label id="inputCampus-error" class="error" for="inputCampus"></label>
                                                 <% if(typeof(errors) !== 'undefined') { %><%= errors.campus %> <% } %>
                                             </div>
                                         <div class="mb-3" style="margin-top: 15px;">
                                             <label for="inputUsername" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="inputUsername">
+                                            <input type="text" class="form-control" id="inputUsername" name="username">
                                             <div class="invalid-feedback d-block">
+                                                <label id="inputUsername-error" class="error" for="inputUsername"></label>
                                                 <% if(typeof(errors) !== 'undefined') { %><%= errors.username %> <% } %>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="inputPassword" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="inputPassword">
+                                            <input type="password" class="form-control" id="inputPassword" name="password">
                                             <div class="invalid-feedback d-block">
-                                                <% if(typeof(errors) !== 'undefined') { %><%= errors.password %> <% } %>
+                                                <label id="inputPassword-error" class="error" for="inputPassword"></label>
+                                                <% if(typeof(errors) !== 'undefined') { %><%= errors.password %><% } %>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-color">Submit</button>
+                                        <button type="submit" class="btn btn-color" id="login-submit-button">Submit</button>
                                         <% if(typeof(message) !== 'undefined') { %>
                                             <div class="mb-3 text-center">
                                                 <h5 style="color: #eb4310; margin-top: 15px" id="messageError"><%= message %></h5>
@@ -83,15 +88,15 @@
                                         <hr>
                                         <div class="col-md-12 text-center reset-component">
                                             Clubs Management CMS
-                                          </div>
-                                          <div class="col-md-12 text-center mt-2">
+                                        </div>
+                                        <div class="col-md-12 text-center mt-2">
                                             <p>
                                               © Developer by 
                                               <a href="https://www.facebook.com/HelloGIT" target="_blank" rel="noopener noreferrer">HelloGIT Team</a>
                                               &nbsp;|&nbsp;
-                                              <a href="/login" target="_blank" rel="noopener noreferrer">CMS</a>
+                                              <a href="https://en.wikipedia.org/wiki/Content_management_system" target="_blank" rel="noopener noreferrer">CMS</a>
                                             </p>
-                                          </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

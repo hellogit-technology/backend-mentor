@@ -1,6 +1,3 @@
+class UtilsControllers {}
 
-class UtilsControllers {
-    
-}
-
-export default new UtilsControllers
+export default new UtilsControllers();
