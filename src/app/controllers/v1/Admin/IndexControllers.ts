@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from 'express'
 
 class AdminControllers {
 
-    // [GET] /admin
+    // [GET] /
     adminRender(req: Request, res: Response, next: NextFunction) {
         try {
             res.status(200).render('admin/index', {layout: 'layouts/admin/index', title: 'Admin'})

@@ -12,11 +12,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles -->
-    <link href="/css/main.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
-    <script defer src="/lib/bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <script defer src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/css/login/login.min.css">
     
     <!-- Jquery -->
@@ -56,14 +56,15 @@
                                         <div class="mb-3">
                                             <label for="inputCampus" class="form-label">Campus</label>
                                             <select id="inputCampus" class="form-select" name="campus">
-                                                <option selected>Select Campus</option>
+                                                <option value="" selected disabled>Select Campus</option>
                                                 <option value="">...</option>
                                             </select>
                                             <div class="invalid-feedback d-block">
                                                 <label id="inputCampus-error" class="error" for="inputCampus"></label>
                                                 <% if(typeof(errors) !== 'undefined') { %><%= errors.campus %> <% } %>
                                             </div>
-                                        <div class="mb-3" style="margin-top: 15px;">
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="inputUsername" class="form-label">Username</label>
                                             <input type="text" class="form-control" id="inputUsername" name="username">
                                             <div class="invalid-feedback d-block">

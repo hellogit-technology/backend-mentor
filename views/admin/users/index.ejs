@@ -1,0 +1,151 @@
+<link rel="stylesheet" href="/css/admin/navigation.css">
+
+
+<p>
+    <a href="/" class="text-decoration-none hover reset-color">Home</a>
+</p>
+
+<div class="row g-5">
+    <div class="col-md-12 col-lg-12">
+        <div class="row g-2">
+            <div class="col-sm-6 col-md-5 col-lg-4 col-xl-2">
+                <button type="button" class="w-100 btn btn-warning" style="font-weight: 700;" data-bs-toggle="modal" data-bs-target="#newAccountModal">
+                    New Account
+                </button>
+            </div>
+            <div class="col-sm-6 col-md-5 col-lg-4 col-xl-2">
+                <form action="/login">
+                    <button class="w-100 btn btn-primary" style="font-weight: 700;" type="submit">Export</button>
+                  </form>
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-12" style="margin-top: 15px;">
+        <form action="">
+            <div class="row g-2">
+                <div class="input-group col-sm-6 col-md-5 col-lg-4 col-xl-2">
+                    <span class="input-group-text" id="basic-addon1">Type</span>
+                    <select class="form-select" aria-label="Default select example" style="border-bottom-right-radius: 0.35rem; border-top-right-radius: 0.35rem;">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select>
+                    <div class="invalid-feedback d-block">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-2">
+                    <input type="text" class="form-control" id="firstName" placeholder="Date" value="">
+                </div>
+                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-7 input-group">
+                    <input type="text" class="form-control" id="firstName" placeholder="Search for name..." value="">
+                    <button type="submit" class="btn btn-secondary" style="border-bottom-right-radius: 0.35rem; border-top-right-radius: 0.35rem;"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <div class="invalid-feedback d-block"></div>
+                </div>
+                <div class="col-sm-4 col-lg-4"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newAccountModal" tabindex="-1" aria-labelledby="newAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #ea9b42;">
+          <h5 class="modal-title" id="exampleModalLabel" style="color: white; font-weight: 700;">Create Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding: 2rem">
+            <form class="user" id="login-form-input">
+                <div class="mb-3">
+                    <label for="inputUsername" class="form-label">Username <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <input type="text" class="form-control" id="inputUsername" name="username">
+                    <div class="invalid-feedback d-block">
+                        <label id="inputUsername-error" class="error" for="inputUsername"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.username %> <% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <input type="password" class="form-control" id="inputPassword" name="password">
+                    <div class="invalid-feedback d-block">
+                        <label id="inputPassword-error" class="error" for="inputPassword"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.password %><% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputcPassword" class="form-label">Confirm Password <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <input type="password" class="form-control" id="inputPassword" name="cPassword">
+                    <div class="invalid-feedback d-block">
+                        <label id="inputcPassword-error" class="error" for="inputcPassword"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.password %><% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputcPassword" class="form-label">Full Name <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <input type="text" class="form-control" id="inputPassword" name="cPassword">
+                    <div class="invalid-feedback d-block">
+                        <label id="inputcPassword-error" class="error" for="inputcPassword"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.password %><% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputcPassword" class="form-label">Email <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <input type="text" class="form-control" id="inputPassword" name="cPassword">
+                    <div class="invalid-feedback d-block">
+                        <label id="inputcPassword-error" class="error" for="inputcPassword"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.password %><% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputcPassword" class="form-label">ID School <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <input type="text" class="form-control" id="inputPassword" name="cPassword">
+                    <div class="invalid-feedback d-block">
+                        <label id="inputcPassword-error" class="error" for="inputcPassword"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.password %><% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputCampus" class="form-label">Campus <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <select id="inputCampus" class="form-select" name="campus">
+                        <option value="" selected disabled>Select Campus</option>
+                        <option value="">...</option>
+                    </select>
+                    <div class="invalid-feedback d-block">
+                        <label id="inputCampus-error" class="error" for="inputCampus"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.campus %> <% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputCampus" class="form-label">Role <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <select id="inputCampus" class="form-select" name="campus">
+                        <option value="" selected disabled>Select Role</option>
+                        <option value="mentor">Mentor</option>
+                        <option value="leader">Leader Club</option>
+                    </select>
+                    <div class="invalid-feedback d-block">
+                        <label id="inputCampus-error" class="error" for="inputCampus"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.campus %> <% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputCampus" class="form-label">Club <span style="color: rgb(223, 17, 17);">*</span></label>
+                    <select id="inputCampus" class="form-select" name="campus">
+                        <option value="" selected disabled>Select Club</option>
+                        <option value="">Mentor</option>
+                    </select>
+                    <div class="invalid-feedback d-block">
+                        <label id="inputCampus-error" class="error" for="inputCampus"></label>
+                        <% if(typeof(errors) !== 'undefined') { %><%= errors.campus %> <% } %>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-color" id="login-submit-button">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

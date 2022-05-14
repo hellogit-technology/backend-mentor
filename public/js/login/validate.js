@@ -46,6 +46,8 @@ $(function() {
                     required: messageVietnamese.ER001('Password'),
                 },
             },
+            errorElement : 'div',
+            errorLabelContainer: '.invalid-feedback',
             submitHandler: function(form) {
                 // do other things for a valid form
                 form.action = '/login/auth';
