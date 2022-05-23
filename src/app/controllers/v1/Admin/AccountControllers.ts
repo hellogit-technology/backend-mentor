@@ -1,14 +1,14 @@
 import {Request, Response, NextFunction} from 'express'
 
-class AdminControllers {
+class AccountControllers {
 
     // [GET] /users
     userRender(req: Request, res: Response, next: NextFunction) {
         try {
-            res.status(200).render('admin/users/index', {
+            res.status(200).render('admin/account/index', {
                 layout: 'layouts/admin/index', 
-                title: 'Users | Management',
-                chosen: 'user'
+                title: 'Accounts | Management',
+                chosen: 'account'
             })
         } catch (error) {
             res.status(500).render('status/500', { layout: false, error });
@@ -16,4 +16,4 @@ class AdminControllers {
     }
 }
 
-export default new AdminControllers
+export default new AccountControllers

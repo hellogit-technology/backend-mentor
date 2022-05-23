@@ -30,7 +30,7 @@ export const notificationMailAuto = async (option: string, email: string, receiv
       to: email,
       subject: `Remind nhập điểm tháng ${moment(Date.now()).format('M')} - CLB ${clubName}`,
       html: `
-
+          
             `
     };
 
