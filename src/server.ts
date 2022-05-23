@@ -6,17 +6,22 @@ import methodOverride from 'method-override';
 import session from 'express-session';
 import expressLayouts from 'express-ejs-layouts';
 import flash from 'connect-flash';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+dotenv.config();
 
-import {sessionStore} from './config/sessionStore'
+import { sessionStore } from './config/sessionStore';
 import route from './routes';
 import { connectDB } from './config/mongodb';
-import 'dotenv/config';
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 // Logger
 app.use(morgan('dev'));
+
+// Secure
+app.use(helmet());
 
 // Session
 app.use(
@@ -26,7 +31,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 60000 * 30 //? Session expire in 30 minutes
+      maxAge: 60000 * 60 //? Session expire in 1 hours
     },
     store: sessionStore
   })
@@ -52,6 +57,9 @@ app.use(
     }
   })
 );
+
+// Public
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
