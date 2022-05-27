@@ -7,6 +7,7 @@ import session from 'express-session';
 import expressLayouts from 'express-ejs-layouts';
 import flash from 'connect-flash';
 import helmet from 'helmet';
+import favicon from 'serve-favicon'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -60,6 +61,7 @@ app.use(
 
 // Public
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(favicon(path.join(__dirname, '../public', 'img/club.png')))
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));

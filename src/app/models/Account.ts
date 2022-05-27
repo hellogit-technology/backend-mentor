@@ -6,7 +6,7 @@ const AccountSchema = new Schema({
     email: {type: String, maxlength: 100, required: true, unique: true},
     club: {type: Schema.Types.ObjectId, ref: 'Club'},
     role: {type: Schema.Types.ObjectId, required: true, ref: 'Role'},
-    logger: {type: Date, required: true},
+    logger: {type: Date},
     deleted_at: {type: Date}
 }, {
     timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}

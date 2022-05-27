@@ -6,6 +6,7 @@ const route = (app: Application) => {
   app.use('/', siteRouter);
 
   app.use('/util', utilRouter);
+
 };
 
 export default route;
