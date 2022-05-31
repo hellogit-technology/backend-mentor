@@ -1,5 +1,4 @@
 export const messageVietnamese = {
-
   // Input Validation
   ER001: (param: string) => `Mục ${param} bắt buộc nhập.`,
   ER002A: (param: string, length: number, current: number) => `Mục ${param} tối đa ${length} ký tự. (hiện tại ${current} ký tự.)`,
@@ -9,6 +8,7 @@ export const messageVietnamese = {
   ER005: `Không được nhập dấu cách.`,
   ER006: `Xác nhận mật khẩu không trùng khớp.`,
   ER007: (param: string) => `${param} đã tồn tại.`,
+  ER008: `Không nhập ký tự in hoa.`,
 
   // Auth
   RES001: `Thông tin đăng nhập không đúng.`,
@@ -19,5 +19,3 @@ export const messageVietnamese = {
   RES004A: `Tạo mới thất bại.`,
   RES004B: `Tạo mới thành công.`
 };
-
-

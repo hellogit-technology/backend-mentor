@@ -19,6 +19,3 @@ export const loginSchema = [
     }),
   check('password').not().isEmpty().withMessage(messageVietnamese.ER001('Password'))
 ];
-
-
-
