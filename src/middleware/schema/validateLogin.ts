@@ -1,5 +1,5 @@
 import { check } from 'express-validator';
-import { messageVietnamese } from '../utils/message';
+import { messageVietnamese } from '../../utils/message';
 
 //? LOGIN SCHEMA
 export const loginSchema = [
@@ -13,7 +13,7 @@ export const loginSchema = [
       const maxCharacters: number = 10; //~ Notice
       const valueLength = value.length;
       if (valueLength > maxCharacters) {
-        throw new Error(messageVietnamese.ER002('Username', maxCharacters, valueLength));
+        throw new Error(messageVietnamese.ER002A('Username', maxCharacters, valueLength));
       }
       return true;
     }),
