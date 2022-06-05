@@ -1,6 +1,5 @@
 node_modules
 dist
 Test
-.env
 .prettierrc
 .env.example
