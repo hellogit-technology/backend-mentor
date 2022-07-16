@@ -3,3 +3,4 @@ dist
 Test
 .prettierrc
 .env.example
+.vscode
