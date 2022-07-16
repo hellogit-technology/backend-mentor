@@ -17,5 +17,6 @@ export const messageVietnamese = {
   RES003A: `Xóa thất bại.`,
   RES003B: `Xóa thành công.`,
   RES004A: `Tạo mới thất bại.`,
-  RES004B: `Tạo mới thành công.`
+  RES004B: `Tạo mới thành công.`,
+  RES005: `Tài khoản không thể truy cập.`,
 };

@@ -1,17 +1,25 @@
-import { Application } from 'express';
-import adminRouter from './v1/admin';
-import utilRouter from './v1/util';
-import leaderRouter from './v1/leader';
-import errorRouter from './v1/error';
+import { Application } from "express";
+import utilRouter from './util'
+import adminRouter from './admin'
+import clubRouter from './club'
+import siteRouter from './site'
+import errorRouter from './error'
+import authRouter from './auth'
 
 const route = (app: Application) => {
-  app.use('/util', utilRouter);
+  
+    app.use('/auth', authRouter)
 
-  app.use('/', leaderRouter);
+    app.use('/util', utilRouter);
 
-  app.use('/', adminRouter);
+    app.use('/admin', adminRouter);
 
-  app.use('/', errorRouter);
-};
+    app.use('/club', clubRouter)
 
-export default route;
+    app.use('/', siteRouter);
+
+    app.use('/', errorRouter);
+
+}
+
+export default route
