@@ -5322,7 +5322,7 @@ var KTApp = function() {
                 options.minimumResultsForSearch = Infinity;
             }
             
-            $(element).select2(options);
+            // $(element).select2(options);
         });
     }
 
@@ -5707,36 +5707,47 @@ var KTLayoutSearch = function() {
     }    
 
     var handlePreferences = function() {
-        // Preference show handler
-        preferencesShowElement.addEventListener('click', function() {
-            wrapperElement.classList.add('d-none');
-            preferencesElement.classList.remove('d-none');
-        });
+        if(preferencesShowElement) {
+            // Preference show handler
+            preferencesShowElement.addEventListener('click', function() {
+                wrapperElement.classList.add('d-none');
+                preferencesElement.classList.remove('d-none');
+            });
+        }
 
-        // Preference dismiss handler
-        preferencesDismissElement.addEventListener('click', function() {
-            wrapperElement.classList.remove('d-none');
-            preferencesElement.classList.add('d-none');
-        });
+        if(preferencesDismissElement) {
+            // Preference dismiss handler
+            preferencesDismissElement.addEventListener('click', function() {
+                wrapperElement.classList.remove('d-none');
+                preferencesElement.classList.add('d-none');
+            });
+        }
     }
 
     var handleAdvancedOptionsForm = function() {
-        // Show
-        advancedOptionsFormShowElement.addEventListener('click', function() {
-            wrapperElement.classList.add('d-none');
-            advancedOptionsFormElement.classList.remove('d-none');
-        });
+        if(advancedOptionsFormShowElement) {
+            // Show
+            advancedOptionsFormShowElement.addEventListener('click', function() {
+                wrapperElement.classList.add('d-none');
+                advancedOptionsFormElement.classList.remove('d-none');
+            });
+        }
 
-        // Cancel
-        advancedOptionsFormCancelElement.addEventListener('click', function() {
-            wrapperElement.classList.remove('d-none');
-            advancedOptionsFormElement.classList.add('d-none');
-        });
+        if(advancedOptionsFormCancelElement) {
+            // Cancel
+            advancedOptionsFormCancelElement.addEventListener('click', function() {
+                wrapperElement.classList.remove('d-none');
+                advancedOptionsFormElement.classList.add('d-none');
+            });
+        }
 
-        // Search
-        advancedOptionsFormSearchElement.addEventListener('click', function() {
-            
-        });
+
+        if(advancedOptionsFormSearchElement) {
+            // Search
+            advancedOptionsFormSearchElement.addEventListener('click', function() {
+                
+            });
+        }
     }
 
     // Public methods

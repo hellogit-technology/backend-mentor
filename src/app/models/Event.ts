@@ -2,10 +2,11 @@ import { Schema, model } from 'mongoose';
 
 const EventSchema = new Schema(
   {
-    name: { type: String, maxlength: 100, required: true },
-    founding: { type: Date, required: true },
-    performer: { type: String, maxlength: 100, required: true },
-    deleted_at: { type: Date }
+    name: { type: String, maxlength: 300, required: true },
+    date: { type: Date, required: true },
+    club: { type: Schema.Types.ObjectId, required: true, ref: 'Club' },
+    poster: { type: String },
+    qrcode: { type: String, required: true }
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

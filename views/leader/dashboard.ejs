@@ -1,0 +1,486 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+        <!--begin::Container-->
+        <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 mb-5 mb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+                <!--begin::Heading-->
+                <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">Trang chủ
+                <small class="text-muted fs-6 fw-normal ms-1"></small></h1>
+                <!--end::Heading-->
+            </div>
+            <!--end::Page title=-->
+            <!--begin::Logo bar-->
+            <div class="d-flex d-lg-none align-items-center flex-grow-1">
+                <!--begin::Aside Toggle-->
+                <div class="btn btn-icon btn-circle btn-active-light-primary ms-n2 me-1" id="kt_aside_toggle">
+                    <!--begin::Svg Icon | path: icons/duotone/Text/Menu.svg-->
+                    <span class="svg-icon svg-icon-2x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24" />
+                                <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
+                                <path d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z" fill="#000000" opacity="0.3" />
+                            </g>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Aside Toggle-->
+                <!--begin::Logo-->
+                <a href="index.html" class="d-lg-none">
+                    <img alt="Logo" src="../assets/media/logos/logo-compact.png" width="100%" class="max-h-40px" />
+                </a>
+                <!--end::Logo-->
+            </div>
+            <!--end::Logo bar-->
+            <!--begin::Toolbar wrapper-->
+            <div class="d-flex align-items-stretch flex-shrink-0">
+                <!--begin:Activities-->
+                <div class="d-flex align-items-center ms-1 ms-lg-3">
+                    <!--begin::Menu wrapper-->
+                    <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <!--begin::Svg Icon | path: icons/duotone/General/Notification2.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <path d="M6,9 L6,15 C6,16.6568542 7.34314575,18 9,18 L15,18 L15,18.8181818 C15,20.2324881 14.2324881,21 12.8181818,21 L5.18181818,21 C3.76751186,21 3,20.2324881 3,18.8181818 L3,11.1818182 C3,9.76751186 3.76751186,9 5.18181818,9 L6,9 Z" fill="#000000" fill-rule="nonzero" />
+                                <path d="M10.1818182,4 L17.8181818,4 C19.2324881,4 20,4.76751186 20,6.18181818 L20,13.8181818 C20,15.2324881 19.2324881,16 17.8181818,16 L10.1818182,16 C8.76751186,16 8,15.2324881 8,13.8181818 L8,6.18181818 C8,4.76751186 8.76751186,4 10.1818182,4 Z" fill="#000000" opacity="0.3" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--begin::Menu-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px" data-kt-menu="true">
+                        <!--begin::Card-->
+                        <div class="card">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <h3 class="card-title">Nhật ký hoạt động
+                                <span class="badge badge-light-primary fs-7 fw-500 ms-3">2 hoạt động mới</span></h3>
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body p-0">
+                                <!--begin::Activities-->
+                                <div class="mh-350px scroll-y py-3">
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center bg-hover-lighten py-3 px-9">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px symbol-circle me-5">		
+                                            <img src="../assets/media/avatars/anhtoan.jpg" width="24px" height="24px">
+                                        </div>
+                                        <!--end::Symbol-->
+                                        <!--begin::Title-->
+                                        <div class="mb-1 pe-3 flex-grow-1">
+                                            <a href="#" class="fs-6 text-dark text-hover-primary fw-bold">Minh Toàn đã thêm 1 sự kiện</a>
+                                            <div class="text-gray-400 fw-bold fs-7">2 tiếng trước</div>
+                                        </div>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center bg-hover-lighten py-3 px-9">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px symbol-circle me-5">		
+                                            <img src="../assets/media/avatars/anhkhanhtoan.jpeg" width="24px" height="24px">
+                                        </div>
+                                        <!--end::Symbol-->
+                                        <!--begin::Title-->
+                                        <div class="mb-1 pe-3 flex-grow-1">
+                                            <a href="#" class="fs-6 text-dark text-hover-primary fw-bold">Khánh Toàn đã thêm 1 sinh viên mới</a>
+                                            <div class="text-gray-400 fw-bold fs-7">3 iếng trước</div>
+                                        </div>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Item-->											
+                                </div>
+                                <!--end::Activities-->
+                            </div>
+                            <!--end::Card header-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Menu-->
+                    <!--end::Menu wrapper-->
+                </div>
+                <!--end:Activities-->
+                <!--begin::Notifications-->
+                <div class="d-flex align-items-center ms-1 ms-lg-3">
+                    <!--begin::Menu wrapper-->
+                    <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <!--begin::Svg Icon | path: icons/duotone/General/Notification2.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z" fill="#000000" />
+                                    <circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5" r="2.5" />
+                                </g>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--begin::Menu-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px" data-kt-menu="true">
+                        <!--begin::Card-->
+                        <div class="card">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <h3 class="card-title">Thông báo
+                                <span class="badge badge-light-danger fs-7 fw-500 ms-3">3 thông báo mới</span></h3>
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body p-0">
+                                <!--begin::Notifications-->
+                                <div class="mh-350px scroll-y py-3">
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center bg-hover-lighten py-3 px-9">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px symbol-circle me-5">
+                                            <span class="symbol-label bg-light-warning">
+                                                <!--begin::Svg Icon | path: icons/duotone/Home/Library.svg-->
+                                                <span class="svg-icon svg-icon-warning svg-icon-1">
+                                                    <span class="symbol-label bg-light-warning">
+                                                        <!--begin::Svg Icon | path: icons/duotone/General/Settings-2.svg-->
+                                                        <span class="svg-icon svg-icon-warning svg-icon-1">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24" />
+                                                                    <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000" />
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                        <!--end::Svg Icon-->
+                                                    </span>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                        </div>
+                                        <!--end::Symbol-->
+                                        <!--begin::Title-->
+                                        <div class="mb-1 pe-3 flex-grow-1">
+                                            <a href="#" class="fs-6 text-dark text-hover-primary fw-bold">Câu lạc bộ Page Turner chưa nhập điểm tháng 6</a>
+                                            <div class="text-gray-400 fw-bold fs-7">2 tiếng trước</div>
+                                        </div>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center bg-hover-lighten py-3 px-9">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px symbol-circle me-5">
+                                            <span class="symbol-label">
+                                                <!--begin::Svg Icon | path: icons/duotone/Shopping/Credit-card.svg-->
+                                                <span class="svg-icon svg-icon-danger svg-icon-1">
+                                                    <img src="../assets/media/avatars/hellogit.png" width="24" height="24" alt="">
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                        </div>
+                                        <!--end::Symbol-->
+                                        <!--begin::Title-->
+                                        <div class="mb-1 pe-3 flex-grow-1">
+                                            <a href="#" class="fs-6 text-dark text-hover-primary fw-bold">HelloGIT đã nhập điểm tháng 6</a>
+                                            <div class="text-gray-400 fw-bold fs-7">1 phút trước</div>
+                                        </div>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Item-->												
+                                </div>
+                                <!--end::Notifications-->
+                            </div>
+                            <!--end::Card header-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Menu-->
+                    <!--end::Menu wrapper-->
+                </div>
+                <!--end::Notifications-->
+                <!--begin::User-->
+                <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+                    <!--begin::Menu wrapper-->
+                    <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <img alt="Pic" src="../assets/media/avatars/hellogit.png" />
+                    </div>
+                    <!--begin::Menu-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <div class="menu-content d-flex align-items-center px-3">
+                                <!--begin::Avatar-->
+                                <div class="symbol symbol-50px symbol-circle me-5">
+                                    <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                </div>
+                                <!--end::Avatar-->
+                                <!--begin::Username-->
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bolder d-flex align-items-center fs-5">HELLOGIT_UoG Information Technology Club
+                                    </div>
+                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">HelloGIT</span>
+                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">gwhellogit@gmail.com</a>
+                                </div>
+                                <!--end::Username-->
+                            </div>
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu separator-->
+                        <div class="separator my-2"></div>
+                        <!--end::Menu separator-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a href="overview.html" class="menu-link px-5">Thông tin cá nhân</a>
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5 my-1">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#pdp_edit_club" class="menu-link px-5">Thay đổi thông tin CLB</a>
+                        </div>
+                        <!--end::Menu item-->                                        
+                        <!--begin::Menu separator-->
+                        <div class="separator my-2"></div>
+                        <!--end::Menu separator-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a href="#" class="menu-link px-5">Đăng xuất</a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
+                    <!--end::Menu-->
+                    <!--end::Menu wrapper-->
+                </div>
+                <!--end::User -->
+            </div>
+            <!--end::Toolbar wrapper-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">
+        <!--begin::Container-->
+        <div class="container" id="kt_content_container">
+            <!--begin::Row-->
+            <div class="row g-xl-8">
+                <!--begin:::Col-->
+                <div class="col-xxl-6">
+                    <!--begin::List Widget 3-->
+                    <div class="card card-flush mb-5 mb-xl-8">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <!--begin::Card title-->
+                            <h3 class="card-title fw-boldest">Sự kiện hàng tháng</h3>
+                            <!--end::Card title-->
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Body-->
+                        <div class="card-body pt-1">
+                            <!--begin::Tabs-->
+                            <ul class="nav rounded-pill flex-center bg-light overflow-auto flex-nowrap p-2 mb-8">
+                                <!--begin::Tab nav-->
+                                <li class="nav-item flex-equal">
+                                    <a class="nav-link btn btn-active-white btn-color-gray-500 btn-active-color-gray-700 py-2 px-4 fs-6 fw-bold active" data-bs-toggle="tab" href="#kt_lists_widget_3_tab_pane_1">Poster</a>
+                                </li>
+                                <!--end::Tab nav-->
+                                <!--begin::Tab nav-->
+                                <li class="nav-item flex-equal mx-1">
+                                    <a class="nav-link btn btn-active-white btn-color-gray-500 btn-active-color-gray-700 py-2 px-4 fs-6 fw-bold" data-bs-toggle="tab" href="#kt_lists_widget_3_tab_pane_2">Chi tiết sự kiện</a>
+                                </li>
+                                <!--end::Tab nav-->
+                            </ul>
+                            <!--end::Tabs-->
+                            <!--begin:Tab content-->
+                            <div class="tab-content">
+                                <!--begin::Tab pane-->
+                                <div class="tab-pane fade active show" id="kt_lists_widget_3_tab_pane_1">
+                                    <!--begin::Section-->
+                                    <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="3000">
+                                        <!--begin::Carousel-->
+                                        <div class="carousel-inner pt-8">
+                                            <!--begin::Item-->
+                                            <div class="carousel-item active">
+                                                <img src="../assets/media/poster-event/event-t7-dn.png" width="100%">
+                                            </div>
+                                            <!--end::Item-->
+                                    
+                                            <!--begin::Item-->
+                                            <div class="carousel-item">
+                                                <img src="../assets/media/poster-event/event-t7.jpg" width="100%">
+                                            </div>
+                                            <!--end::Item-->
+                                    
+                                            <!--begin::Item-->
+                                            <div class="carousel-item">
+                                                <img src="../assets/media/poster-event/event-t7-hn.jpg" width="100%">
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--begin::Carousel Indicators-->
+                                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
+                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="1" class="ms-1"></li>
+                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="2" class="ms-1"></li>
+                                        </ol>
+                                        <!--end::Carousel Indicators-->
+                                        <!--end::Carousel-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Tab pane-->
+                                <!--begin::Tab pane-->
+                                <div class="tab-pane fade" id="kt_lists_widget_3_tab_pane_2">
+                                    <!--begin::Section-->
+                                    <div class="mb-7">	
+                                        <!--begin::Items-->
+                                        <div class="overflow-auto mb-10">
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-40px symbol-circle me-4">
+                                                    <img alt="Pic" src="../assets/media/avatars/hellogit.png" />
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::List content-->
+                                                <div class="d-flex flex-column min-w-150px me-4">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#pdp_detail_event" class="fw-boldest text-gray-800 text-hover-primary fs-4">Thủ lĩnh Sinh viên 2022 - "Thủ lĩnh là ai ?"</a>
+                                                    <div class="fw-bold fs-6 text-gray-400">Hall of Greenwich VietNam - Cong Hoa Campus</div>
+                                                </div>
+                                                <!--end::List content-->
+                                                <!--begin::Date-->
+                                                <span class="ms-auto rounded-pill badge badge-light-primary fw-bolder fs-6 px-3 py-1">07/2022</span>
+                                                <!--end::Date-->
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--end::Items-->
+                                    </div>
+                                    <!--end::Section-->
+                                    <!--begin::Section-->
+                                    <div class="mb-7">	
+                                        <!--begin::Items-->
+                                        <div class="overflow-auto mb-10">
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-40px symbol-circle me-4">
+                                                    <img alt="Pic" src="../assets/media/avatars/hellogit.png" />
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::List content-->
+                                                <div class="d-flex flex-column min-w-150px me-4">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#pdp_detail_event" class="fw-boldest text-gray-800 text-hover-primary fs-4">Tôn vinh sinh viên kỳ Spring 2022</a>
+                                                    <div class="fw-bold fs-6 text-gray-400">Hall of Greenwich VietNam - Cong Hoa Campus</div>
+                                                </div>
+                                                <!--end::List content-->
+                                                <!--begin::Date-->
+                                                <span class="ms-auto rounded-pill badge badge-light-primary fw-bolder fs-6 px-3 py-1">12/07/2022</span>
+                                                <!--end::Date-->
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--end::Items-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Tab pane-->
+                            </div>
+                            <!--end:Tab content-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::List Widget 3-->
+                </div>
+                <!--end:::Col-->
+                <!--begin:::Col-->
+                <div class="col-xxl-6">
+                    <!--begin::Row-->
+                    <div class="row g-xl-8">
+                        <!--begin:::Col-->
+                        <div class="col">
+                        <!--begin::Alert-->
+                            <div class="alert alert-warning d-flex flex-column flex-sm-row p-5 mb-10">
+                                <!--begin::Icon-->
+                                <span class="svg-icon svg-icon-2hx svg-icon-warning me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M5.69477 2.48932C4.00472 2.74648 2.66565 3.98488 2.37546 5.66957C2.17321 6.84372 2 8.33525 2 10C2 11.6647 2.17321 13.1563 2.37546 14.3304C2.62456 15.7766 3.64656 16.8939 5 17.344V20.7476C5 21.5219 5.84211 22.0024 6.50873 21.6085L12.6241 17.9949C14.8384 17.9586 16.8238 17.7361 18.3052 17.5107C19.9953 17.2535 21.3344 16.0151 21.6245 14.3304C21.8268 13.1563 22 11.6647 22 10C22 8.33525 21.8268 6.84372 21.6245 5.66957C21.3344 3.98488 19.9953 2.74648 18.3052 2.48932C16.6859 2.24293 14.4644 2 12 2C9.53559 2 7.31411 2.24293 5.69477 2.48932Z" fill="#191213"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7 7C6.44772 7 6 7.44772 6 8C6 8.55228 6.44772 9 7 9H17C17.5523 9 18 8.55228 18 8C18 7.44772 17.5523 7 17 7H7ZM7 11C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11C11.5523 13 12 12.5523 12 12C12 11.4477 11.5523 11 11 11H7Z" fill="#121319"></path>
+                                    </svg>
+                                </span>
+                                <!--end::Icon-->
+
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column">
+                                    <!--begin::Title-->
+                                    <h5 class="mb-1">Thông báo</h5>
+                                    <!--end::Title-->
+                                    <!--begin::Content-->
+                                    <span>Còn 3 ngày để nhập điểm tháng 7.</span>
+                                    <!--end::Content-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Alert-->
+                        </div>
+                        <!--end:::Col-->
+                    </div>
+                    <!--end::Row-->
+                    <!--begin::Row-->
+                    <div class="row g-xl-8">
+                        <!--begin:::Col-->
+                        <div class="col">
+                        <!--begin::Alert-->
+                            <div class="alert alert-danger d-flex flex-column flex-sm-row p-5 mb-10">
+                                <!--begin::Icon-->
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M5.69477 2.48932C4.00472 2.74648 2.66565 3.98488 2.37546 5.66957C2.17321 6.84372 2 8.33525 2 10C2 11.6647 2.17321 13.1563 2.37546 14.3304C2.62456 15.7766 3.64656 16.8939 5 17.344V20.7476C5 21.5219 5.84211 22.0024 6.50873 21.6085L12.6241 17.9949C14.8384 17.9586 16.8238 17.7361 18.3052 17.5107C19.9953 17.2535 21.3344 16.0151 21.6245 14.3304C21.8268 13.1563 22 11.6647 22 10C22 8.33525 21.8268 6.84372 21.6245 5.66957C21.3344 3.98488 19.9953 2.74648 18.3052 2.48932C16.6859 2.24293 14.4644 2 12 2C9.53559 2 7.31411 2.24293 5.69477 2.48932Z" fill="#191213"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7 7C6.44772 7 6 7.44772 6 8C6 8.55228 6.44772 9 7 9H17C17.5523 9 18 8.55228 18 8C18 7.44772 17.5523 7 17 7H7ZM7 11C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11C11.5523 13 12 12.5523 12 12C12 11.4477 11.5523 11 11 11H7Z" fill="#121319"></path>
+                                    </svg>
+                                </span>
+                                <!--end::Icon-->
+
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column">
+                                    <!--begin::Title-->
+                                    <h5 class="mb-1">Thông báo</h5>
+                                    <!--end::Title-->
+                                    <!--begin::Content-->
+                                    <span>Câu lạc bộ của bạn đã không nhập điểm tháng 7.</span>
+                                    <!--end::Content-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Alert-->
+                        </div>
+                        <!--end:::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end:::Col-->			
+            </div>
+            <!--end::Row-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+        <!--begin::Container-->
+        <div class="container-fluid d-flex flex-column flex-md-row flex-stack">
+            <!--begin::Copyright-->
+            <div class="text-dark order-2 order-md-1">
+                <span class="text-gray-400 fw-bold me-1">Created by</span>
+                <a href="https://www.facebook.com/TienPercy/" target="_blank" class="text-muted text-hover-primary fw-bold me-2 fs-6">Tiến Percy</a>
+                <a href="https://www.facebook.com/fxbite" target="_blank" class="text-muted text-hover-primary fw-bold me-2 fs-6">Thinh Le</a>
+            </div>
+            <!--end::Copyright-->
+            <!--begin::Menu-->
+            <div class="text-muted text-hover-primary fw-bold me-2 fs-6">Copyright © 2022 HelloGIT. All Rights Reserved</div>
+            <!--end::Menu-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Footer-->
+</div>
