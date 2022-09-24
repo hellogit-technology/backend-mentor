@@ -1,6 +1,5 @@
 import { check } from 'express-validator';
 import { messageVietnamese } from '../../../utils/message';
-import { Account } from '../../../app/models';
 
 //? CREATE MENTOR ACCOUNT
 export const mentorSchema = [

@@ -3,6 +3,7 @@ const concat = require('gulp-concat')
 const cleanCSS = require('gulp-clean-css')
 const imagemin = require('gulp-imagemin')
 const terser = require('gulp-terser')
+const strip = require('gulp-strip-comments');
 const randomstring = require('randomstring')
 
 const idJS = randomstring.generate({
@@ -17,17 +18,15 @@ const idCSS = randomstring.generate({
 gulp.task('global-js', () => {
     return gulp
         .src('assets/js/global/*.js')
+        .pipe(strip())
         .pipe(concat(`global-${idJS}.bundle.js`))
-        .pipe(terser({
-            compress: true,
-            mangle: true
-        }))
         .pipe(gulp.dest('public/js'))
 })
 
 gulp.task('login-js', () => {
     return gulp
         .src('assets/js/login/*.js')
+        .pipe(strip())
         .pipe(concat(`login-${idJS}.bundle.js`))
         .pipe(terser({
             compress: true,
@@ -39,11 +38,25 @@ gulp.task('login-js', () => {
 gulp.task('status-js', () => {
     return gulp
         .src('assets/js/status/*.js')
+        .pipe(strip())
         .pipe(concat(`status-${idJS}.bundle.js`))
         .pipe(terser({
             compress: true,
             mangle: true
         }))
+        .pipe(gulp.dest('public/js'))
+})
+
+gulp.task('validate-js', () => {
+    return gulp
+        .src([
+            'assets/js/validation/message.js', 
+            'assets/js/validation/method-validation.js', 
+            'assets/js/validation/create/*.js',
+            'assets/js/validation/clearMessage.js'
+        ])
+        .pipe(strip())
+        .pipe(concat(`validation-${idJS}.bundle.js`))
         .pipe(gulp.dest('public/js'))
 })
 
@@ -89,6 +102,14 @@ gulp.task('status-500', () => {
         .pipe(gulp.dest('public/css'))
 })
 
+gulp.task('validate-css', () => {
+    return gulp
+        .src('assets/css/validation/*.css')
+        .pipe(concat(`validation-${idCSS}.min.css`))
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(gulp.dest('public/css'))
+})
+
 // Optimize images
 gulp.task('images', () => {
     return gulp
@@ -104,11 +125,13 @@ gulp.task('minify-files',
         'global-js', 
         'login-js', 
         'status-js',
+        'validate-js',
         'global-css',
         'login-css',
         'status-404',
         'status-403',
         'status-500',
+        'validate-css',
         'images'
     )) 
 
@@ -120,16 +143,19 @@ gulp.task('watch-files', () => {
             'assets/js/global/*.js', 
             'assets/js/login/*.js', 
             'assets/js/status/*.js',
+            'assets/js/validation/*.js',
+            'assets/js/validation/create/*.js'
         ], 
-    gulp.series('global-js', 'login-js', 'status-js'))
+    gulp.series('global-js', 'login-js', 'status-js', 'validate-js'))
 
     gulp.watch(
         [
             'assets/css/global/*.css', 
             'assets/css/login/*.css', 
-            'assets/css/status/*.css'
+            'assets/css/status/*.css',
+            'assets/css/validation/*.css'
         ], 
-    gulp.series('global-css', 'login-css', 'status-404', 'status-403', 'status-500'))
+    gulp.series('global-css', 'login-css', 'status-404', 'status-403', 'status-500', 'validate-css'))
 
     gulp.watch('assets/img/*', gulp.series('images'))
 })

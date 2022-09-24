@@ -2,13 +2,10 @@ import { Schema, model } from 'mongoose';
 
 const StudentSchema = new Schema(
   {
-    fullname: { type: String, maxlength: 100 },
-    school_id: { type: String, maxlength: 50, required: true, unique: true },
-    email: { type: String, required: true, maxlength: 100, unique: true },
-    campus: { type: Schema.Types.ObjectId, ref: 'Campus' },
-    position: { type: Schema.Types.ObjectId, ref: 'Position' },
-    club: [{ type: Schema.Types.ObjectId, ref: 'Club' }],
-    deleted_at: { type: Date }
+    fullname: { type: String, maxlength: 100, required: true },
+    school_id: { type: String, maxlength: 20, required: true, unique: true },
+    email: { type: String, maxlength: 100, required: true, unique: true },
+    campus: { type: Schema.Types.ObjectId, required: true, ref: 'Campus' }
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

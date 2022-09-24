@@ -1,4 +1,5 @@
-import Account from './Account';
+import LeaderAccount from './LeaderAccount';
+import AdminAccount from './AdminAccount';
 import Attitude from './Attitude';
 import Campus from './Campus';
 import Club from './Club';
@@ -9,4 +10,4 @@ import EventScore from './EventScore';
 import Student from './Student';
 import Total from './Total';
 
-export { Account, Attitude, Campus, Club, Email, Event, Position, EventScore, Student, Total };
+export { LeaderAccount, Attitude, AdminAccount, Campus, Club, Email, Event, Position, EventScore, Student, Total };

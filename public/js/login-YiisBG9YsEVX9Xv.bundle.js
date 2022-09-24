@@ -1,1 +1,0 @@
-$(document).ready((()=>{setTimeout((()=>{$("#messageError").text("")}),3e4)})),$(document).ready((()=>{$("#buttonLogin").click((()=>{window.location.href="/auth/google"}))}));

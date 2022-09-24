@@ -7,20 +7,21 @@ import expressLayouts from 'express-ejs-layouts';
 import flash from 'connect-flash';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
-import passport from 'passport'
+import passport from 'passport';
 import dotenv from 'dotenv';
 dotenv.config();
 
 import { sessionStore } from './config/sessionStore';
 import route from './routes';
 import { connectDB } from './config/mongodb';
-import {googlePassport} from './config/passport'
+import { googlePassport } from './config/passport';
+import showData from './middleware/helpers';
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 // Logger
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
@@ -36,11 +37,14 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === 'production' ? true : false,
       maxAge: 60000 * 60, //? Session expire in 1 hours
-      httpOnly: process.env.NODE_ENV === 'production' ? true : false,
+      httpOnly: process.env.NODE_ENV === 'production' ? true : false
     },
     store: sessionStore
   })
 );
+
+// Helpers
+app.use(showData);
 
 // Gzip
 app.use(
@@ -58,7 +62,7 @@ app.use(
 );
 
 // Public
-const libraryPath = '../assets/lib' 
+const libraryPath = '../assets/lib';
 app.use('/js', [
   express.static(path.join(__dirname, `${libraryPath}/jquery-validate`)),
   express.static(path.join(__dirname, `${libraryPath}/jquery-easing`)),
@@ -67,12 +71,13 @@ app.use('/js', [
   express.static(path.join(__dirname, `${libraryPath}/flatpickr`)),
   express.static(path.join(__dirname, `${libraryPath}/chart`)),
   express.static(path.join(__dirname, `${libraryPath}/bootstrap/js`)),
-  express.static(path.join(__dirname, `${libraryPath}/google`)),
-])
+  express.static(path.join(__dirname, `${libraryPath}/google`))
+]);
 app.use('/css', [
-  express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)),
-  express.static(path.join(__dirname, `${libraryPath}/font-awesome/css`))
-])
+  express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)), 
+  express.static(path.join(__dirname, `${libraryPath}/font-awesome/css`)),
+  express.static(path.join(__dirname, `../assets/helpers`)),
+]);
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
 
@@ -80,7 +85,7 @@ app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
 app.use(flash());
 
 // Passport
-googlePassport(passport)
+googlePassport(passport);
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -92,8 +97,8 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 // Passport Middleware
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Route Init
 route(app);
