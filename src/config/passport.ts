@@ -1,17 +1,18 @@
 import { Strategy } from 'passport-google-oauth20';
 import { PassportStatic } from 'passport';
-import mongoose from 'mongoose';
+import {LeaderAccount, AdminAccount} from '../app/models'
 import { messageVietnamese } from '../utils/message';
 
 const GoogleStrategy = Strategy;
 
 export const googlePassport = (passport: PassportStatic) => {
+
   passport.serializeUser((user, done) => {
     done(null, user);
   });
 
-  passport.deserializeUser((user, done) => {
-    done(null, null);
+  passport.deserializeUser<any>((user, done) => {
+    done(null, user);
   });
 
   passport.use(
@@ -22,15 +23,50 @@ export const googlePassport = (passport: PassportStatic) => {
         callbackURL: '/auth/google/callback'
       },
       async (accessToken, refreshToken, profile, done) => {
-        const accessId = process.env.ORGANIZATION_ID!;
-        const organizationId = profile['_json'].hd;
-        const userData = profile['_json'];
-        if (organizationId === accessId) {
-          done(null, userData);
-        } else {
-          done(null, false, { type: 'message', message: messageVietnamese.RES005 });
+        const requestEmail = profile['_json'].email
+        const adminUser = await AdminAccount.findOne({ email: requestEmail });
+        const leaderUser = await LeaderAccount.findOne({ email: requestEmail})
+       
+        if(adminUser) {
+          let adminSession
+
+          if (adminUser['role'] === 0) {
+            adminSession = {
+              email: profile['_json'].email!,
+              displayName: profile['_json'].name!,
+              photo: profile['_json'].picture!,
+              role: 0,
+              isLogged: true
+            }
+          } else {
+            adminSession = {
+              email: profile['_json'].email!,
+              displayName: profile['_json'].name!,
+              photo: profile['_json'].picture!,
+              role: 1,
+              isLogged: true
+            }
+          }
+           
+          return done(null, adminSession);
+        } 
+
+        if(leaderUser) {
+          const leaderSession = {
+            email: profile['_json'].email!,
+            displayName: profile['_json'].name!,
+            photo: profile['_json'].picture!,
+            role: 2,
+            isLogged: true
+          }
+          return done(null, leaderSession);
         }
+
+        return done(null, false, { type: 'message', message: messageVietnamese.RES005 });
       }
     )
-  );
-};
+  )
+
+ 
+}
+

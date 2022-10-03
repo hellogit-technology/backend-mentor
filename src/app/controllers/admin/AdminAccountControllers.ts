@@ -2,12 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import {AdminAccount} from '../../models'
 
 class AdminAccountControllers {
-  // [POST] /
+  // [POST] /api/admin-account
   async createAdmin(req: Request, res: Response, next: NextFunction) {
     try {
         const newAdminAccount = new AdminAccount(req.body)
         const savedAdminAccount = await newAdminAccount.save()
-        res.redirect('/admin/manage-account')
+        res.redirect('/admin/accounts')
     } catch (error) {
         console.log(error);
     }
@@ -18,7 +18,7 @@ class AdminAccountControllers {
     try {
         const admin = await AdminAccount.findById(req.params.id)
         await admin!.updateOne({ $set: req.body})
-        res.redirect('/admin/manage-account')
+        res.redirect('/admin/accounts')
     } catch (error) {
         console.log(error);
     }
@@ -29,7 +29,7 @@ class AdminAccountControllers {
     try {
         const admin = await AdminAccount.findById(req.params.id)
         await admin!.deleteOne()
-        res.redirect('/admin/manage-account')
+        res.redirect('/admin/accounts')
     } catch (error) {
         console.log(error);
     }

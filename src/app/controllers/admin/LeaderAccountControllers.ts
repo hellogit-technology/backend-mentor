@@ -7,7 +7,7 @@ class LeaderAccountControllers {
     try {
       const newLeaderAccount = new LeaderAccount(req.body)
       const savedLeaderAccount = await newLeaderAccount.save()
-      res.redirect('/admin/manage-account')
+      res.redirect('/admin/accounts')
     } catch (error) {
       console.log(error);
     }
@@ -18,7 +18,7 @@ class LeaderAccountControllers {
     try {
       const admin = await LeaderAccount.findById(req.params.id)
       await admin!.updateOne({$set: req.body})
-      res.redirect('/admin/manage-account')
+      res.redirect('/admin/accounts')
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +29,7 @@ class LeaderAccountControllers {
     try {
       const admin = await LeaderAccount.findById(req.params.id)
       await admin!.deleteOne()
-      res.redirect('/admin/manage-account')
+      res.redirect('/admin/accounts')
     } catch (error) {
       console.log(error);
     }

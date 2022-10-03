@@ -14,7 +14,7 @@ router.get('/mail', (req: Request, res: Response, next: NextFunction) => {
   res.redirect('/admin/mail/sent');
 });
 router.get('/accounts', renderControllers.accounts)
-router.get('/manage-clubs', renderControllers.clubs);
+router.get('/clubs', renderControllers.clubs);
 router.get('/club/:slug', renderControllers.clubMembers);
 router.get('/events', renderControllers.events);
 router.get('/students', renderControllers.students);

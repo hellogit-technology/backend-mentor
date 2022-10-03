@@ -364,7 +364,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                        <img alt="Pic" src="../assets/media/avatars/avt-nam.jpg" />
+                        <img alt="Pic" crossorigin="anonymous" src="<% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.photo %><% } %>" />
                     </div>
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -373,15 +373,28 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px symbol-circle me-5">
-                                    <img alt="Logo" src="../assets/media/avatars/avt-nam.jpg" />
+                                    <img alt="Logo" crossorigin="anonymous" src="<% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.photo %><% } %>" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">Admin
+                                    <div class="fw-bolder d-flex align-items-center fs-5">
+                                        <% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.displayName %><% } %>
                                     </div>
-                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Admin Greenwich HCM</span>
-                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">tientvgcs190159@fpt.edu.vn</a>
+                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+                                        <% if (typeof(profileSession) !== 'undefined') { %>
+                                            <% if (profileSession.role === 0) { %>
+                                                Admin Greenwich HCM
+                                            <% } else { %>
+                                                Manager Greenwich HCM
+                                            <% } %> 
+                                        <% } %>
+                                    </span>
+                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">
+                                        <% if (typeof(profileSession) !== 'undefined') { %>
+                                            <%= profileSession.email %>
+                                        <% } %>
+                                    </a>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -427,53 +440,45 @@
                 <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
                         <table class="table table-bordered">
-                            <thead>
-                                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                    <th style="width:100px;">ID</th>
-                                    <th style="width:300px;">Họ và tên</th>
-                                    <th style="width:250px;">Email</th>
-                                    <th style="width:200px;" class="text-center">Được thêm bởi</th>
-                                    <th style="width:200px;" class="text-center">Sửa/Xoá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr> 
-                                    <td class="text-nowrap align-middle">GCS190159</td>
-                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                    <td class="text-nowrap align-middle">tientvgcs190159@fpt.edu.vn</td>
-                                    <td class="text-center align-middle"><a href="#">Khánh Toàn</a>
-                                    <td class="text-center align-middle">
-                                        <div class="btn-group align-top">
-                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
-                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>  
-                                <tr>
-                                    <td class="text-nowrap align-middle">GCS190159</td>
-                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                    <td class="text-nowrap align-middle">tientvgcs190159@fpt.edu.vn</td>
-                                    <td class="text-center align-middle"><a href="PDP/overview.html">Minh Toàn</a>
-                                    <td class="text-center align-middle">
-                                        <div class="btn-group align-top">
-                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
-                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>  
-                                <tr>
-                                    <td class="text-nowrap align-middle">GCS190159</td>
-                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                    <td class="text-nowrap align-middle">tientvgcs190159@fpt.edu.vn</td>
-                                    <td class="text-center align-middle"><a href="PDP/overview.html">Khánh Toàn</a>
-                                    <td class="text-center align-middle">
-                                        <div class="btn-group align-top">
-                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
-                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>  
-                            </tbody>
+                            <% if (typeof(student) !== 'undefined') { %>
+                                <% if (student.length > 0) { %>
+                                    <thead>
+                                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                            <th style="width:100px;">Stt</th>
+                                            <th style="width:100px;">ID</th>
+                                            <th style="width:300px;">Họ và tên</th>
+                                            <th style="width:250px;">Email</th>
+                                            <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                            <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% student.forEach((person, index) => { %> 
+                                            <tr> 
+                                                <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                                <td class="text-nowrap align-middle"><%= person.school_id %></td>
+                                                <td class="text-nowrap align-middle"><%= person.fullname %></td>
+                                                <td class="text-nowrap align-middle"><%= person.email %></td>
+                                                <td class="text-center align-middle">
+                                                    <a href="#">
+                                                        <%= person.editor.fullname %>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <div class="btn-group align-top">
+                                                        <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
+                                                        <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>  
+                                        <% }) %> 
+                                    </tbody>
+                                <% } else { %>
+                                    <div class="row g-3 text-center">
+                                        <h3>No Record</h3>
+                                    </div>
+                                <% } %> 
+                            <% } %>
                         </table>
                     </div>
                 </div>

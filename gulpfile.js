@@ -20,6 +20,10 @@ gulp.task('global-js', () => {
         .src('assets/js/global/*.js')
         .pipe(strip())
         .pipe(concat(`global-${idJS}.bundle.js`))
+        .pipe(terser({
+            compress: true,
+            mangle: true
+        }))
         .pipe(gulp.dest('public/js'))
 })
 
@@ -57,6 +61,10 @@ gulp.task('validate-js', () => {
         ])
         .pipe(strip())
         .pipe(concat(`validation-${idJS}.bundle.js`))
+        .pipe(terser({
+            compress: true,
+            mangle: true
+        }))
         .pipe(gulp.dest('public/js'))
 })
 

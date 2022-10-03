@@ -1,5 +1,5 @@
-$(document).ready(() => {
-    setTimeout(() => { 
-        $("#messageError").text(''); 
-    }, 1000 * 30);
+$(document).ready(function() {
+    setTimeout(function() { 
+        $('#messageError').text(''); 
+    }, 1000 * 15);
 })

@@ -11,7 +11,8 @@ class LoginControllers {
         jsFile: injectFile('public/js', 'login')
       };
       const title = 'Đăng nhập | PDP Greenwich Vietnam';
-      res.status(200).render('login/index', { layout: false, messages, files, title });
+      const heading = 'Đăng nhập'
+      res.status(200).render('login/index', { layout: false, messages, files, title, heading });
     } catch (error) {
       console.log(error);
     }

@@ -353,7 +353,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                        <img alt="Pic" src="../assets/media/avatars/avt-nam.jpg" />
+                        <img alt="Pic" crossorigin="anonymous" src="<% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.photo %><% } %>" />
                     </div>
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -362,15 +362,28 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px symbol-circle me-5">
-                                    <img alt="Logo" src="../assets/media/avatars/avt-nam.jpg" />
+                                    <img alt="Logo" crossorigin="anonymous" src="<% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.photo %><% } %>" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">Admin
+                                    <div class="fw-bolder d-flex align-items-center fs-5">
+                                        <% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.displayName %><% } %>
                                     </div>
-                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Admin Greenwich HCM</span>
-                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">tientvgcs190159@fpt.edu.vn</a>
+                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+                                        <% if (typeof(profileSession) !== 'undefined') { %>
+                                            <% if (profileSession.role === 0) { %>
+                                                Admin Greenwich HCM
+                                            <% } else { %>
+                                                Manager Greenwich HCM
+                                            <% } %> 
+                                        <% } %>
+                                    </span>
+                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">
+                                        <% if (typeof(profileSession) !== 'undefined') { %>
+                                            <%= profileSession.email %>
+                                        <% } %>
+                                    </a>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -416,35 +429,61 @@
                 <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
                         <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th style="width:100px;">ID</th>
-                                    <th style="width:400px;">Tên sự kiện</th>
-                                    <th style="width:200px;" class="text-center">Ngày tổ chức</th>
-                                    <th style="width:150px;" class="text-center">Đồng tổ chức</th>
-                                    <th style="width:200px;" class="text-center">Được thêm bởi</th>
-                                    <th></th>
-                                    <th style="width:200px;" class="text-center">Sửa/Xoá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-nowrap align-middle">GEvS22001</td>
-                                    <td class="text-nowrap align-middle"><a href="" data-bs-toggle="modal" data-bs-target="#pdp_detail_event">LEARNING BLOCKCHAIN: INTELLECTUAL PROPERTY ON THE BLOCKCHAIN</td>
-                                    <td class="text-center align-middle">16/07/2022</td>
-                                    <td class="text-center align-middle">
-                                        <span class="badge badge-light-success fw-bolder fs-6">HelloGIT</span>
-                                    </td>
-                                    <td class="text-center align-middle"><a href="pdp/overview.html">Minh Toàn</a></td>
-                                    <td class="text-center align-middle"><a href="admin/event/learning_blockchain_intellectual_property_on_the_blockchain.html">SV tham dự</a></td>
-                                    <td class="text-center align-middle">
-                                        <div class="btn-group align-top">
-                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_event">Sửa</button>
-                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>  
-                            </tbody>
+                            <% if (typeof(eventsSchool) !== 'undefined') { %>
+                                <% if(eventsSchool.length > 0) { %>
+                                <thead>
+                                    <tr>
+                                        <th style="width:100px;">Stt</th>
+                                        <th style="width:100px;">ID</th>
+                                        <th style="width:400px;">Tên sự kiện</th>
+                                        <th style="width:200px;" class="text-center">Ngày tổ chức</th>
+                                        <th style="width:150px;" class="text-center">Đồng tổ chức</th>
+                                        <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                        <th></th>
+                                        <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% eventsSchool.forEach((event, index) => { %>
+                                        <tr>
+                                            <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                            <td class="text-nowrap align-middle"><%= event.eventId %></td>
+                                            <td class="text-nowrap align-middle">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#pdp_detail_event">
+                                                    <%= event.name %> 
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle"><%= formatDate(event.date) %></td>
+                                            <td class="text-center align-middle">
+                                                <% event.club.nickname.forEach((club)=> { %> 
+                                                    <span class="badge badge-light-success fw-bolder fs-6"><%= club %></span>
+                                                <% }) %> 
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a href="pdp/overview.html">
+                                                    <%= event.editor.name %> 
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a href="admin/event/learning_blockchain_intellectual_property_on_the_blockchain.html">
+                                                    SV tham dự
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <div class="btn-group align-top">
+                                                    <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_event">Sửa</button>
+                                                    <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>  
+                                    <% }) %> 
+                                </tbody>
+                                <% } else { %>
+                                    <div class="row g-3 text-center">
+                                        <h3>No Record</h3>
+                                    </div>
+                                <% } %> 
+                            <% } %>
                         </table>
                     </div>
                 </div>

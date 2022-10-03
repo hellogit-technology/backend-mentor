@@ -1,22 +1,20 @@
 import { Application } from 'express';
-import utilRouter from './util';
 import adminRouter from './admin';
 import clubRouter from './club';
 import siteRouter from './site';
 import errorRouter from './error';
 import authRouter from './auth';
 import apiRouter from './api'
+import {checkAuthLeader, checkAuthPDP, isLogged} from '../middleware/auth'
 
 const route = (app: Application) => {
   app.use('/auth', authRouter);
 
-  app.use('/api', apiRouter)
+  app.use('/api', isLogged, apiRouter)
 
-  app.use('/util', utilRouter);
+  app.use('/admin', isLogged, checkAuthPDP, adminRouter);
 
-  app.use('/admin', adminRouter);
-
-  app.use('/club', clubRouter);
+  app.use('/club', isLogged, checkAuthLeader, clubRouter);
 
   app.use('/', siteRouter);
 

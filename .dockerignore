@@ -4,3 +4,8 @@ Test
 .prettierrc
 .env.example
 .vscode
+assets
+.gitignore
+README.md 
+gulpfile.js
+.env

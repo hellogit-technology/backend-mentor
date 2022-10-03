@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectFile } from '../../../utils/inject';
-import {Campus, Club} from '../../models'
+import {Campus, Event, Club, AdminAccount, LeaderAccount, Student} from '../../models'
 
 // Add files to layout
 const files = {
@@ -9,12 +9,16 @@ const files = {
   jsFile: injectFile('public/js', 'global'),
   jsValidation: injectFile('public/js', 'validation')
 };
+
 const slug = 'minh-toan';
+
+
 
 class RenderControllers {
   // [GET] /admin/dashboard
   dashboard(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Trang chủ | PDP Greenwich Vietnam';
       const dashboard = 'active';
       const heading = 'Trang chủ';
@@ -24,7 +28,8 @@ class RenderControllers {
         title,
         dashboard,
         slug,
-        heading
+        heading,
+        profileSession
       });
     } catch (error) {
       console.log(error);
@@ -47,6 +52,7 @@ class RenderControllers {
   // [GET] /admin/scores
   scores(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Điểm số | PDP Greenwich Vietnam';
       const scores = 'active';
       const heading = 'Điểm số'
@@ -56,7 +62,8 @@ class RenderControllers {
         title,
         scores,
         slug,
-        heading
+        heading,
+        profileSession
       });
     } catch (error) {
       console.log(error);
@@ -66,6 +73,7 @@ class RenderControllers {
   // GET /admin/system
   system(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Hệ thống | PDP Greenwich Vietnam';
       const system = 'active';
       const heading = 'Hệ thống'
@@ -75,7 +83,8 @@ class RenderControllers {
         title,
         system,
         heading,
-        slug
+        slug,
+        profileSession
       });
     } catch (error) {
       console.log(error);
@@ -85,6 +94,7 @@ class RenderControllers {
   // [GET] /admin/tutorial
   tutorial(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Hướng dẫn | PDP Greenwich Vietnam';
       const tutorial = 'active';
       const heading = 'Hướng dẫn'
@@ -94,7 +104,8 @@ class RenderControllers {
         title,
         tutorial,
         slug,
-        heading
+        heading,
+        profileSession
       });
     } catch (error) {
       console.log(error);
@@ -105,6 +116,7 @@ class RenderControllers {
   // [GET] /admin/mail/sent
   mailSent(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Mail | PDP Greenwich Vietnam';
       const mail = 'active';
       const mailMenu = {
@@ -125,9 +137,10 @@ class RenderControllers {
   }
 
   //~ MANAGE
-  // [GET] /admin/manage-clubs
-  clubs(req: Request, res: Response, next: NextFunction) {
+  // [GET] /admin/clubs
+  async clubs(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Câu lạc bộ | PDP Greenwich Vietnam';
       const manageClubs = 'active';
       const heading = 'Câu lạc bộ'
@@ -135,6 +148,7 @@ class RenderControllers {
         main: 'hover show',
         sub: 'show'
       };
+      const clubs = await Club.find({}).populate('editor')
       res.status(200).render('admin/manage/clubs', {
         layout: 'layouts/admin/index',
         files,
@@ -142,7 +156,8 @@ class RenderControllers {
         manageClubs,
         slug,
         clubsMenu,
-        heading
+        heading,
+        profileSession, clubs
       });
     } catch (error) {
       console.log(error);
@@ -152,6 +167,7 @@ class RenderControllers {
   // [GET] /admin/club/:slug
   clubMembers(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Câu lạc bộ | PDP Greenwich Vietnam';
       const manageClubs = 'active';
       const heading = ''
@@ -165,7 +181,8 @@ class RenderControllers {
         title,
         manageClubs,
         slug,
-        clubsMenu
+        clubsMenu,
+        profileSession
       });
     } catch (error) {
       console.log(error);
@@ -173,8 +190,9 @@ class RenderControllers {
   }
 
   // [GET] /admin/events
-  events(req: Request, res: Response, next: NextFunction) {
+  async events(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
       const title = 'Sự kiện | PDP Greenwich Vietnam';
       const events = 'active';
       const heading = 'Sự kiện'
@@ -182,6 +200,8 @@ class RenderControllers {
         main: 'hover show',
         sub: 'show'
       };
+
+      const eventsSchool = await Event.find({}).populate('club')
       res.status(200).render('admin/manage/events', {
         layout: 'layouts/admin/index',
         files,
@@ -189,16 +209,41 @@ class RenderControllers {
         events,
         slug,
         eventsMenu,
-        heading
+        heading,
+        profileSession, eventsSchool
       });
     } catch (error) {
       console.log(error);
     }
   }
 
-  // [GET] /admin/students
-  students(req: Request, res: Response, next: NextFunction) {
+  // [GET] /admin/event/:id/:slug
+  async eventDetail(req: Request, res: Response, next: NextFunction) {
     try {
+      const profileSession: any = req.user
+      const title = 'Sự kiện | PDP Greenwich Vietnam';
+      const events = 'active';
+      const heading = 'Sự kiện'
+
+      const eventsSchool = await Event.find({}).populate('club')
+      res.status(200).render('admin/manage/events', {
+        layout: 'layouts/admin/index',
+        files,
+        title,
+        events,
+        slug,
+        heading,
+        profileSession, eventsSchool
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // [GET] /admin/students
+  async students(req: Request, res: Response, next: NextFunction) {
+    try {
+      const profileSession: any = req.user
       const title = 'Sinh viên | PDP Greenwich Vietnam';
       const students = 'active';
       const heading = 'Sinh viên'
@@ -206,6 +251,7 @@ class RenderControllers {
         main: 'hover show',
         sub: 'show'
       };
+      const student = await Student.find({}).populate('campus').populate('editor')
       res.status(200).render('admin/manage/students', {
         layout: 'layouts/admin/index',
         files,
@@ -213,7 +259,9 @@ class RenderControllers {
         students,
         slug,
         studentsMenu,
-        heading
+        heading,
+        profileSession,
+        student
       });
     } catch (error) {
       console.log(error);
@@ -225,6 +273,7 @@ class RenderControllers {
     try {
 
       // Show data info of page
+      const profileSession: any = req.user
       const title = 'Tài khoản | PDP Greenwich Vietnam'
       const account = 'active'
       const heading = 'Tài khoản'
@@ -232,11 +281,13 @@ class RenderControllers {
       // Query 
       const campus = await Campus.find({})
       const club = await Club.find({})
-      
+      const adminAccount = await AdminAccount.find({}).populate('campus').populate('editor')
+      const leaderAccount = await LeaderAccount.find({}).populate('campus').populate('club').populate('editor')
+
       res.status(200).render('admin/manage/account', {
         layout: 'layouts/admin/index',
         files, title, account, slug, heading,
-        campus, club
+        campus, club, profileSession, adminAccount, leaderAccount
       })
     } catch (error) {
       console.log(error);

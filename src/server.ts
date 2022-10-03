@@ -8,8 +8,25 @@ import flash from 'connect-flash';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import passport from 'passport';
+import fs from "fs";
 import dotenv from 'dotenv';
-dotenv.config();
+
+declare module 'express-session' {
+  interface SessionData {
+    isLogged: boolean;
+    role: number;
+    photo: string;
+    displayName: string;
+    failurePath: string
+  }
+}
+
+// Checking if .env file is available
+if (fs.existsSync(".env")) {
+  dotenv.config();
+} else {
+  console.error(".env file not found.");
+}
 
 import { sessionStore } from './config/sessionStore';
 import route from './routes';
@@ -26,7 +43,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Secure
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  useDefaults: true,
+  directives: {
+    "img-src": ["'self'", "https: data: blob:"],
+  },
+}));
 
 // Session
 app.use(
@@ -85,7 +107,7 @@ app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
 app.use(flash());
 
 // Passport
-googlePassport(passport);
+googlePassport(passport)
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));

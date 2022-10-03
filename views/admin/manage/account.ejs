@@ -351,7 +351,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                        <img alt="Pic" src="../assets/media/avatars/avt-nam.jpg" />
+                        <img alt="Pic" crossorigin="anonymous" src="<% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.photo %><% } %>" />
                     </div>
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -360,15 +360,28 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px symbol-circle me-5">
-                                    <img alt="Logo" src="../assets/media/avatars/avt-nam.jpg" />
+                                    <img alt="Logo" crossorigin="anonymous" src="<% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.photo %><% } %>" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">Admin
+                                    <div class="fw-bolder d-flex align-items-center fs-5">
+                                        <% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.displayName %><% } %>
                                     </div>
-                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Admin Greenwich HCM</span>
-                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">tientvgcs190159@fpt.edu.vn</a>
+                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+                                        <% if (typeof(profileSession) !== 'undefined') { %>
+                                            <% if (profileSession.role === 0) { %>
+                                                Admin Greenwich HCM
+                                            <% } else { %>
+                                                Manager Greenwich HCM
+                                            <% } %> 
+                                        <% } %>
+                                    </span>
+                                    <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">
+                                        <% if (typeof(profileSession) !== 'undefined') { %>
+                                            <%= profileSession.email %>
+                                        <% } %>
+                                    </a>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -431,44 +444,45 @@
                                 <div class="e-table">
                                     <div class="table-responsive table-lg mt-3">
                                         <table class="table table-bordered">
-                                            <thead>
-                                                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                                    <th style="width:50px;">Stt</th>
-                                                    <th style="width:300px;">Họ và tên</th>
-                                                    <th style="width:250px;">Tài khoản</th>	
-                                                    <th style="width:150px;">Campus</th>
-                                                    <th style="width:200px;" class="text-center">Được thêm bởi</th>
-                                                    <th style="width:200px;" class="text-center">Sửa/Xoá</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr> 
-                                                    <td class="text-nowrap align-middle">1</td>
-                                                    <td class="text-nowrap align-middle">Phạm Nguyễn Minh Toàn</td>
-                                                    <td class="text-nowrap align-middle">toanpnm@fe.edu.vn</td>
-                                                    <td class="text-nowrap align-middle">Hồ Chí Minh</td>
-                                                    <td class="text-center align-middle"><a href="#">Admin</a>
-                                                    <td class="text-center align-middle">
-                                                        <div class="btn-group align-top">
-                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
-                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-                                                <tr> 
-                                                    <td class="text-nowrap align-middle">2</td>
-                                                    <td class="text-nowrap align-middle">Trần Nguyễn Khánh Toàn</td>
-                                                    <td class="text-nowrap align-middle">toantnk@fe.edu.vn</td>
-                                                    <td class="text-nowrap align-middle">Hồ Chí Minh</td>
-                                                    <td class="text-center align-middle"><a href="#">Admin</a>
-                                                    <td class="text-center align-middle">
-                                                        <div class="btn-group align-top">
-                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
-                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-                                            </tbody>
+                                            <% if (typeof(adminAccount) !== 'undefined' ) { %>
+                                                <% if(adminAccount.length > 0) { %>
+                                                    <thead>
+                                                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                            <th style="width:50px;">Stt</th>
+                                                            <th style="width:300px;">Họ và tên</th>
+                                                            <th style="width:250px;">Tài khoản</th>	
+                                                            <th style="width:150px;">Campus</th>
+                                                            <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                                            <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% adminAccount.forEach((account, index) => { %>
+                                                            <tr> 
+                                                                <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.fullname %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.email %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.campus.name %></td>
+                                                                <td class="text-center align-middle">
+                                                                    <a href="#">
+                                                                        <%= account.editor.fullname %> 
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-center align-middle">
+                                                                    <div class="btn-group align-top">
+                                                                        <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
+                                                                        <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>  
+                                                        <% }) %>
+                                                    </tbody>
+                                                <% } else { %> 
+                                                    <div class="row g-3 text-center">
+                                                        <h3>No Record</h3>
+                                                    </div>
+                                                <% } %> 
+                                            <% } %>
                                         </table>
                                     </div>
                                 </div>
@@ -479,75 +493,47 @@
                                 <div class="e-table">
                                     <div class="table-responsive table-lg mt-3">
                                         <table class="table table-bordered">
-                                            <thead>
-                                                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                                    <th style="width:50px;">Stt</th>
-                                                    <th style="width:300px;">Tài khoản</th>
-                                                    <th style="width:250px;">Tên Leader</th>	
-                                                    <th style="width:150px;">Câu lạc bộ</th>
-                                                    <th style="width:150px;">Campus</th>
-                                                    <th style="width:200px;" class="text-center">Được thêm bởi</th>
-                                                    <th style="width:200px;" class="text-center">Sửa/Xoá</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr> 
-                                                    <td class="text-nowrap align-middle">1</td>
-                                                    <td class="text-nowrap align-middle">tientvgcs190159@fpt.edu.vn</td>
-                                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                                    <td class="text-nowrap align-middle">HELLOGIT_UoG Information Technology Club</td>
-                                                    <td class="text-nowrap align-middle">Hồ Chí Minh</td>
-                                                    <td class="text-center align-middle"><a href="#">Admin</a>
-                                                    <td class="text-center align-middle">
-                                                        <div class="btn-group align-top">
-                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
-                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-                                                <tr> 
-                                                    <td class="text-nowrap align-middle">2</td>
-                                                    <td class="text-nowrap align-middle">gwhellogit@gmail.com</td>
-                                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                                    <td class="text-nowrap align-middle">HELLOGIT_UoG Information Technology Club</td>
-                                                    <td class="text-nowrap align-middle">Hồ Chí Minh</td>
-                                                    <td class="text-center align-middle"><a href="#">Admin</a>
-                                                    <td class="text-center align-middle">
-                                                        <div class="btn-group align-top">
-                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
-                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-                                                <tr> 
-                                                    <td class="text-nowrap align-middle">3</td>
-                                                    <td class="text-nowrap align-middle">tientv@heartvietnam.org</td>
-                                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                                    <td class="text-nowrap align-middle">Heart Việt Nam</td>
-                                                    <td class="text-nowrap align-middle">Hồ Chí Minh</td>
-                                                    <td class="text-center align-middle"><a href="#">Admin</a>
-                                                    <td class="text-center align-middle">
-                                                        <div class="btn-group align-top">
-                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
-                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-                                                <tr> 
-                                                    <td class="text-nowrap align-middle">4</td>
-                                                    <td class="text-nowrap align-middle">info@heartvietnam.org</td>
-                                                    <td class="text-nowrap align-middle">Trần Vĩnh Tiến</td>
-                                                    <td class="text-nowrap align-middle">Heart Việt Nam</td>
-                                                    <td class="text-nowrap align-middle">Hồ Chí Minh</td>
-                                                    <td class="text-center align-middle"><a href="#">Admin</a>
-                                                    <td class="text-center align-middle">
-                                                        <div class="btn-group align-top">
-                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
-                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>  
-                                            </tbody>
+                                            <% if (typeof(leaderAccount) !== 'undefined') { %>
+                                                <% if(leaderAccount.length > 0) { %>
+                                                    <thead>
+                                                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                            <th style="width:50px;">Stt</th>
+                                                            <th style="width:300px;">Tài khoản</th>
+                                                            <th style="width:250px;">Tên Leader</th>	
+                                                            <th style="width:150px;">Câu lạc bộ</th>
+                                                            <th style="width:150px;">Campus</th>
+                                                            <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                                            <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% leaderAccount.forEach((account, index) => { %>
+                                                            <tr> 
+                                                                <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.email %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.fullname %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.club.name %></td>
+                                                                <td class="text-nowrap align-middle"><%= account.campus.name %></td>
+                                                                <td class="text-center align-middle">
+                                                                    <a href="#">
+                                                                        <%= account.editor.fullname %>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-center align-middle">
+                                                                    <div class="btn-group align-top">
+                                                                        <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
+                                                                        <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>  
+                                                        <% }) %> 
+                                                    </tbody>
+                                                <% } else { %>
+                                                    <div class="row g-3 text-center">
+                                                        <h3>No Record</h3>
+                                                    </div>
+                                                <% } %> 
+                                            <% } %>
                                         </table>
                                     </div>
                                 </div>
