@@ -5,6 +5,11 @@ class AdminAccountControllers {
   // [POST] /api/admin-account
   async createAdmin(req: Request, res: Response, next: NextFunction) {
     try {
+        const requestBody = {
+          fullname: req.body.fullname,
+          email: req.body.email,
+          campus: req.body.campus,
+        }
         const newAdminAccount = new AdminAccount(req.body)
         const savedAdminAccount = await newAdminAccount.save()
         res.redirect('/admin/accounts')

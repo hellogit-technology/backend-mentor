@@ -126,6 +126,13 @@ gulp.task('images', () => {
         .pipe(gulp.dest('public/img'))
 })
 
+// Move all library to public file
+gulp.task('move-library', () => {
+    return gulp
+        .src(['assets/lib*/**/*', 'assets/helpers*/**/*'])
+        .pipe(gulp.dest('public'))
+})
+
 
 // Run tasks
 gulp.task('minify-files', 
@@ -140,7 +147,8 @@ gulp.task('minify-files',
         'status-403',
         'status-500',
         'validate-css',
-        'images'
+        'images',
+        'move-library'
     )) 
 
 

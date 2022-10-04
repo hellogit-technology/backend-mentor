@@ -1,7 +1,8 @@
-FROM node:current-buster-slim
+FROM node:17-alpine
 WORKDIR /app
 COPY package.json .
-RUN npm install && npm install typescript -g
+RUN npm install --only=production
+RUN npm install pm2 -g
 COPY . .
-RUN tsc
-CMD node dist/server.js 
+EXPOSE 5000
+CMD ["pm2-runtine", "dist/server.js"]

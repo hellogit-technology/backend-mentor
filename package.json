@@ -4,12 +4,14 @@
   "description": "CMS grading for mentors",
   "main": "src/server.ts",
   "scripts": {
-    "minify": "rimraf ./public/js & rimraf ./public/css & rimraf ./public/img && gulp minify-files",
+    "minify": "rimraf ./public && gulp minify-files",
     "minify:watch": "gulp watch-files",
+    "build": "rimraf ./dist && npx tsc -b",
     "dev": "npm run minify && cross-env NODE_ENV=development ts-node-dev src/server.ts",
-    "start": "rimraf ./dist & npm run minify && tsc && cross-env NODE_ENV=production node dist/server.js",
+    "start": "npm run minify && cross-env NODE_ENV=production ts-node src/server.ts",
     "check": "prettier --check \"src/**/*.ts\" ",
-    "format": "prettier --write \"src/**/*.ts\" "
+    "format": "prettier --write \"src/**/*.ts\" ",
+    "deploy": "npm run minify "
   },
   "keywords": [
     "CMS",
