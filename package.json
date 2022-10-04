@@ -11,7 +11,9 @@
     "start": "npm run minify && cross-env NODE_ENV=production ts-node src/server.ts",
     "check": "prettier --check \"src/**/*.ts\" ",
     "format": "prettier --write \"src/**/*.ts\" ",
-    "deploy": "npm run minify "
+    "deploy": "npm run minify && npm run build",
+    "image": "docker build -t web-mentor-image . ",
+    "test": "docker run -p 6000:6000 --name web-mentor web-mentor-image"
   },
   "keywords": [
     "CMS",
@@ -47,7 +49,6 @@
     "gulp-imagemin": "7.1.0",
     "gulp-strip-comments": "^2.5.2",
     "gulp-terser": "^2.1.0",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "randomstring": "^1.2.2",
@@ -79,6 +80,7 @@
     "moment-timezone": "^0.5.34",
     "mongodb": "^4.7.0",
     "mongoose": "^6.3.2",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.5",
     "passport": "^0.6.0",
