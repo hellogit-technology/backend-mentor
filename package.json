@@ -13,7 +13,7 @@
     "format": "prettier --write \"src/**/*.ts\" ",
     "deploy": "npm run minify && npm run build",
     "image": "docker build -t web-mentor-image . ",
-    "test": "docker run -p 6000:6000 --name web-mentor web-mentor-image"
+    "test": "docker run -p 8080:8080 --name web-mentor web-mentor-image"
   },
   "keywords": [
     "CMS",
@@ -70,6 +70,7 @@
     "ejs": "^3.1.7",
     "express": "^4.18.1",
     "express-ejs-layouts": "^2.5.1",
+    "express-minify-html-terser": "^1.0.2",
     "express-session": "^1.17.2",
     "express-validator": "^6.14.0",
     "googleapis": "^100.0.0",

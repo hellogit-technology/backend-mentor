@@ -1,15 +1,11 @@
-import {Request, Response, NextFunction} from 'express'
-import {Event} from '../../models'
+import { Request, Response, NextFunction } from 'express';
+import { Event } from '../../models';
 
 class EventsControllers {
-
-    // [POST] /
+  // [POST] /
   async createEvent(req: Request, res: Response, next: NextFunction) {
     try {
-        
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   // [PATCH] /
@@ -35,7 +31,6 @@ class EventsControllers {
     try {
     } catch (error) {}
   }
-
 }
 
-export default new EventsControllers
+export default new EventsControllers();

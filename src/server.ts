@@ -8,7 +8,8 @@ import flash from 'connect-flash';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import passport from 'passport';
-import fs from "fs";
+import fs from 'fs';
+import minifyHTML from 'express-minify-html-terser';
 import dotenv from 'dotenv';
 
 declare module 'express-session' {
@@ -17,15 +18,15 @@ declare module 'express-session' {
     role: number;
     photo: string;
     displayName: string;
-    failurePath: string
+    failurePath: string;
   }
 }
 
 // Checking if .env file is available
-if (fs.existsSync(".env")) {
+if (fs.existsSync('.env')) {
   dotenv.config();
 } else {
-  console.error(".env file not found.");
+  console.error('.env file not found.');
 }
 
 import { sessionStore } from './config/sessionStore';
@@ -43,12 +44,14 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Secure
-app.use(helmet.contentSecurityPolicy({
-  useDefaults: true,
-  directives: {
-    "img-src": ["'self'", "https: data: blob:"],
-  },
-}));
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      'img-src': ["'self'", 'https: data: blob:']
+    }
+  })
+);
 
 // Session
 app.use(
@@ -96,9 +99,9 @@ app.use('/js', [
   express.static(path.join(__dirname, `${libraryPath}/google`))
 ]);
 app.use('/css', [
-  express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)), 
+  express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)),
   express.static(path.join(__dirname, `${libraryPath}/font-awesome/css`)),
-  express.static(path.join(__dirname, `../public/helpers`)),
+  express.static(path.join(__dirname, `../public/helpers`))
 ]);
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
@@ -107,7 +110,7 @@ app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
 app.use(flash());
 
 // Passport
-googlePassport(passport)
+googlePassport(passport);
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -117,6 +120,22 @@ app.use(express.json());
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
+
+// Minify HTML output
+app.use(
+  minifyHTML({
+    override: true,
+    exception_url: false,
+    htmlMinifier: {
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes: true,
+      removeEmptyAttributes: true,
+      minifyJS: true
+    }
+  })
+);
 
 // Passport Middleware
 app.use(passport.initialize());

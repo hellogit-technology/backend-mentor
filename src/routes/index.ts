@@ -4,13 +4,13 @@ import clubRouter from './club';
 import siteRouter from './site';
 import errorRouter from './error';
 import authRouter from './auth';
-import apiRouter from './api'
-import {checkAuthLeader, checkAuthPDP, isLogged} from '../middleware/auth'
+import apiRouter from './api';
+import { checkAuthLeader, checkAuthPDP, isLogged } from '../middleware/auth';
 
 const route = (app: Application) => {
   app.use('/auth', authRouter);
 
-  app.use('/api', isLogged, apiRouter)
+  app.use('/api', isLogged, apiRouter);
 
   app.use('/admin', isLogged, checkAuthPDP, adminRouter);
 

@@ -1,24 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectFile } from '../../../utils/inject';
-import {Campus, Event, Club, AdminAccount, LeaderAccount, Student} from '../../models'
+import { Campus, Event, Club, AdminAccount, LeaderAccount, Student } from '../../models';
 
 // Add files to layout
 const files = {
   cssFile: injectFile('public/css', 'global'),
-  cssValidation: injectFile('public/css' , 'validation'),
+  cssValidation: injectFile('public/css', 'validation'),
   jsFile: injectFile('public/js', 'global'),
   jsValidation: injectFile('public/js', 'validation')
 };
 
 const slug = 'minh-toan';
 
-
-
 class RenderControllers {
   // [GET] /admin/dashboard
   dashboard(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Trang chủ | PDP Greenwich Vietnam';
       const dashboard = 'active';
       const heading = 'Trang chủ';
@@ -52,10 +50,10 @@ class RenderControllers {
   // [GET] /admin/scores
   scores(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Điểm số | PDP Greenwich Vietnam';
       const scores = 'active';
-      const heading = 'Điểm số'
+      const heading = 'Điểm số';
       res.status(200).render('admin/scores', {
         layout: 'layouts/admin/index',
         files,
@@ -73,10 +71,10 @@ class RenderControllers {
   // GET /admin/system
   system(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Hệ thống | PDP Greenwich Vietnam';
       const system = 'active';
-      const heading = 'Hệ thống'
+      const heading = 'Hệ thống';
       res.status(200).render('admin/system', {
         layout: 'layouts/admin/index',
         files,
@@ -94,10 +92,10 @@ class RenderControllers {
   // [GET] /admin/tutorial
   tutorial(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Hướng dẫn | PDP Greenwich Vietnam';
       const tutorial = 'active';
-      const heading = 'Hướng dẫn'
+      const heading = 'Hướng dẫn';
       res.status(200).render('admin/tutorial', {
         layout: 'layouts/admin/index',
         files,
@@ -116,7 +114,7 @@ class RenderControllers {
   // [GET] /admin/mail/sent
   mailSent(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Mail | PDP Greenwich Vietnam';
       const mail = 'active';
       const mailMenu = {
@@ -140,15 +138,15 @@ class RenderControllers {
   // [GET] /admin/clubs
   async clubs(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Câu lạc bộ | PDP Greenwich Vietnam';
       const manageClubs = 'active';
-      const heading = 'Câu lạc bộ'
+      const heading = 'Câu lạc bộ';
       const clubsMenu = {
         main: 'hover show',
         sub: 'show'
       };
-      const clubs = await Club.find({}).populate('editor')
+      const clubs = await Club.find({}).populate('editor');
       res.status(200).render('admin/manage/clubs', {
         layout: 'layouts/admin/index',
         files,
@@ -157,7 +155,8 @@ class RenderControllers {
         slug,
         clubsMenu,
         heading,
-        profileSession, clubs
+        profileSession,
+        clubs
       });
     } catch (error) {
       console.log(error);
@@ -167,10 +166,10 @@ class RenderControllers {
   // [GET] /admin/club/:slug
   clubMembers(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Câu lạc bộ | PDP Greenwich Vietnam';
       const manageClubs = 'active';
-      const heading = ''
+      const heading = '';
       const clubsMenu = {
         main: 'hover show',
         sub: 'show'
@@ -192,16 +191,16 @@ class RenderControllers {
   // [GET] /admin/events
   async events(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Sự kiện | PDP Greenwich Vietnam';
       const events = 'active';
-      const heading = 'Sự kiện'
+      const heading = 'Sự kiện';
       const eventsMenu = {
         main: 'hover show',
         sub: 'show'
       };
 
-      const eventsSchool = await Event.find({}).populate('club')
+      const eventsSchool = await Event.find({}).populate('club');
       res.status(200).render('admin/manage/events', {
         layout: 'layouts/admin/index',
         files,
@@ -210,7 +209,8 @@ class RenderControllers {
         slug,
         eventsMenu,
         heading,
-        profileSession, eventsSchool
+        profileSession,
+        eventsSchool
       });
     } catch (error) {
       console.log(error);
@@ -220,12 +220,12 @@ class RenderControllers {
   // [GET] /admin/event/:id/:slug
   async eventDetail(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Sự kiện | PDP Greenwich Vietnam';
       const events = 'active';
-      const heading = 'Sự kiện'
+      const heading = 'Sự kiện';
 
-      const eventsSchool = await Event.find({}).populate('club')
+      const eventsSchool = await Event.find({}).populate('club');
       res.status(200).render('admin/manage/events', {
         layout: 'layouts/admin/index',
         files,
@@ -233,25 +233,26 @@ class RenderControllers {
         events,
         slug,
         heading,
-        profileSession, eventsSchool
+        profileSession,
+        eventsSchool
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   // [GET] /admin/students
   async students(req: Request, res: Response, next: NextFunction) {
     try {
-      const profileSession: any = req.user
+      const profileSession: any = req.user;
       const title = 'Sinh viên | PDP Greenwich Vietnam';
       const students = 'active';
-      const heading = 'Sinh viên'
+      const heading = 'Sinh viên';
       const studentsMenu = {
         main: 'hover show',
         sub: 'show'
       };
-      const student = await Student.find({}).populate('campus').populate('editor')
+      const student = await Student.find({}).populate('campus').populate('editor');
       res.status(200).render('admin/manage/students', {
         layout: 'layouts/admin/index',
         files,
@@ -271,24 +272,31 @@ class RenderControllers {
   // [GET] /admin/accounts
   async accounts(req: Request, res: Response, next: NextFunction) {
     try {
-
       // Show data info of page
-      const profileSession: any = req.user
-      const title = 'Tài khoản | PDP Greenwich Vietnam'
-      const account = 'active'
-      const heading = 'Tài khoản'
+      const profileSession: any = req.user;
+      const title = 'Tài khoản | PDP Greenwich Vietnam';
+      const account = 'active';
+      const heading = 'Tài khoản';
 
-      // Query 
-      const campus = await Campus.find({})
-      const club = await Club.find({})
-      const adminAccount = await AdminAccount.find({}).populate('campus').populate('editor')
-      const leaderAccount = await LeaderAccount.find({}).populate('campus').populate('club').populate('editor')
+      // Query
+      const campus = await Campus.find({});
+      const club = await Club.find({});
+      const adminAccount = await AdminAccount.find({}).populate('campus').populate('editor');
+      const leaderAccount = await LeaderAccount.find({}).populate('campus').populate('club').populate('editor');
 
       res.status(200).render('admin/manage/account', {
         layout: 'layouts/admin/index',
-        files, title, account, slug, heading,
-        campus, club, profileSession, adminAccount, leaderAccount
-      })
+        files,
+        title,
+        account,
+        slug,
+        heading,
+        campus,
+        club,
+        profileSession,
+        adminAccount,
+        leaderAccount
+      });
     } catch (error) {
       console.log(error);
     }

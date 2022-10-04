@@ -133,7 +133,6 @@ gulp.task('move-library', () => {
         .pipe(gulp.dest('public'))
 })
 
-
 // Run tasks
 gulp.task('minify-files', 
     gulp.parallel(

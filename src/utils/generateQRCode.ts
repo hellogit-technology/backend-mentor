@@ -1,31 +1,25 @@
-import QRCode from 'qrcode'
-import {createCanvas, loadImage} from 'canvas'
+import QRCode from 'qrcode';
+import { createCanvas, loadImage } from 'canvas';
 
-export const generate = async(dataForQRcode: string, center_image: string | Buffer, width: number, cwidth: number) => {
-    const canvas = createCanvas(width, width);
-  QRCode.toCanvas(
-    canvas,
-    dataForQRcode,
-    {
-      errorCorrectionLevel: "H",
-      margin: 1,
-      width: 2000,
-      color: {
-        dark: "#000000",
-        light: "#ffffff",
-      },
+export const generate = async (dataForQRcode: string, center_image: string | Buffer, width: number, cwidth: number) => {
+  const canvas = createCanvas(width, width);
+  QRCode.toCanvas(canvas, dataForQRcode, {
+    errorCorrectionLevel: 'H',
+    margin: 1,
+    width: 2000,
+    color: {
+      dark: '#000000',
+      light: '#ffffff'
     }
-  );
+  });
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
   const img = await loadImage(center_image);
   const center = (width - cwidth) / 2;
   ctx.drawImage(img, center, center, cwidth, cwidth);
-  return canvas.toBuffer('image/png')
-//   fs.writeFileSync('./Test/test.png', buffer)
-}
-
-
+  return canvas.toBuffer('image/png');
+  //   fs.writeFileSync('./Test/test.png', buffer)
+};
 
 // async function main() {
 //   const qrCode = await create(

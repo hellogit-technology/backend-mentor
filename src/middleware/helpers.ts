@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import {AdminAccount} from '../app/models'
+import { AdminAccount } from '../app/models';
 import moment from 'moment-timezone';
 
 const showData = (req: Request, res: Response, next: NextFunction) => {

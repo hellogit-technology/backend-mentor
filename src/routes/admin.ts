@@ -13,18 +13,15 @@ router.get('/mail/sent', renderControllers.mailSent);
 router.get('/mail', (req: Request, res: Response, next: NextFunction) => {
   res.redirect('/admin/mail/sent');
 });
-router.get('/accounts', renderControllers.accounts)
+router.get('/accounts', renderControllers.accounts);
 router.get('/clubs', renderControllers.clubs);
 router.get('/club/:slug', renderControllers.clubMembers);
 router.get('/events', renderControllers.events);
 router.get('/students', renderControllers.students);
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.redirect('/admin/dashboard')
-})
-
+  res.redirect('/admin/dashboard');
+});
 
 // Event
-
-
 
 export default router;

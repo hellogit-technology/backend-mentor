@@ -20,10 +20,10 @@
 			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
 				<!--begin::Aside-->
-				<%- include('../../partials/admin/sidebar.ejs') %> 
+				<%- include('../../partials/admin/sidebar.ejs') %>
 				<!--end::Aside-->
 				<!--begin::Wrapper-->
-				<%- body %> 
+				<%- body %>
 				<!--end::Wrapper-->
 			</div>
 			<!--end::Page-->
@@ -425,7 +425,7 @@
 									<% if (typeof(clubs) !== 'undefined' ) { %>
 										<% clubs.forEach(value => {  %>
 											<option value="<%= value['_id'] %>"><%= value['name'] %></option>
-										<%  }) %> 
+										<%  }) %>
 									<% } %>
                                     <option value="false">None</option>
                                 </select>
