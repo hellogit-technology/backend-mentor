@@ -237,7 +237,7 @@
                                         <% student.forEach((person, index) => { %> 
                                             <tr> 
                                                 <td class="text-nowrap align-middle"><%= index + 1 %></td>
-                                                <td class="text-nowrap align-middle"><%= person.school_id %></td>
+                                                <td class="text-nowrap align-middle"><%= person.schoolId %></td>
                                                 <td class="text-nowrap align-middle"><%= person.fullname %></td>
                                                 <td class="text-nowrap align-middle"><%= person.email %></td>
                                                 <td class="text-center align-middle">
@@ -247,11 +247,90 @@
                                                 </td>
                                                 <td class="text-center align-middle">
                                                     <div class="btn-group align-top">
-                                                        <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
+                                                        <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_student_<%= person._id %>">Sửa</button>
                                                         <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                 </td>
-                                            </tr>  
+                                            </tr>
+                                            <!--begin::Modal - Edit Student-->
+                                            <div class="modal fade" id="pdp_edit_student_<%= person._id %>" tabindex="-1" aria-hidden="true">
+                                                <!--begin::Modal dialog-->
+                                                <div class="modal-dialog modal-dialog-centered mw-650px">
+                                                    <!--begin::Modal content-->
+                                                    <div class="modal-content rounded">
+                                                        <!--begin::Modal header-->
+                                                        <div class="modal-header pb-0 border-0 justify-content-end">
+                                                            <!--begin::Close-->
+                                                            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                                                <span class="svg-icon svg-icon-1">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                                                        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </div>
+                                                            <!--end::Close-->
+                                                        </div>
+                                                        <!--begin::Modal header-->
+                                                        <!--begin::Modal body-->
+                                                        <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                                                            <!--begin:Form-->
+                                                            <form id="kt_modal_evaluation_form_edit_student" class="form">
+                                                                <!--begin::Heading-->
+                                                                <div class="mb-13 text-center">
+                                                                    <!--begin::Title-->
+                                                                    <h1 class="mb-3">Chỉnh sửa thông tin sinh viên</h1>
+                                                                    <!--end::Title-->
+                                                                </div>
+                                                                <!--end::Heading-->
+                                                                <!--begin::Input group-->
+                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                        <span>ID:</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <input type="text" class="form-control form-control-solid" placeholder="<%= person.schoolId%>" />
+                                                                </div>
+                                                                <!--end::Input group-->							
+                                                                <!--begin::Input group-->
+                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                        <span>Họ và tên: </span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <input type="text" class="form-control form-control-solid" placeholder="<%= person.fullname %>" />
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                        <span>Email:</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <input type="text" class="form-control form-control-solid" placeholder="<%= person.email %>">
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Actions-->
+                                                                <div class="text-center">
+                                                                    <button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+								                                    <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                                                                </div>
+                                                                <!--end::Actions-->
+                                                            </form>
+                                                            <!--end:Form-->
+                                                        </div>
+                                                        <!--end::Modal body-->
+                                                    </div>
+                                                    <!--end::Modal content-->
+                                                </div>
+                                                <!--end::Modal dialog-->
+                                            </div>
+                                            <!--end::Modal - Edit Student-->  
                                         <% }) %> 
                                     </tbody>
                                 <% } else { %>
@@ -334,86 +413,3 @@
 </div>
 <!--end::Modal - Upload Excel-->
 
-<!--begin::Modal - Edit Student-->
-<div class="modal fade" id="pdp_edit_student" tabindex="-1" aria-hidden="true">
-    <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
-        <!--begin::Modal content-->
-        <div class="modal-content rounded">
-            <!--begin::Modal header-->
-            <div class="modal-header pb-0 border-0 justify-content-end">
-                <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                    <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                </div>
-                <!--end::Close-->
-            </div>
-            <!--begin::Modal header-->
-            <!--begin::Modal body-->
-            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                <!--begin:Form-->
-                <form id="kt_modal_evaluation_form_edit_student" class="form" action="#">
-                    <!--begin::Heading-->
-                    <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">Chỉnh sửa thông tin sinh viên</h1>
-                        <!--end::Title-->
-                    </div>
-                    <!--end::Heading-->
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>ID:</span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="GCS190159" />
-                    </div>
-                    <!--end::Input group-->							
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Họ và tên: </span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="Trần Vĩnh Tiến" />
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Email:</span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="tientvgcs190159@fpt.edu.vn">
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Actions-->
-                    <div class="text-center">
-                        <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Huỷ</button>
-                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
-                            <span class="indicator-label">Lưu</span>
-                            <span class="indicator-progress">Đang xử lý...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
-                    <!--end::Actions-->
-                </form>
-                <!--end:Form-->
-            </div>
-            <!--end::Modal body-->
-        </div>
-        <!--end::Modal content-->
-    </div>
-    <!--end::Modal dialog-->
-</div>
-<!--end::Modal - Edit Student-->

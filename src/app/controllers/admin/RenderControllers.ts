@@ -263,6 +263,7 @@ class RenderControllers {
         main: 'hover show',
         sub: 'show'
       };
+      const campus = await Campus.find({})
       const student = await Student.find({}).populate('campus').populate('editor');
       res.status(200).render('admin/manage/students', {
         layout: 'layouts/admin/index',
@@ -273,7 +274,7 @@ class RenderControllers {
         studentsMenu,
         heading,
         profileSession,
-        student
+        student, campus
       });
     } catch (error) {
       console.log(error);

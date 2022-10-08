@@ -516,7 +516,7 @@
 					<!--begin::Modal body-->
 					<div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
 						<!--begin:Form-->
-						<form id="kt_modal_evaluation_form_students" class="form" action="#">
+						<form id="kt_modal_evaluation_form_students" class="form">
 							<!--begin::Heading-->
 							<div class="mb-13 text-center">
 								<!--begin::Title-->
@@ -558,7 +558,14 @@
 									<span>Cơ sở đang học:</span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="campus" class="form-control form-control-solid" />
+								<select name="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+									<option value="" selected="" disabled="">Chọn cơ sở</option>
+									<% if (typeof(campus) !== 'undefined') { %>
+										<% campus.forEach(value => { %>
+											<option value="<%= value['_id'] %>"><%= value['name'] %></option>
+										<% }) %> 
+									<% } %>
+								</select>
 							</div>
 							<!--end::Input group-->
                             <!--begin::Actions-->
