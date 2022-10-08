@@ -1,10 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'fs-extra';
 import _ from 'lodash';
 
 export const injectFile = (direction: string, filename: string) => {
-  const dir = path.join(__dirname, '..', '..', direction);
-  const files = fs.readdirSync(dir);
+  const files = fs.readdirSync(direction);
 
   const index = _.findIndex(
     files,

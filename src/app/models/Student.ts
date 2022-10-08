@@ -3,9 +3,10 @@ import { Schema, model } from 'mongoose';
 const StudentSchema = new Schema(
   {
     fullname: { type: String, maxlength: 100, required: true },
-    school_id: { type: String, maxlength: 20, required: true, unique: true },
+    schoolId: { type: String, maxlength: 20, required: true, unique: true },
     email: { type: String, maxlength: 100, required: true, unique: true },
     campus: { type: Schema.Types.ObjectId, required: true, ref: 'Campus' },
+    club: [{type: Schema.Types.ObjectId, ref: 'Club'}],
     editor: { type: Schema.Types.ObjectId, required: true, ref: 'AdminAccount' }
   },
   {

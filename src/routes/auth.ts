@@ -19,13 +19,17 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
   return res.redirect('/');
 });
 
-router.post('/logout', isLogged, (req: Request, res: Response, next: NextFunction) => {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect('/');
-  });
+router.get('/logout', isLogged, (req: Request, res: Response, next: NextFunction) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(400).json('Unable to log out');
+      }
+      return res.redirect('/login');
+    });
+  } else {
+    res.end();
+  }
 });
 
 export default router;

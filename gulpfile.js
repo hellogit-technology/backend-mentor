@@ -68,6 +68,17 @@ gulp.task('validate-js', () => {
         .pipe(gulp.dest('public/js'))
 })
 
+gulp.task('helpers-js', () => {
+    return gulp
+        .src('assets/js/helpers/*.js')
+        .pipe(strip())
+        .pipe(concat(`helpers-${idJS}.bundle.js`))
+        .pipe(terser({
+            compress: true,
+            mangle: true
+        }))
+        .pipe(gulp.dest('public/js'))
+})
 
 // Minify css files
 gulp.task('global-css', () => {
@@ -140,6 +151,7 @@ gulp.task('minify-files',
         'login-js', 
         'status-js',
         'validate-js',
+        'helpers-js',
         'global-css',
         'login-css',
         'status-404',
@@ -159,9 +171,10 @@ gulp.task('watch-files', () => {
             'assets/js/login/*.js', 
             'assets/js/status/*.js',
             'assets/js/validation/*.js',
-            'assets/js/validation/create/*.js'
+            'assets/js/validation/create/*.js',
+            'assets/js/helpers/*.js'
         ], 
-    gulp.series('global-js', 'login-js', 'status-js', 'validate-js'))
+    gulp.series('global-js', 'login-js', 'status-js', 'validate-js', 'helpers-js'))
 
     gulp.watch(
         [

@@ -288,12 +288,22 @@
 							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
 								<!--begin::Label-->
 								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+									<span>ID câu lạc bộ: </span>
+								</label>
+								<!--end::Label-->
+								<input type="text" name="clubId" placeholder="CLB0001" class="form-control form-control-solid" />
+							</div>
+							<!--end::Input group-->			
+							<!--begin::Input group-->
+							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+								<!--begin::Label-->
+								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
 									<span>Tên câu lạc bộ: </span>
 								</label>
 								<!--end::Label-->
 								<input type="text" name="clubName" class="form-control form-control-solid" />
 							</div>
-							<!--end::Input group-->						
+							<!--end::Input group-->			
                             <!--begin::Input group-->
 							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
 								<!--begin::Label-->
@@ -393,6 +403,16 @@
 								<!--end::Title-->
 							</div>
 							<!--end::Heading-->		
+							<!--begin::Input group-->
+							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+								<!--begin::Label-->
+								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+									<span>ID sự kiện: </span>
+								</label>
+								<!--end::Label-->
+								<input type="text" name="eventId" placeholder="EVE00001" class="form-control form-control-solid" />
+							</div>
+							<!--end::Input group-->
 							<!--begin::Input group-->
 							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
 								<!--begin::Label-->
@@ -508,9 +528,7 @@
 								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
 									<span>ID:</span>
 								</label>
-								
 								<input type="text" name="schoolId" class="form-control form-control-solid" style="margin-bottom:10px;"/>
-								
 							</div>
 							<!--end::Input group-->			
 							<!--begin::Input group-->
@@ -531,6 +549,16 @@
 								</label>
 								<!--end::Label-->
 								<input type="text" name="email" class="form-control form-control-solid" />
+							</div>
+							<!--end::Input group-->
+							<!--begin::Input group-->
+							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+								<!--begin::Label-->
+								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+									<span>Cơ sở đang học:</span>
+								</label>
+								<!--end::Label-->
+								<input type="text" name="campus" class="form-control form-control-solid" />
 							</div>
 							<!--end::Input group-->
                             <!--begin::Actions-->
@@ -627,6 +655,7 @@
 		<script src="/js/jquery.validate.min.js"></script>
 		<script src="/js/additional-methods.min.js"></script>
 		<script src="/js/<%= files['jsValidation'] %>"></script>
+		<script src="/js/<%= files['jsHelpers'] %>"></script>
 	</body>
 	<!--end::Body-->
 </html>

@@ -31,6 +31,8 @@ export const googlePassport = (passport: PassportStatic) => {
 
           if (adminUser['role'] === 0) {
             adminSession = {
+              userId: adminUser['_id'],
+              name: adminUser['fullname'],
               email: profile['_json'].email!,
               displayName: profile['_json'].name!,
               photo: profile['_json'].picture!,
@@ -39,6 +41,8 @@ export const googlePassport = (passport: PassportStatic) => {
             };
           } else {
             adminSession = {
+              userId: adminUser['_id'],
+              name: adminUser['fullname'],
               email: profile['_json'].email!,
               displayName: profile['_json'].name!,
               photo: profile['_json'].picture!,
@@ -52,6 +56,8 @@ export const googlePassport = (passport: PassportStatic) => {
 
         if (leaderUser) {
           const leaderSession = {
+            userId: leaderUser['_id'],
+            name: leaderUser['fullname'],
             email: profile['_json'].email!,
             displayName: profile['_json'].name!,
             photo: profile['_json'].picture!,

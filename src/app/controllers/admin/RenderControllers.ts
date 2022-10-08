@@ -1,13 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectFile } from '../../../utils/inject';
+import path from 'path'
 import { Campus, Event, Club, AdminAccount, LeaderAccount, Student } from '../../models';
+import * as controllers from '../../../constant/controllers'
 
 // Add files to layout
+const forWebpackDir = {
+  css: path.join(__dirname, '../public/css'),
+  js: path.join(__dirname, '../public/js')
+}
+const defaultDir = {
+  css: path.join(__dirname, '../../../../public/css'),
+  js: path.join(__dirname, '../../../../public/js')
+}
 const files = {
-  cssFile: injectFile('public/css', 'global'),
-  cssValidation: injectFile('public/css', 'validation'),
-  jsFile: injectFile('public/js', 'global'),
-  jsValidation: injectFile('public/js', 'validation')
+  cssFile: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.css : defaultDir.css, 'global'),
+  cssValidation: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.css : defaultDir.css, 'validation'),
+  jsFile: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.js : defaultDir.js, 'global'),
+  jsValidation: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.js : defaultDir.js, 'validation'),
+  jsHelpers: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.js : defaultDir.js, 'helpers')
 };
 
 const slug = 'minh-toan';
@@ -272,7 +283,7 @@ class RenderControllers {
   // [GET] /admin/accounts
   async accounts(req: Request, res: Response, next: NextFunction) {
     try {
-      // Show data info of page
+      // Show info of page
       const profileSession: any = req.user;
       const title = 'Tài khoản | PDP Greenwich Vietnam';
       const account = 'active';
@@ -283,6 +294,11 @@ class RenderControllers {
       const club = await Club.find({});
       const adminAccount = await AdminAccount.find({}).populate('campus').populate('editor');
       const leaderAccount = await LeaderAccount.find({}).populate('campus').populate('club').populate('editor');
+
+      // Message 
+      const message = req.flash('message')
+      const warning = req.flash('error')
+      const modalShow = req.session.modalAccount
 
       res.status(200).render('admin/manage/account', {
         layout: 'layouts/admin/index',
@@ -295,7 +311,7 @@ class RenderControllers {
         club,
         profileSession,
         adminAccount,
-        leaderAccount
+        leaderAccount, message, warning, modalShow
       });
     } catch (error) {
       console.log(error);

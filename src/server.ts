@@ -19,6 +19,7 @@ declare module 'express-session' {
     photo: string;
     displayName: string;
     failurePath: string;
+    modalAccount: string | null | undefined
   }
 }
 
@@ -34,6 +35,7 @@ import route from './routes';
 import { connectDB } from './config/mongodb';
 import { googlePassport } from './config/passport';
 import showData from './middleware/helpers';
+import {clearCache} from './middleware/clearCache'
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -42,6 +44,9 @@ const port = process.env.PORT || 8080;
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Caching disabled for every route
+app.use(clearCache)
 
 // Secure
 app.use(

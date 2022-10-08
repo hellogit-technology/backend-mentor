@@ -4,7 +4,8 @@ $(document).ready(function() {
     const inputName = {
         input1: 'fullname',
         input2: 'email',
-        input3: 'campus'
+        input3: 'campus',
+        input4: 'role'
     }
 
     methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER001('họ và tên'))
@@ -34,6 +35,9 @@ $(document).ready(function() {
             },
             campus: {
                 required: true
+            },
+            role: {
+                required: true
             }
         },
         messages: {
@@ -45,6 +49,9 @@ $(document).ready(function() {
             },
             campus: {
                 required: messageVietnamese.ER001('cở sở làm việc')
+            },
+            role: {
+                required: messageVietnamese.ER001('loại tài khoản')
             }
         },
         highlight: function(element) {

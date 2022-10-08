@@ -16,7 +16,7 @@
                 <!--begin::Username-->
                 <div class="d-flex flex-column">
                     <div class="fw-bolder d-flex align-items-center fs-5">
-                        <% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.displayName %><% } %>
+                        <% if (typeof(profileSession) !== 'undefined') { %><%= profileSession.name %><% } %>
                     </div>
                     <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
                         <% if (typeof(profileSession) !== 'undefined') { %>
@@ -55,7 +55,7 @@
         <!--end::Menu separator-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a href="#" class="menu-link px-5">Đăng xuất</a>
+            <a href="/auth/logout" class="menu-link px-5">Đăng xuất</a>
         </div>
         <!--end::Menu item-->
     </div>
