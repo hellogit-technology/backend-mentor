@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectFile } from '../../../utils/inject';
-import path from 'path'
+import path from 'path';
 import { Campus, Event, Club, AdminAccount, LeaderAccount, Student } from '../../models';
-import * as controllers from '../../../constant/controllers'
+import * as controllers from '../../../constant/controllers';
 
 // Add files to layout
 const forWebpackDir = {
   css: path.join(__dirname, '../public/css'),
   js: path.join(__dirname, '../public/js')
-}
+};
 const defaultDir = {
   css: path.join(__dirname, '../../../../public/css'),
   js: path.join(__dirname, '../../../../public/js')
-}
+};
 const files = {
   cssFile: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.css : defaultDir.css, 'global'),
   cssValidation: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.css : defaultDir.css, 'validation'),
@@ -263,7 +263,7 @@ class RenderControllers {
         main: 'hover show',
         sub: 'show'
       };
-      const campus = await Campus.find({})
+      const campus = await Campus.find({});
       const student = await Student.find({}).populate('campus').populate('editor');
       res.status(200).render('admin/manage/students', {
         layout: 'layouts/admin/index',
@@ -274,7 +274,8 @@ class RenderControllers {
         studentsMenu,
         heading,
         profileSession,
-        student, campus
+        student,
+        campus
       });
     } catch (error) {
       console.log(error);
@@ -296,10 +297,10 @@ class RenderControllers {
       const adminAccount = await AdminAccount.find({}).populate('campus').populate('editor');
       const leaderAccount = await LeaderAccount.find({}).populate('campus').populate('club').populate('editor');
 
-      // Message 
-      const message = req.flash('message')
-      const warning = req.flash('error')
-      const modalShow = req.session.modalAccount
+      // Message
+      const message = req.flash('message');
+      const warning = req.flash('error');
+      const modalShow = req.session.modalAccount;
 
       res.status(200).render('admin/manage/account', {
         layout: 'layouts/admin/index',
@@ -312,7 +313,10 @@ class RenderControllers {
         club,
         profileSession,
         adminAccount,
-        leaderAccount, message, warning, modalShow
+        leaderAccount,
+        message,
+        warning,
+        modalShow
       });
     } catch (error) {
       console.log(error);

@@ -31,13 +31,13 @@ $(document).ready(function() {
             email: {
                 required: true,
                 email: true,
-                emailLength: true
+                emailLength: true    //TODO: Check exist
             },
             campus: {
-                required: true
+                required: true  //TODO: Check space & data is valid
             },
             role: {
-                required: true
+                required: true  //TODO: Check space & data is valid
             }
         },
         messages: {

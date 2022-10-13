@@ -291,7 +291,7 @@
 									<span>ID câu lạc bộ: </span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="clubId" placeholder="CLB0001" class="form-control form-control-solid" />
+								<input type="text" name="clubId" id="clubId" placeholder="CLB0001" class="form-control form-control-solid" />
 							</div>
 							<!--end::Input group-->			
 							<!--begin::Input group-->
@@ -410,7 +410,7 @@
 									<span>ID sự kiện: </span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="eventId" placeholder="EVE00001" class="form-control form-control-solid" />
+								<input type="text" name="eventId" id="eventIdNew" placeholder="EVE00001" class="form-control form-control-solid catch-event-qrcode" />
 							</div>
 							<!--end::Input group-->
 							<!--begin::Input group-->
@@ -420,9 +420,19 @@
 									<span>Tên sự kiện: </span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="eventName" class="form-control form-control-solid" />
+								<input type="text" name="eventName" id="eventNameNew" class="form-control form-control-solid catch-event-qrcode" />
 							</div>
 							<!--end::Input group-->
+							<!--begin: upload eventPoster-->
+							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+								<!--begin::Label-->
+								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+									<span>Poster sự kiện:</span>
+								</label>
+								<!--end::Label-->
+                                <input type="file" name="poster" class="form-control form-control-solid" id="eventPoster">
+							</div>
+							<!--end: upload eventPoster-->
                             <!--begin::Input group-->
 							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
 								<!--begin::Label-->
@@ -452,32 +462,9 @@
 							</div>
                             <a href="#">+ Thêm câu lạc bộ</a>
 							<!--end::Input group-->
-							<!--begin: upload eventPoster-->
-							<div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span>Poster sự kiện:</span>
-								</label>
-								<!--end::Label-->
-                                <input type="file" name="poster" class="form-control form-control-solid" id="eventPoster">
-							</div>
-							<!--end: upload eventPoster-->							
-							<!--begin: QR code-->
-                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span>QR Code:</span>
-								</label>
-								<!--end::Label-->
-								<div class="text-center">
-                                    <img src="<% if (typeof(qrcode) !== 'undefined') { %><%= qrcode %><% } %>" width="120px;" height="120px" alt="QRCode Image">
-                                </div>
-							</div>
-							<!--end: QR code-->
                             <!--begin::Actions-->
-							<div class="text-center">
-								<button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>    
-                                <button type="download" id="pdp_download_qr" class="btn btn-success me-3">Download QR</button>                         
+							<div class="text-center" style="margin-top: 30px">
+								<button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>                            
 								<button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
 							</div>
 							<!--end::Actions-->
@@ -528,7 +515,7 @@
 								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
 									<span>ID:</span>
 								</label>
-								<input type="text" name="schoolId" class="form-control form-control-solid" style="margin-bottom:10px;"/>
+								<input type="text" name="schoolId" class="form-control form-control-solid"/>
 							</div>
 							<!--end::Input group-->			
 							<!--begin::Input group-->

@@ -1,21 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 import { LeaderAccount } from '../../models';
-import {messageVietnamese} from '../../../utils/message'
+import { messageVietnamese } from '../../../utils/message';
 
 class LeaderAccountControllers {
   // [POST] /api/leader-account
   async createLeader(req: Request, res: Response, next: NextFunction) {
     try {
       interface RequestBody {
-        fullname: string,
-        email: string,
-        campus: string,
-        role: number,
-        club: string,
-        editor: string
+        fullname: string;
+        email: string;
+        campus: string;
+        role: number;
+        club: string;
+        editor: string;
       }
       const profileSession: any = req.user;
-      const {fullname, email, campus, role, club} = req.body
+      const { fullname, email, campus, role, club } = req.body;
       const requestBody: RequestBody = {
         fullname: fullname,
         email: email,
@@ -26,11 +26,11 @@ class LeaderAccountControllers {
       };
       const newLeaderAccount = new LeaderAccount(requestBody);
       const savedLeaderAccount = await newLeaderAccount.save();
-      req.flash('message', `${messageVietnamese.RES004B} (Leader Account)`)
+      req.flash('message', `${messageVietnamese.RES004B} (Leader Account)`);
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.session.modalAccount = 'leader'
-      req.flash('error', `${messageVietnamese.RES004A} (Leader Account)`)
+      req.session.modalAccount = 'leader';
+      req.flash('error', `${messageVietnamese.RES004A} (Leader Account)`);
       res.redirect('/admin/accounts');
     }
   }
@@ -39,40 +39,40 @@ class LeaderAccountControllers {
   async updateLeader(req: Request, res: Response, next: NextFunction) {
     try {
       interface RequestBody {
-        fullname?: string
-        email?: string
-        campus?: string
-        role?: number
-        club?: string
-        editor: string
+        fullname?: string;
+        email?: string;
+        campus?: string;
+        role?: number;
+        club?: string;
+        editor: string;
       }
       const profileSession: any = req.user;
-      const {fullname, email, campus, role, club } = req.body
+      const { fullname, email, campus, role, club } = req.body;
       let requestBody: RequestBody = {
         editor: profileSession['userId'] as string
+      };
+      if (fullname) {
+        requestBody['fullname'] = fullname;
       }
-      if(fullname) {
-        requestBody['fullname'] = fullname
+      if (email) {
+        requestBody['email'] = fullname;
       }
-      if(email) {
-        requestBody['email'] = fullname
+      if (campus) {
+        requestBody['campus'] = campus;
       }
-      if(campus) {
-        requestBody['campus'] = campus
+      if (role) {
+        requestBody['role'] = role;
       }
-      if(role) {
-        requestBody['role'] = role
-      }
-      if(club) {
-        requestBody['club'] = club
+      if (club) {
+        requestBody['club'] = club;
       }
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.updateOne({ $set: requestBody });
-      req.flash('message', `${messageVietnamese.RES002B} (Leader Account)`)
+      req.flash('message', `${messageVietnamese.RES002B} (Leader Account)`);
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.session.modalAccount = 'leader'
-      req.flash('error', `${messageVietnamese.RES002A} (Leader Account)`)
+      req.session.modalAccount = 'leader';
+      req.flash('error', `${messageVietnamese.RES002A} (Leader Account)`);
       res.redirect('/admin/accounts');
     }
   }
@@ -82,11 +82,11 @@ class LeaderAccountControllers {
     try {
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.deleteOne();
-      req.flash('message', `${messageVietnamese.RES003B} (Leader Account)`)
+      req.flash('message', `${messageVietnamese.RES003B} (Leader Account)`);
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.session.modalAccount = 'leader'
-      req.flash('error', `${messageVietnamese.RES003A} (Leader Account)`)
+      req.session.modalAccount = 'leader';
+      req.flash('error', `${messageVietnamese.RES003A} (Leader Account)`);
       res.redirect('/admin/accounts');
     }
   }

@@ -1,30 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
-import {Club} from '../../models'
-import {messageVietnamese} from '../../../utils/message'
-import {cloudinary} from '../../../config/cloudinary'
-import {makeSlug} from '../../../config/slugify'
+import { Club } from '../../models';
+import { messageVietnamese } from '../../../utils/message';
+import { cloudinary } from '../../../config/cloudinary';
+import { makeSlug } from '../../../utils/slugify';
 
 class ClubsControllers {
   // [POST] /api/club
   async createClub(req: Request, res: Response, next: NextFunction) {
     try {
       interface RequestBody {
-        clubId: string,
-        name: string,
-        email: string
-        nickname: string,
-        fanpage: string,
-        founding: string,
+        clubId: string;
+        name: string;
+        email: string;
+        nickname: string;
+        fanpage: string;
+        founding: string;
         avatar: {
-          photo: string,
-          cloudinaryId: string
-        },
-        slug: string,
-        editor: string
+          photo: string;
+          cloudinaryId: string;
+        };
+        slug: string;
+        editor: string;
       }
       const profileSession: any = req.user;
-      const {clubId, clubName, email, nickname, fanpage, founding} = req.body
-      const result = await cloudinary.v2.uploader.upload(req.file!.path)
+      const { clubId, clubName, email, nickname, fanpage, founding } = req.body;
+      const result = await cloudinary.v2.uploader.upload(req.file!.path);
       const requestBody: RequestBody = {
         clubId: clubId,
         name: clubName,
@@ -41,11 +41,11 @@ class ClubsControllers {
       };
       const newClub = new Club(requestBody);
       const savedClub = await newClub.save();
-      req.flash('message', messageVietnamese.RES004B)
+      req.flash('message', messageVietnamese.RES004B);
       res.redirect('/admin/clubs');
     } catch (error) {
-      req.session.modalAccount = 'club'
-      req.flash('error', messageVietnamese.RES004A)
+      req.session.modalAccount = 'club';
+      req.flash('error', messageVietnamese.RES004A);
       res.redirect('/admin/clubs');
     }
   }
@@ -54,57 +54,57 @@ class ClubsControllers {
   async updateClub(req: Request, res: Response, next: NextFunction) {
     try {
       interface RequestBody {
-        clubId?: string,
-        name?: string,
-        email?: string,
-        nickname?: string,
-        fanpage?: string,
-        founding?: string,
+        clubId?: string;
+        name?: string;
+        email?: string;
+        nickname?: string;
+        fanpage?: string;
+        founding?: string;
         avatar?: {
-          photo?: string ,
-          cloudinaryId?: string
-        },
-        slug?: string,
-        editor: string
+          photo?: string;
+          cloudinaryId?: string;
+        };
+        slug?: string;
+        editor: string;
       }
       const profileSession: any = req.user;
       const club = await Club.findById(req.params.id);
-      const public_id = club?.avatar?.cloudinaryId
-      const {clubId, clubName, email, nickname, fanpage, founding} = req.body
-      const requestBody: RequestBody= {
+      const public_id = club?.avatar?.cloudinaryId;
+      const { clubId, clubName, email, nickname, fanpage, founding } = req.body;
+      const requestBody: RequestBody = {
         editor: profileSession['userId'] as string
       };
-      if(req.file && public_id) {
-        await cloudinary.v2.uploader.destroy(public_id.toString())
-        const result = await cloudinary.v2.uploader.upload(req.file!.path, {folder: 'Club'})
-        requestBody.avatar!.photo = result['secure_url']
-        requestBody.avatar!.cloudinaryId = result['public_id']
+      if (req.file && public_id) {
+        await cloudinary.v2.uploader.destroy(public_id.toString());
+        const result = await cloudinary.v2.uploader.upload(req.file!.path, { folder: 'Club' });
+        requestBody.avatar!.photo = result['secure_url'];
+        requestBody.avatar!.cloudinaryId = result['public_id'];
       }
-      if(clubId) {
-        requestBody['clubId'] = clubId
+      if (clubId) {
+        requestBody['clubId'] = clubId;
       }
-      if(clubName) {
-        requestBody['name'] = clubName
-        requestBody['slug'] = makeSlug(clubName)
+      if (clubName) {
+        requestBody['name'] = clubName;
+        requestBody['slug'] = makeSlug(clubName);
       }
-      if(email) {
-        requestBody['email'] = email
+      if (email) {
+        requestBody['email'] = email;
       }
-      if(nickname) {
-        requestBody['nickname'] = nickname
+      if (nickname) {
+        requestBody['nickname'] = nickname;
       }
-      if(fanpage) {
-        requestBody['fanpage'] = fanpage
+      if (fanpage) {
+        requestBody['fanpage'] = fanpage;
       }
-      if(founding) {
-        requestBody['founding'] = founding
+      if (founding) {
+        requestBody['founding'] = founding;
       }
       await club!.updateOne({ $set: requestBody });
-      req.flash('message', messageVietnamese.RES002B)
+      req.flash('message', messageVietnamese.RES002B);
       res.redirect('/admin/clubs');
     } catch (error) {
-      req.session.modalAccount = 'club'
-      req.flash('error', messageVietnamese.RES002A)
+      req.session.modalAccount = 'club';
+      req.flash('error', messageVietnamese.RES002A);
       res.redirect('/admin/clubs');
     }
   }
@@ -114,11 +114,11 @@ class ClubsControllers {
     try {
       const club = await Club.findById(req.params.id);
       await club!.deleteOne();
-      req.flash('message', messageVietnamese.RES003B)
+      req.flash('message', messageVietnamese.RES003B);
       res.redirect('/admin/clubs');
     } catch (error) {
-      req.flash('error', messageVietnamese.RES003A)
-      res.redirect('/admin/clubs')
+      req.flash('error', messageVietnamese.RES003A);
+      res.redirect('/admin/clubs');
     }
   }
 }

@@ -4,7 +4,8 @@ $(document).ready(function() {
     const inputName = {
         input1: 'schoolId',
         input2: 'fullname',
-        input3: 'email'
+        input3: 'email',
+        input4: 'campus'
     }
 
     methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER001('mã số sinh viên'))
@@ -38,6 +39,9 @@ $(document).ready(function() {
             email: {
                 required: true,
                 emailLength: true
+            },
+            campus: {
+                requried: true
             }
         },
         messages: {
@@ -49,6 +53,9 @@ $(document).ready(function() {
             },
             email: {
                 required: messageVietnamese.ER001('email')
+            },
+            campus: {
+                required: messageVietnamese.ER001('cơ sở đang học')
             }
         },
         highlight: function(element) {

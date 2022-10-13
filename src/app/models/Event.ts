@@ -8,7 +8,7 @@ const EventSchema = new Schema(
     club: [{ type: Schema.Types.ObjectId, required: true, ref: 'Club' }],
     poster: { type: String, required: true },
     slug: { type: String, maxlength: 300, required: true },
-    participant: [{type: Schema.Types.ObjectId, ref: 'Student'}],
+    participant: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
     qrcode: { type: String, required: true },
     editor: { type: Schema.Types.ObjectId, required: true, ref: 'AdminAccount' }
   },

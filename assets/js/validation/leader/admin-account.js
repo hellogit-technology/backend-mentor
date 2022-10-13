@@ -1,5 +1,3 @@
-import { messageVietnamese } from '../message';
-import methodValidation from '../method-validation'
 
 $(document).ready(() => {
     const $inputForm = $('#user-input-form-validate')

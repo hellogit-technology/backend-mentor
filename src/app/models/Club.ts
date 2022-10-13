@@ -9,8 +9,8 @@ const ClubSchema = new Schema(
     fanpage: { type: String, maxlength: 300, required: true },
     founding: { type: Date },
     avatar: {
-      photo: {type: String, required: true},
-      cloudinaryId: {type: String, required: true}
+      photo: { type: String, required: true },
+      cloudinaryId: { type: String, required: true }
     },
     slug: { type: String, maxlength: 300, required: true },
     editor: { type: Schema.Types.ObjectId, required: true, ref: 'AdminAccount' }

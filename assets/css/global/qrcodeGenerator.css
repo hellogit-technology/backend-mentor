@@ -1,0 +1,17 @@
+
+#button-qrcode {
+width: 120px;
+height: 120px;
+border: none;
+border-radius: 60px;
+outline: none;
+background: #5F9DF7;
+color: white; 
+cursor: pointer;
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+font-size: 1rem;
+font-weight: 500
+}
+#button-qrcode:hover {
+background: #1746A2;
+}

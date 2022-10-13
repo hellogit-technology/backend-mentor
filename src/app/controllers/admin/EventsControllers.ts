@@ -1,25 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
-import {messageVietnamese} from '../../../utils/message'
-import {cloudinary} from '../../../config/cloudinary'
-import {makeSlug} from '../../../config/slugify'
-
+import { messageVietnamese } from '../../../utils/message';
+import { cloudinary } from '../../../config/cloudinary';
+import { makeSlug } from '../../../utils/slugify';
 
 class EventsControllers {
   // [POST] /
   async createEvent(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
-
-      }
+      interface RequestBody {}
     } catch (error) {}
   }
 
   // [PATCH] /
   async updateEvent(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
-
-      }
+      interface RequestBody {}
     } catch (error) {}
   }
 

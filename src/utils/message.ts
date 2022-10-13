@@ -9,6 +9,8 @@ export const messageVietnamese = {
   ER006: `Xác nhận mật khẩu không trùng khớp.`,
   ER007: (param: string) => `${param} đã tồn tại.`,
   ER008: `Không nhập ký tự in hoa.`,
+  ER009: (param: string) => `Chỉ cho phép các định dạng file là: ${param}`,
+  ER0010: (param: string) => `Dung lượng tối đa của file tải lên là ${param}`,
 
   // Auth
   RES001: `Thông tin đăng nhập không đúng.`,
