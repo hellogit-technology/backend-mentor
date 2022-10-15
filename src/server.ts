@@ -107,7 +107,6 @@ app.use('/js', [
 ]);
 app.use('/css', [
   express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)),
-  express.static(path.join(__dirname, `${libraryPath}/font-awesome/css`)),
   express.static(path.join(__dirname, `../public/helpers`))
 ]);
 app.use(express.static(path.join(__dirname, '../public')));

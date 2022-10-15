@@ -3,6 +3,40 @@
 $(document).ready(function() {
     const $inputForm = $('#kt_modal_evaluation_form_event')
 
+    // Add new club
+    let i = 1
+    $('#add-input-club-event').click(function() {
+        let $id = `club-event-${++i}`
+        let $clubInput = $('#club-event-1').clone().attr('id', $id).removeClass('has-error')
+        let $parent = $('<div class="row" style="margin-top: 10px;"></div')
+        let $icon = $('<div class="col-md-1 fv-row"><div class="btn btn-icon btn-active-light-primary remove-club"><i style="font-size: larger" class="fa-solid fa-square-minus"></i></div</div>')
+        let $baseInput = $('<div class="col-md-11 fv-row"></div>')
+        $baseInput.append($clubInput)
+        $parent.append($baseInput)
+        $parent.append($icon)
+        $('#main-club-input').after($parent)
+        $(`#${$id}`).rules('add',  { 
+            required: true,
+            messages: {
+                required: messageVietnamese.ER001('đồng tổ chức')
+            }
+         })
+
+        // Remove club
+        $('.remove-club').click(function() {
+            $(`#${$id}`).rules( 'remove');
+            this.closest('div.row').remove()
+        })
+    })
+
+    // Reset validation and value
+    $('.modal_event_cancel').click(function() {
+        $('.has-error').removeClass('has-error')
+        $('.validation-error-message').remove()
+        $($inputForm)[0].reset()
+    })
+
+
     const inputName = {
         input1: 'eventName',
         input2: 'date',
@@ -16,7 +50,7 @@ $(document).ready(function() {
     
     methodValidation.maxStorage(`${inputName['input4']}File`, messageVietnamese.ER0010('10 MB'))
 
-    $inputForm.validate({
+    const $validator = $inputForm.validate({
         onfocusout: function(element) {
             this.element(element);
         },
@@ -30,7 +64,7 @@ $(document).ready(function() {
             date: {
                 required: true
             },
-            club: {
+            'club[]': {
                 required: true
             },
             poster: {
@@ -46,7 +80,7 @@ $(document).ready(function() {
             date: {
                 required: messageVietnamese.ER001('ngày diễn ra')
             },
-            club: {
+            'club[]': {
                 required: messageVietnamese.ER001('đồng tổ chức')
             },
             poster: {
@@ -66,6 +100,7 @@ $(document).ready(function() {
             form.action = '/api/event' 
             form.submit()
         }
-
     })
+
+    
 })

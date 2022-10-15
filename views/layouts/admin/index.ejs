@@ -9,6 +9,8 @@
 		<link rel="canonical" href="Https://preview.keenthemes.com/rider-free" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
+		<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+		<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome.min.css">
 		<link rel="stylesheet" href="/css/<%= files['cssFile'] %>">
 		<link rel="stylesheet" href="/css/<%= files['cssValidation'] %>">
 	</head>
@@ -379,7 +381,7 @@
 					<!--begin::Modal header-->
 					<div class="modal-header pb-0 border-0 justify-content-end">
 						<!--begin::Close-->
-						<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+						<div class="btn btn-sm btn-icon btn-active-color-primary modal_event_cancel" data-bs-dismiss="modal">
 							<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
 							<span class="svg-icon svg-icon-1">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -450,21 +452,23 @@
 									<span>Đồng tổ chức</span>
 								</label>
 								<!--end::Label-->
-                                <select name="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Câu lạc bộ" class="form-select form-select-solid">
-                                    <option value="" selected="" disabled="">Câu lạc bộ</option>
-									<% if (typeof(clubs) !== 'undefined' ) { %>
-										<% clubs.forEach(value => {  %>
-											<option value="<%= value['_id'] %>"><%= value['name'] %></option>
-										<%  }) %>
-									<% } %>
-                                    <option value="false">None</option>
-                                </select>
+								<div id="main-club-input">
+									<select id="club-event-1" name="club[]" aria-label="Select a Club" data-control="select_club" data-placeholder="Câu lạc bộ" class="form-select form-select-solid">
+										<option value="" selected="" disabled="">Câu lạc bộ</option>
+										<% if (typeof(clubs) !== 'undefined' ) { %>
+											<% clubs.forEach(value => {  %>
+												<option value="<%= value['_id'] %>"><%= value['name'] %></option>
+											<%  }) %>
+										<% } %>
+										<option value="false">Không có</option>
+									</select>
+								</div>
 							</div>
-                            <a href="#">+ Thêm câu lạc bộ</a>
+                            <p style="color: #00b2ff; cursor: pointer; margin-top: 20px" id="add-input-club-event">+ Thêm câu lạc bộ</a>
 							<!--end::Input group-->
                             <!--begin::Actions-->
 							<div class="text-center" style="margin-top: 30px">
-								<button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>                            
+								<button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_event_cancel">Huỷ</button>                            
 								<button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
 							</div>
 							<!--end::Actions-->

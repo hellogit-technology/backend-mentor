@@ -235,7 +235,7 @@
                                                                 <th style="width:50px;">Stt</th>
                                                                 <th style="width:300px;">Họ và tên</th>
                                                                 <th style="width:250px;">Tài khoản</th>	
-                                                                <th style="width:150px;">Campus</th>
+                                                                <th style="width:150px;">Cơ sở đang làm việc</th>
                                                                 <th style="width:200px;" class="text-center">Được thêm bởi</th>
                                                                 <th style="width:200px;" class="text-center">Sửa/Xoá</th>
                                                             </tr>
@@ -284,7 +284,7 @@
                                                                             <!--begin::Modal body-->
                                                                             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                                                                 <!--begin:Form-->
-                                                                                <form id="kt_modal_evaluation_form" class="form" method="post" action="/api/admin-account/<%= account._id %>">
+                                                                                <form id="kt_modal_evaluatio_pdp_form" class="form" method="post" action="/api/admin-account/<%= account._id %>">
                                                                                     <!--begin::Heading-->
                                                                                     <div class="mb-13 text-center">
                                                                                         <!--begin::Title-->
@@ -330,7 +330,7 @@
                                                                                     <!--end::Input group-->
                                                                                     <!--begin::Actions-->
                                                                                     <div class="text-center">
-                                                                                        <button type="button" data-bs-dismiss="modal" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Huỷ</button>
+                                                                                        <button type="button" data-bs-dismiss="modal" id="kt_modal_update_pdp_cancel" class="btn btn-light me-3">Huỷ</button>
                                                                                         <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
                                                                                     </div>
                                                                                     <!--end::Actions-->
@@ -371,7 +371,7 @@
                                                             <th style="width:300px;">Tài khoản</th>
                                                             <th style="width:250px;">Tên Leader</th>	
                                                             <th style="width:150px;">Câu lạc bộ</th>
-                                                            <th style="width:150px;">Campus</th>
+                                                            <th style="width:150px;">Cơ sở đang học</th>
                                                             <th style="width:200px;" class="text-center">Được thêm bởi</th>
                                                             <th style="width:200px;" class="text-center">Sửa/Xoá</th>
                                                         </tr>
@@ -421,7 +421,7 @@
                                                                         <!--begin::Modal body-->
                                                                         <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                                                             <!--begin:Form-->
-                                                                            <form id="kt_modal_evaluation_form" class="form" method="post" action="/api/leader-account/<%= account._id %>">
+                                                                            <form id="kt_modal_evaluation_leader_form" class="form" method="post" action="/api/leader-account/<%= account._id %>">
                                                                                 <!--begin::Heading-->
                                                                                 <div class="mb-13 text-center">
                                                                                     <!--begin::Title-->
@@ -469,7 +469,7 @@
                                                                                 <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                                                                                     <!--begin::Label-->
                                                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                        <span>Campus:</span>
+                                                                                        <span>Cơ sở đang học:</span>
                                                                                     </label>
                                                                                     <!--end::Label-->
                                                                                     <select name="club_typer" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
@@ -484,7 +484,7 @@
                                                                                 <!--end::Input group-->
                                                                                 <!--begin::Actions-->
                                                                                 <div class="text-center">
-                                                                                    <button type="button" data-bs-dismiss="modal" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Huỷ</button>
+                                                                                    <button type="button" data-bs-dismiss="modal" id="kt_modal_update_leader_cancel" class="btn btn-light me-3">Huỷ</button>
                                                                                     <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
                                                                                 </div>
                                                                                 <!--end::Actions-->
@@ -535,7 +535,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                <div class="btn btn-sm btn-icon btn-active-color-primary" id="btn-close-new" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -632,7 +632,7 @@
                                             <!--end::Input group-->
                                             <!--begin::Actions-->
                                             <div class="text-center">
-                                                <button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                                                <button type="button" id="kt_modal_pdp_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
                                                 <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
                                             </div>
                                             <!--end::Actions-->									
@@ -708,7 +708,7 @@
                                         <!--end::Input group-->	
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                                            <button type="button" id="kt_modal_leader_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
                                             <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
                                         </div>
                                         <!--end::Actions-->										
