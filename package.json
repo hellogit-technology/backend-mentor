@@ -8,7 +8,7 @@
     "minify:watch": "gulp watch-files",
     "build": "rimraf ./dist && npx tsc -b",
     "dev": "npm run minify && cross-env NODE_ENV=development ts-node-dev src/server.ts",
-    "start": "npm run minify && cross-env NODE_ENV=production ts-node src/server.ts",
+    "start": "npm run minify && cross-env NODE_ENV=developmentts-node src/server.ts",
     "check": "prettier --check \"src/**/*.ts\" ",
     "format": "prettier --write \"src/**/*.ts\" ",
     "deploy": "npm run minify && npm run build && rimraf ./deploy && webpack",

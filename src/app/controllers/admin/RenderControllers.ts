@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { injectFile } from '../../../utils/inject';
 import path from 'path';
 import { Campus, Event, Club, AdminAccount, LeaderAccount, Student } from '../../models';
-import * as controllers from '../../../constant/controllers';
 
 // Add files to layout
+const environment = process.env.NODE_ENV!
 const forWebpackDir = {
   css: path.join(__dirname, '../public/css'),
   js: path.join(__dirname, '../public/js')
@@ -14,11 +14,11 @@ const defaultDir = {
   js: path.join(__dirname, '../../../../public/js')
 };
 const files = {
-  cssFile: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.css : defaultDir.css, 'global'),
-  cssValidation: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.css : defaultDir.css, 'validation'),
-  jsFile: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.js : defaultDir.js, 'global'),
-  jsValidation: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.js : defaultDir.js, 'validation'),
-  jsHelpers: injectFile(controllers.Configuration.deployment === true ? forWebpackDir.js : defaultDir.js, 'helpers')
+  cssFile: injectFile(environment === 'development' ? defaultDir.css : forWebpackDir.css, 'global'),
+  cssValidation: injectFile(environment === 'development' ? defaultDir.css : forWebpackDir.css, 'validation'),
+  jsFile: injectFile(environment === 'development' ? defaultDir.js : forWebpackDir.js, 'global'),
+  jsValidation: injectFile(environment === 'development' ? defaultDir.js : forWebpackDir.js, 'validation'),
+  jsHelpers: injectFile(environment === 'development' ? defaultDir.js : forWebpackDir.js, 'helpers')
 };
 
 const slug = 'minh-toan';
