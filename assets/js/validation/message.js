@@ -9,10 +9,11 @@ const messageVietnamese = {
     ER006: `Xác nhận mật khẩu không trùng khớp.`,
     ER007: (param) => `${param} đã tồn tại.`,
     ER008: `Không nhập ký tự in hoa.`,
-    ER009: (param) => `Định dạng file cho phép tải lên là ${param}`,
+    ER009: (param) => `Chỉ cho phép các định dạng file là ${param}`,
     ER0010: (param) => `Dung lượng file tối đa là ${param}`,
     ER0011: `Vui lòng chọn file để tải lên`,
     ER0012: `Không nhập ký tự đặc biệt.`,
+    ER0013: (param) => `Vui lòng nhập link ${param}`,
   
     // Auth
     RES001: `Thông tin đăng nhập không đúng.`,

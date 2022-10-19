@@ -6,19 +6,21 @@ class LeaderAccountControllers {
   // [POST] /api/leader-account
   async createLeader(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseLeaderAccount {
         fullname: string;
         email: string;
+        schoolId: string
         campus: string;
         role: number;
         club: string;
         editor: string;
       }
       const profileSession: any = req.user;
-      const { fullname, email, campus, role, club } = req.body;
-      const requestBody: RequestBody = {
+      const { fullname, email, campus, role, club, schoolId } = req.body;
+      const requestBody: BaseLeaderAccount = {
         fullname: fullname,
         email: email,
+        schoolId: schoolId,
         campus: campus,
         role: role as number,
         club: club,
@@ -38,17 +40,18 @@ class LeaderAccountControllers {
   // [PATCH] /api/leader-account/:id
   async updateLeader(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseLeaderAccountUpdate {
         fullname?: string;
         email?: string;
+        schoolId?: string
         campus?: string;
         role?: number;
         club?: string;
         editor: string;
       }
       const profileSession: any = req.user;
-      const { fullname, email, campus, role, club } = req.body;
-      let requestBody: RequestBody = {
+      const { fullname, email, campus, role, club, schoolId } = req.body;
+      let requestBody: BaseLeaderAccountUpdate = {
         editor: profileSession['userId'] as string
       };
       if (fullname) {
@@ -65,6 +68,9 @@ class LeaderAccountControllers {
       }
       if (club) {
         requestBody['club'] = club;
+      }
+      if(schoolId) {
+        requestBody['schoolId'] = schoolId
       }
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.updateOne({ $set: requestBody });

@@ -13,8 +13,11 @@ import { uploadDisk } from '../config/multer';
 const router = express.Router();
 
 // Event
-router.post('/event', eventsControllers.createEvent);
-router.route('/event/:id').patch(eventsControllers.updateEvent).delete(eventsControllers.deleteEvent);
+router.post('/event', uploadDisk.single('poster'), eventsControllers.createEvent);
+router.post('/event/:id/expire', eventsControllers.setExpire)
+router.route('/event/:id')
+    .patch(uploadDisk.single('poster'), eventsControllers.updateEvent)
+    .delete(eventsControllers.deleteEvent);
 
 // Student
 router.post('/student', studentControllers.createStudent);
@@ -23,7 +26,7 @@ router.post('/file-students', uploadDisk.single('students'), studentControllers.
 
 // Club
 router.post('/club', uploadDisk.single('avatar'), clubsControllers.createClub);
-router.route('/club/:id').patch(clubsControllers.updateClub).delete(clubsControllers.deleteClub);
+router.route('/club/:id').patch( uploadDisk.single('avatar'), clubsControllers.updateClub).delete(clubsControllers.deleteClub);
 
 // Leader Account
 router.post('/leader-account', leaderAccountControllers.createLeader);
@@ -34,14 +37,13 @@ router.post('/admin-account', adminAccountControllers.createAdmin);
 router.route('/admin-account/:id').patch(adminAccountControllers.updateAdmin).delete(adminAccountControllers.deleteAdmin);
 
 // Poster
-router.post('/poster', uploadDisk.array('poster', 10), posterControllers.uploadPosters);
+router.post('/poster', uploadDisk.array('annPoster', 10), posterControllers.uploadPosters);
 
 // Scores
 router.post('/scores', scoresControllers.createScores);
 router.route('/scores/:id').patch(scoresControllers.updateScores).delete(scoresControllers.deleteScores);
 
 // Helper
-router.post('/generateqrcode', helpersControllers.qrcodeGenerate);
 router.post('/check-campus', helpersControllers.campusIsValid)
 router.post('/check-club', helpersControllers.clubIsValid)
 router.post('/check-account-email', helpersControllers.accountEmailExist)
@@ -51,5 +53,7 @@ router.post('/check-club-nickname', helpersControllers.clubNicknameExist)
 router.post('/check-event-id', helpersControllers.eventIdExist)
 router.post('/check-student-email', helpersControllers.studentEmailExist)
 router.post('/check-student-id', helpersControllers.studentIdExist)
+router.post('/api/check-account-email-pdp-update', helpersControllers.accountEmailPDPUpdate)
+router.post('/api/check-account-email-leader-update', helpersControllers.accountEmailLeaderUpdate)
 
 export default router;

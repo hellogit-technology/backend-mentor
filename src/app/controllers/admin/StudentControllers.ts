@@ -6,7 +6,7 @@ class StudentControllers {
   // [POST] /api/student
   async createStudent(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseStudent {
         fullname: string;
         schoolId: string;
         email: string;
@@ -15,7 +15,7 @@ class StudentControllers {
       }
       const profileSession: any = req.user;
       const { fullname, schoolId, email, campus } = req.body;
-      const requestBody: RequestBody = {
+      const requestBody: BaseStudent = {
         fullname: fullname,
         schoolId: schoolId,
         email: email,
@@ -42,7 +42,7 @@ class StudentControllers {
   // [PATCH] /api/student/:id
   async updateStudent(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseStudentUpdate {
         fullname?: string;
         schoolId?: string;
         email?: string;
@@ -51,7 +51,7 @@ class StudentControllers {
       }
       const profileSession: any = req.user;
       const { fullname, schoolId, email, campus } = req.body;
-      const requestBody: RequestBody = {
+      const requestBody: BaseStudentUpdate = {
         editor: profileSession['userId'] as string
       };
       if (fullname) {

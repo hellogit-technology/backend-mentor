@@ -6,7 +6,7 @@ class AdminAccountControllers {
   // [POST] /api/admin-account
   async createAdmin(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseAdminAccount {
         fullname: string;
         email: string;
         campus: string;
@@ -15,7 +15,7 @@ class AdminAccountControllers {
       }
       const profileSession: any = req.user;
       const { fullname, email, campus, role } = req.body;
-      const requestBody: RequestBody = {
+      const requestBody: BaseAdminAccount = {
         fullname: fullname,
         email: email,
         campus: campus,
@@ -36,7 +36,7 @@ class AdminAccountControllers {
   // [PATCH] /api/admin-account/:id
   async updateAdmin(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseAdminAccountUpdate {
         fullname?: string;
         email?: string;
         campus?: string;
@@ -45,7 +45,7 @@ class AdminAccountControllers {
       }
       const profileSession: any = req.user;
       const { fullname, email, campus, role } = req.body;
-      let requestBody: RequestBody = {
+      let requestBody: BaseAdminAccountUpdate = {
         editor: profileSession['userId'] as string
       };
       if (fullname) {

@@ -10,3 +10,4 @@ gulpfile.js
 assets
 yarn.lock
 dist
+tsconfig.json

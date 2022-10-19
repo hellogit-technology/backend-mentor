@@ -8,7 +8,7 @@ class ClubsControllers {
   // [POST] /api/club
   async createClub(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseClub {
         clubId: string;
         name: string;
         email: string;
@@ -24,8 +24,8 @@ class ClubsControllers {
       }
       const profileSession: any = req.user;
       const { clubId, clubName, email, nickname, fanpage, founding } = req.body;
-      const result = await cloudinary.v2.uploader.upload(req.file!.path);
-      const requestBody: RequestBody = {
+      const result = await cloudinary.v2.uploader.upload(req.file!.path, {folder: 'Avatar'});
+      const requestBody: BaseClub = {
         clubId: clubId,
         name: clubName,
         email: email,
@@ -53,7 +53,7 @@ class ClubsControllers {
   // [PATCH] /api/club/:id
   async updateClub(req: Request, res: Response, next: NextFunction) {
     try {
-      interface RequestBody {
+      interface BaseClubUpdate {
         clubId?: string;
         name?: string;
         email?: string;
@@ -71,12 +71,12 @@ class ClubsControllers {
       const club = await Club.findById(req.params.id);
       const public_id = club?.avatar?.cloudinaryId;
       const { clubId, clubName, email, nickname, fanpage, founding } = req.body;
-      const requestBody: RequestBody = {
+      const requestBody: BaseClubUpdate = {
         editor: profileSession['userId'] as string
       };
       if (req.file && public_id) {
         await cloudinary.v2.uploader.destroy(public_id.toString());
-        const result = await cloudinary.v2.uploader.upload(req.file!.path, { folder: 'Club' });
+        const result = await cloudinary.v2.uploader.upload(req.file!.path, { folder: 'Avatar' });
         requestBody.avatar!.photo = result['secure_url'];
         requestBody.avatar!.cloudinaryId = result['public_id'];
       }

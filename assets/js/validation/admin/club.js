@@ -2,6 +2,13 @@
 $(document).ready(function() {
     const $inputForm = $('#kt_modal_evaluation_form_club')
 
+    // Reset validation and value
+    $('.modal_club_cancel').click(function() {
+        $('.has-error').removeClass('has-error')
+        $('.validation-error-message').remove()
+        $($inputForm)[0].reset()
+    })
+
     const inputName = {
         input1: 'clubId',
         input2: 'clubName',
@@ -14,25 +21,25 @@ $(document).ready(function() {
 
     methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER001('ID câu lạc bộ'))
     methodValidation.twoBytes(`${inputName['input1']}TwoBytes`, messageVietnamese.ER004)
+    methodValidation.specialCharacters(`${inputName['input1']}Characters`, messageVietnamese.ER0012)
     methodValidation.maxLength(`${inputName['input1']}Length`, 30, 'ID câu lạc bộ')
 
     methodValidation.empty(`${inputName['input2']}Empty`, messageVietnamese.ER001('tên câu lạc bộ'))
     methodValidation.twoBytes(`${inputName['input2']}TwoBytes`, messageVietnamese.ER004)
-    methodValidation.maxLength(`${inputName['input2']}Length`, 200, 'tên câu lạc bộ')
+    methodValidation.specialCharacters(`${inputName['input2']}Characters`, messageVietnamese.ER0012)
+    methodValidation.maxLength(`${inputName['input2']}Length`, 300, 'tên câu lạc bộ')
     
-    methodValidation.email(`${inputName['input3']}`, messageVietnamese.ER003)
-    methodValidation.maxLength(`${inputName['input3']}Length`, 1000, 'email')
+    methodValidation.email(`${inputName['input3']}Format`, messageVietnamese.ER003)
+    methodValidation.maxLength(`${inputName['input3']}Length`, 100, 'email')
 
     methodValidation.empty(`${inputName['input4']}Empty`, messageVietnamese.ER001('nickname'))
     methodValidation.twoBytes(`${inputName['input4']}TwoBytes`, messageVietnamese.ER004)
-    methodValidation.maxLength(`${inputName['input4']}Length`, 20, 'nickname')
+    methodValidation.specialCharacters(`${inputName['input4']}Characters`, messageVietnamese.ER0012)
+    methodValidation.maxLength(`${inputName['input4']}Length`, 50, 'nickname')
 
-    methodValidation.empty(`${inputName['input5']}Empty`, messageVietnamese.ER001('fanpage'))
-    methodValidation.twoBytes(`${inputName['input5']}TwoBytes`, messageVietnamese.ER004)
-    methodValidation.maxLength(`${inputName['input5']}Length`, 255, 'fanpage')
+    methodValidation.maxLength(`${inputName['input5']}Length`, 300, 'fanpage')
 
-    methodValidation.empty(`${inputName['input6']}Empty`, messageVietnamese.ER001('ngày thành lập'))
-    methodValidation.isDate(`${inputName['input6']}`, messageVietnamese.ER001('ngày thành lập'))
+    methodValidation.isDate(`${inputName['input6']}Format`, messageVietnamese.ER001('ngày thành lập'))
 
     methodValidation.maxStorage(`${inputName['input7']}File`, messageVietnamese.ER0010('5 MB'))
 
@@ -44,10 +51,12 @@ $(document).ready(function() {
             clubId: {
                 required: true,
                 clubIdEmpty: true,
-                clubId: true,
+                clubIdTwoBytes: true,
+                clubIdCharacters: true,
+                clubIdLength: true,
                 remote: {
-                    url: "/check-email",
-                    type: "post",
+                    url: '/api/check-club-id',
+                    type: 'post',
                     data: {
                         clubId: function() {
                             return $("#clubId").val();
@@ -60,36 +69,77 @@ $(document).ready(function() {
                 required: true,
                 clubNameEmpty: true,
                 clubNameTwoBytes: true,
+                clubNameCharacters: true,
                 clubNameLength: true
             },
             email: {
                 required: true,
-                email: true,
-                emailLength: true
+                emailFormat: true,
+                emailLength: true,
+                remote: {
+                    url: '/api/check-club-id',
+                    type: 'post',
+                    data: {
+                        clubId: function() {
+                            return $("#clubId").val();
+                        }
+                    },
+                    dataType: 'json'
+                }
             },
             nickname: {
+                required: true,
                 nicknameEmpty: true,
                 nicknameTwoBytes: true,
-                nicknameLength: true
+                nicknameCharacters: true,
+                nicknameLength: true,
+                remote: {
+                    url: '/api/check-club-nickname',
+                    type: 'post',
+                    data: {
+                        nickname: function() {
+                            return $('#nickname').val();
+                        }
+                    },
+                    dataType: 'json'
+                }
             },
             fanpage: {
-                fanpageEmpty: true,
-                fanpageTwoBytes: true,
+                required: true,
+                url: true,
                 fanpageLength: true
             },
+            founding: {
+                foundingFormat: true
+            },
             avatar: {
+                required: true,
                 extension: 'png|jpg|jpeg|gif|svg',
                 avatarFile: 5
             }
         },
         messages: {
+            clubId: {
+                required: messageVietnamese.ER001('ID câu lạc bộ'),
+                remote: messageVietnamese.ER007('ID câu lạc bộ')
+            },
             clubName: {
                 required: messageVietnamese.ER001('tên câu lạc bộ')
             },
             email: {
-                required: messageVietnamese.ER001('email')
+                required: messageVietnamese.ER001('email'),
+                remote: messageVietnamese.ER007('Email')
+            },
+            nickname: {
+                required: messageVietnamese.ER001('nickname'),
+                remote: messageVietnamese.ER007('Nickname')
+            },
+            fanpage: {
+                required: messageVietnamese.ER001('fanpage'),
+                url: messageVietnamese.ER0013('fanpage')
             },
             avatar: {
+                required: messageVietnamese.ER001('avatar'),
                 extension: messageVietnamese.ER009('.png, .jpg/.jpeg, gif, svg')
             }
         },

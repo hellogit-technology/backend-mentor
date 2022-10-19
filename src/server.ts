@@ -8,8 +8,9 @@ import flash from 'connect-flash';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import passport from 'passport';
-import fs from 'fs';
+import fs from 'fs-extra';
 import minifyHTML from 'express-minify-html-terser';
+import methodOverride from 'method-override';
 import dotenv from 'dotenv';
 
 declare module 'express-session' {
@@ -74,6 +75,9 @@ app.use(
     store: sessionStore
   })
 );
+
+// Override
+app.use(methodOverride('_method'));
 
 // Helpers
 app.use(showData);

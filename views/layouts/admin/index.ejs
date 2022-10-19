@@ -262,7 +262,7 @@
 					<!--begin::Modal header-->
 					<div class="modal-header pb-0 border-0 justify-content-end">
 						<!--begin::Close-->
-						<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+						<div class="btn btn-sm btn-icon btn-active-color-primary modal_event_cancel" data-bs-dismiss="modal">
 							<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
 							<span class="svg-icon svg-icon-1">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -323,7 +323,7 @@
 									<span>Nickname:</span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="nickname" class="form-control form-control-solid" />
+								<input type="text" name="nickname" id="nickname" class="form-control form-control-solid" />
 							</div>
 							<!--end::Input group-->	
 							<!--begin::Input group-->
@@ -358,7 +358,7 @@
 							<!--end::Input group-->															
                             <!--begin::Actions-->
 							<div class="text-center">
-								<button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+								<button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_club_cancel">Huỷ</button>
 								<button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
 							</div>
 							<!--end::Actions-->
@@ -412,7 +412,7 @@
 									<span>ID sự kiện: </span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="eventId" id="eventIdNew" placeholder="EVE00001" class="form-control form-control-solid catch-event-qrcode" />
+								<input type="text" name="eventId" id="eventId" placeholder="EVE00001" class="form-control form-control-solid catch-event-qrcode" />
 							</div>
 							<!--end::Input group-->
 							<!--begin::Input group-->
@@ -491,7 +491,7 @@
 					<!--begin::Modal header-->
 					<div class="modal-header pb-0 border-0 justify-content-end">
 						<!--begin::Close-->
-						<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+						<div class="btn btn-sm btn-icon btn-active-color-primary modal_student_cancel" data-bs-dismiss="modal">
 							<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
 							<span class="svg-icon svg-icon-1">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -519,7 +519,7 @@
 								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
 									<span>ID:</span>
 								</label>
-								<input type="text" name="schoolId" class="form-control form-control-solid"/>
+								<input type="text" name="schoolId" id="schoolId" class="form-control form-control-solid"/>
 							</div>
 							<!--end::Input group-->			
 							<!--begin::Input group-->
@@ -539,7 +539,7 @@
 									<span>Email:</span>
 								</label>
 								<!--end::Label-->
-								<input type="text" name="email" class="form-control form-control-solid" />
+								<input type="text" name="email" id="email" class="form-control form-control-solid" />
 							</div>
 							<!--end::Input group-->
 							<!--begin::Input group-->
@@ -549,7 +549,7 @@
 									<span>Cơ sở đang học:</span>
 								</label>
 								<!--end::Label-->
-								<select name="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+								<select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
 									<option value="" selected="" disabled="">Chọn cơ sở</option>
 									<% if (typeof(campus) !== 'undefined') { %>
 										<% campus.forEach(value => { %>
@@ -561,7 +561,7 @@
 							<!--end::Input group-->
                             <!--begin::Actions-->
 							<div class="text-center">
-								<button type="button" id="kt_modal_new_target_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+								<button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_student_cancel">Huỷ</button>
 								<button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
 							</div>
 							<!--end::Actions-->

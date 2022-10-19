@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
     const $inputForm = $('#kt_modal_evaluation_form_event')
 
@@ -16,9 +14,18 @@ $(document).ready(function() {
         $parent.append($icon)
         $('#main-club-input').after($parent)
         $(`#${$id}`).rules('add',  { 
-            required: true,
+            remote: {
+                url: '/api/check-club',
+                type: 'post',
+                data: {
+                    club: function() {
+                        return $(`#${$id}`).val();
+                    }
+                },
+                dataType: 'json'
+            },
             messages: {
-                required: messageVietnamese.ER001('đồng tổ chức')
+                remote: messageVietnamese.ER007('Đồng tổ chức')
             }
          })
 
@@ -36,36 +43,72 @@ $(document).ready(function() {
         $($inputForm)[0].reset()
     })
 
-
     const inputName = {
-        input1: 'eventName',
-        input2: 'date',
-        input3: 'club',
-        input4: 'poster'
+        input1: 'eventId',
+        input2: 'eventName',
+        input3: 'poster',
+        input4: 'date',
+        input5: 'club'
     }
 
-    methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER001('tên sự kiện'))
+    methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER001('ID sự kiện'))
     methodValidation.twoBytes(`${inputName['input1']}TwoBytes`, messageVietnamese.ER004)
-    methodValidation.maxLength(`${inputName['input1']}Length`, 200, 'tên sự kiện')
-    
-    methodValidation.maxStorage(`${inputName['input4']}File`, messageVietnamese.ER0010('10 MB'))
+    methodValidation.specialCharacters(`${inputName['input1']}Characters`, messageVietnamese.ER0012)
+    methodValidation.maxLength(`${inputName['input1']}Length`, 30, 'ID sự kiện')
 
-    const $validator = $inputForm.validate({
+    methodValidation.empty(`${inputName['input2']}Empty`, messageVietnamese.ER001('tên sự kiện'))
+    methodValidation.twoBytes(`${inputName['input2']}TwoBytes`, messageVietnamese.ER004)
+    methodValidation.specialCharacters(`${inputName['input2']}Characters`, messageVietnamese.ER0012)
+    methodValidation.maxLength(`${inputName['input2']}Length`, 300, 'tên sự kiện')
+
+    methodValidation.maxStorage(`${inputName['input3']}File`, messageVietnamese.ER0010('10 MB'))
+
+    methodValidation.isDate(`${inputName['input4']}Format`, messageVietnamese.ER001('ngày diễn ra'))
+
+    $inputForm.validate({
         onfocusout: function(element) {
             this.element(element);
         },
         rules: {
+            eventId: {
+                required: true,
+                eventIdEmpty: true,
+                eventIdTwoBytes: true,
+                eventIdCharacters: true,
+                eventIdLength: true,
+                remote: {
+                    url: '/api/check-event-id',
+                    type: 'post',
+                    data: {
+                        eventId: function() {
+                            return $('#eventId').val();
+                        }
+                    },
+                    dataType: 'json'
+                }
+            },
             eventName: {
                 required: true,
                 eventNameEmpty: true,
                 eventNameTwoBytes: true,
+                eventNameCharacters: true,
                 eventNameLength: true
             },
             date: {
-                required: true
+                required: true,
+                dateFormat: true
             },
             'club[]': {
-                required: true
+                remote: {
+                    url: '/api/check-club',
+                    type: 'post',
+                    data: {
+                        club: function() {
+                            return $('#club-event-1').val();
+                        }
+                    },
+                    dataType: 'json'
+                }
             },
             poster: {
                 required: true,
@@ -74,6 +117,10 @@ $(document).ready(function() {
             }
         },
         messages: {
+            eventId: {
+                required: messageVietnamese.ER001('ID sự kiện'),
+                remote: messageVietnamese.ER007('ID sự kiện')
+            },
             eventName: {
                 required: messageVietnamese.ER001('tên sự kiện')
             },
@@ -81,7 +128,7 @@ $(document).ready(function() {
                 required: messageVietnamese.ER001('ngày diễn ra')
             },
             'club[]': {
-                required: messageVietnamese.ER001('đồng tổ chức')
+                remote: messageVietnamese.ER001('đồng tổ chức')
             },
             poster: {
                 required: messageVietnamese.ER0011,
@@ -101,6 +148,4 @@ $(document).ready(function() {
             form.submit()
         }
     })
-
-    
 })

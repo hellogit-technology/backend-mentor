@@ -4,6 +4,10 @@ export const isLogged = (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
     return res.redirect('/login');
   }
+  const profileSession: any = req.user
+  if (profileSession['isLogged'] !== true) {
+    return res.redirect('/login')
+  }
   return next();
 };
 

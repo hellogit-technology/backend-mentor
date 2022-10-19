@@ -254,96 +254,11 @@
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="btn-group align-top">
-                                                                            <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp_<%= account._id %>">Sửa</button>
-                                                                            <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                            <button class="btn btn-secondary badge update-account-pdp" data-id="<%= account._id %>" data-fullname="<%= account.fullname %>" data-email="<%= account.email %>" data-campus="<%= account.campus.name %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
+                                                                            <button class="btn btn-secondary badge remove-account-pdp" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_pdp"><i class="fa fa-trash"></i></button>
                                                                         </div>
                                                                     </td>
-                                                                </tr>  
-                                                                <!--begin::Modal - Edit Account PDP-->
-                                                                <div class="modal fade" id="edit_account_pdp_<%= account._id %>" tabindex="-1" aria-hidden="true">
-                                                                    <!--begin::Modal dialog-->
-                                                                    <div class="modal-dialog modal-dialog-centered mw-650px">
-                                                                        <!--begin::Modal content-->
-                                                                        <div class="modal-content rounded">
-                                                                            <!--begin::Modal header-->
-                                                                            <div class="modal-header pb-0 border-0 justify-content-end">
-                                                                                <!--begin::Close-->
-                                                                                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                                                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                                                                    <span class="svg-icon svg-icon-1">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                                                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                                                                                        </svg>
-                                                                                    </span>
-                                                                                    <!--end::Svg Icon-->
-                                                                                </div>
-                                                                                <!--end::Close-->
-                                                                            </div>
-                                                                            <!--begin::Modal header-->
-                                                                            <!--begin::Modal body-->
-                                                                            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                                                                                <!--begin:Form-->
-                                                                                <form id="kt_modal_evaluatio_pdp_form" class="form" method="post" action="/api/admin-account/<%= account._id %>">
-                                                                                    <!--begin::Heading-->
-                                                                                    <div class="mb-13 text-center">
-                                                                                        <!--begin::Title-->
-                                                                                        <h1 class="mb-3">Chỉnh sửa thông tin tài khoản</h1>
-                                                                                        <!--end::Title-->
-                                                                                    </div>
-                                                                                    <!--end::Heading-->						
-                                                                                    <!--begin::Input group-->
-                                                                                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                        <!--begin::Label-->
-                                                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                            <span>Họ và tên: </span>
-                                                                                        </label>
-                                                                                        <!--end::Label-->
-                                                                                        <input type="text" class="form-control form-control-solid" placeholder="<%= account.fullname %>" />
-                                                                                    </div>
-                                                                                    <!--end::Input group-->
-                                                                                    <!--begin::Input group-->
-                                                                                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                        <!--begin::Label-->
-                                                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                            <span>Email:</span>
-                                                                                        </label>
-                                                                                        <!--end::Label-->
-                                                                                        <input type="text" class="form-control form-control-solid" placeholder="<%= account.email %>">
-                                                                                    </div>
-                                                                                    <!--end::Input group-->
-                                                                                    <!--begin::Input group-->
-                                                                                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                        <!--begin::Label-->
-                                                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                            <span>Cơ sở đang làm việc:</span>
-                                                                                        </label>
-                                                                                        <!--end::Label-->
-                                                                                        <select name="club_typer" aria-label="Select a Campus" data-control="select_campus" class="form-select form-select-solid">
-                                                                                            <% if (typeof(campus) !=='undefined') { %>
-                                                                                                <% campus.forEach((campus, index) => { %> 
-                                                                                                    <option value="<%= campus._id %>" <% if (campus._id === account.campus._id) { %>selected<% } %>><%= campus.name %></option>
-                                                                                                <% }) %> 
-                                                                                            <% } %>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <!--end::Input group-->
-                                                                                    <!--begin::Actions-->
-                                                                                    <div class="text-center">
-                                                                                        <button type="button" data-bs-dismiss="modal" id="kt_modal_update_pdp_cancel" class="btn btn-light me-3">Huỷ</button>
-                                                                                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
-                                                                                    </div>
-                                                                                    <!--end::Actions-->
-                                                                                </form>
-                                                                                <!--end:Form-->
-                                                                            </div>
-                                                                            <!--end::Modal body-->
-                                                                        </div>
-                                                                        <!--end::Modal content-->
-                                                                    </div>
-                                                                    <!--end::Modal dialog-->
-                                                                </div>
-                                                                <!--end::Modal - Edit Account PDP-->
+                                                                </tr>
                                                             <% }) %>
                                                         </tbody>
                                                     <% } else { %> 
@@ -391,113 +306,11 @@
                                                                 </td>
                                                                 <td class="text-center align-middle">
                                                                     <div class="btn-group align-top">
-                                                                        <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
-                                                                        <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                        <button class="btn btn-secondary badge update-account-leader" data-id="<%= account._id %>" data-email="<%= account.email %>" data-fullname="<%= account.fullname %>" data-club="<%= account.club.name %>" data-campus="<%= account.campus.name %>" data-schoolId="<%= account.schoolId %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
+                                                                        <button class="btn btn-secondary badge remove-account-leader" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_club"><i class="fa fa-trash"></i></button>
                                                                     </div>
                                                                 </td>
                                                             </tr>  
-                                                            <!--begin::Modal - Edit Account Club-->
-                                                            <div class="modal fade" id="edit_account_club" tabindex="-1" aria-hidden="true">
-                                                                <!--begin::Modal dialog-->
-                                                                <div class="modal-dialog modal-dialog-centered mw-650px">
-                                                                    <!--begin::Modal content-->
-                                                                    <div class="modal-content rounded">
-                                                                        <!--begin::Modal header-->
-                                                                        <div class="modal-header pb-0 border-0 justify-content-end">
-                                                                            <!--begin::Close-->
-                                                                            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                                                                <span class="svg-icon svg-icon-1">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                                                                        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <!--end::Svg Icon-->
-                                                                            </div>
-                                                                            <!--end::Close-->
-                                                                        </div>
-                                                                        <!--begin::Modal header-->
-                                                                        <!--begin::Modal body-->
-                                                                        <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                                                                            <!--begin:Form-->
-                                                                            <form id="kt_modal_evaluation_leader_form" class="form" method="post" action="/api/leader-account/<%= account._id %>">
-                                                                                <!--begin::Heading-->
-                                                                                <div class="mb-13 text-center">
-                                                                                    <!--begin::Title-->
-                                                                                    <h1 class="mb-3">Chỉnh sửa thông tin tài khoản</h1>
-                                                                                    <!--end::Title-->
-                                                                                </div>
-                                                                                <!--end::Heading-->						
-                                                                                <!--begin::Input group-->
-                                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                        <span>Tài khoản: </span>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                    <input type="text" class="form-control form-control-solid" placeholder="<%= account.email %>" />
-                                                                                </div>
-                                                                                <!--end::Input group-->
-                                                                                <!--begin::Input group-->
-                                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                        <span>Câu lạc bộ:</span>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                    <select name="club_typer" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
-                                                                                        <% if (typeof(club) !== 'undefined') { %>
-                                                                                            <% club.forEach((club, index) => { %> 
-                                                                                                <option value="<%= club.clubId %>" <% if (club.clubId === account.club.clubId) { %>selected<% } %>><%= club.name %></option>
-                                                                                            <% }) %> 
-                                                                                        <% } %>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <!--end::Input group-->
-                                                                                <!--begin::Input group-->
-                                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                        <span>Tên Leader:</span>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                    <output type="text" class="form-control form-control-solid"><%= account.fullname%></output>
-                                                                                </div>
-                                                                                <!--end::Input group-->
-                                                                                <!--begin::Input group-->
-                                                                                <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                                        <span>Cơ sở đang học:</span>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                    <select name="club_typer" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
-                                                                                        <% if (typeof(campus) !== 'undefined') { %>
-                                                                                            <% campus.forEach((campus, index) => { %> 
-                                                                                                <option value="<%= campus._id %>" <% if (campus._id === account.campus._id) { %>selected<% } %>><%= campus.name %></option>
-                                                                                            <% }) %> 
-                                                                                        <% } %>
-                                                                                        
-                                                                                    </select>
-                                                                                </div>
-                                                                                <!--end::Input group-->
-                                                                                <!--begin::Actions-->
-                                                                                <div class="text-center">
-                                                                                    <button type="button" data-bs-dismiss="modal" id="kt_modal_update_leader_cancel" class="btn btn-light me-3">Huỷ</button>
-                                                                                    <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
-                                                                                </div>
-                                                                                <!--end::Actions-->
-                                                                            </form>
-                                                                            <!--end:Form-->
-                                                                        </div>
-                                                                        <!--end::Modal body-->
-                                                                    </div>
-                                                                    <!--end::Modal content-->
-                                                                </div>
-                                                                <!--end::Modal dialog-->
-                                                            </div>
-                                                            <!--end::Modal - Edit Account Club-->
                                                         <% }) %> 
                                                     </tbody>
                                                 <% } else { %>
@@ -535,7 +348,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" id="btn-close-new" data-bs-dismiss="modal">
+                <div class="btn btn-sm btn-icon btn-active-color-primary modal_account_cancel" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -596,7 +409,7 @@
                                                     <span>Email:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" name="email" class="form-control form-control-solid">
+                                                <input type="text" name="email" id="email" class="form-control form-control-solid">
                                             </div>
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
@@ -606,7 +419,7 @@
                                                     <span>Cơ sở đang làm việc:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <select name="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                                                <select name="campus" id="campusPDP" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                                                     <option value="" selected="" disabled="">Chọn cơ sở</option>
                                                     <% if (typeof(campus) !== 'undefined') { %>
                                                         <% campus.forEach(value => { %>
@@ -632,7 +445,7 @@
                                             <!--end::Input group-->
                                             <!--begin::Actions-->
                                             <div class="text-center">
-                                                <button type="button" id="kt_modal_pdp_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
                                                 <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
                                             </div>
                                             <!--end::Actions-->									
@@ -708,7 +521,7 @@
                                         <!--end::Input group-->	
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="button" id="kt_modal_leader_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
                                             <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
                                         </div>
                                         <!--end::Actions-->										
@@ -726,6 +539,304 @@
     <!--end::Modal dialog-->
 </div>
 <!--end::Modal - New Account-->
+
+<!--begin::Modal - Edit Account PDP-->
+<div class="modal fade" id="edit_account_pdp" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_update_pdp_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Chỉnh sửa thông tin tài khoản</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->						
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Họ và tên: </span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Email:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="email" name="email" class="form-control form-control-solid">
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Cơ sở đang làm việc:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" class="form-select form-select-solid">
+                            <% if (typeof(campus) !=='undefined') { %>
+                                <% campus.forEach((campus, index) => { %> 
+                                    <option value="<%= campus._id %>"><%= campus.name %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Edit Account PDP-->
+
+<!--begin::Modal - Edit Account Club-->
+<div class="modal fade" id="edit_account_club" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_update_leader_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Chỉnh sửa thông tin tài khoản</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->						
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Email: </span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="email" name="email" class="form-control form-control-solid"/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Câu lạc bộ:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
+                            <% if (typeof(club) !== 'undefined') { %>
+                                <% club.forEach((club, index) => { %> 
+                                    <option value="<%= club.clubId %>"><%= club.name %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Tên Leader:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="fullname" id="fullname" class="form-control form-control-solid">
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Mã số sinh viên:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="schoolId" name="schoolId" class="form-control form-control-solid"/>
+                    </div>
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Cơ sở đang học:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                            <% if (typeof(campus) !== 'undefined') { %>
+                                <% campus.forEach((campus, index) => { %> 
+                                    <option value="<%= campus._id %>"><%= campus.name %></option>
+                                <% }) %> 
+                            <% } %>
+                            
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Edit Account Club-->
+
+<!--begin::Modal - Confirm Delete Account PDP-->
+<div class="modal fade" id="delete_account_pdp" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_delete_account_pdp_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Xác nhận xóa tài khoản PDP?</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->		
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="confirm-delete-account-pdp" class="btn btn-primary">Xác Nhận</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Confirm Delete Account PDP-->
+
+<!--begin::Modal - Confirm Delete Account Leader-->
+<div class="modal fade" id="delete_account_club" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_delete_account_leader_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Xác nhận xóa tài khoản Leader?</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->		
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="confirm-delete-account-club" class="btn btn-primary">Xác Nhận</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Confirm Delete Account Leader-->
+
+
 
  
 

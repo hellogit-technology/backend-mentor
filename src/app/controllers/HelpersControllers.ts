@@ -44,7 +44,7 @@ class HelpersControllers {
       }
       return res.status(200).json(false)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -58,7 +58,7 @@ class HelpersControllers {
       }
       return res.status(200).json(false)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -72,7 +72,7 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -86,7 +86,7 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -100,7 +100,7 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -114,7 +114,7 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -128,7 +128,7 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -142,7 +142,7 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
     }
   }
 
@@ -157,7 +157,35 @@ class HelpersControllers {
       }
       return res.status(200).json(true)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(false)
+    }
+  }
+
+  // [POST] /api/check-account-email-pdp-update
+  async accountEmailPDPUpdate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {email, id} = req.body
+      const emailPDP = await AdminAccount.findOne({email: email, _id: {$ne: id}})
+      if(emailPDP) {
+        return res.status(200).json(false)
+      }
+      return res.status(200).json(true)
+    } catch (error) {
+      res.status(500).json(false)
+    }
+  }
+
+  // [POST] /api/check-account-email-leader-update
+  async accountEmailLeaderUpdate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {email, id} = req.body
+      const emailLeader = await LeaderAccount.findOne({email: email, _id: {$ne: id}})
+      if(emailLeader) {
+        return res.status(200).json(false)
+      }
+      return res.status(200).json(true)
+    } catch (error) {
+      res.status(500).json(false)
     }
   }
 
