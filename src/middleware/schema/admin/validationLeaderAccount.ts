@@ -1,6 +1,6 @@
 import { check } from 'express-validator';
 import { messageVietnamese } from '../../../utils/message';
-import {AdminAccount, Campus, LeaderAccount, Club, Student} from '../../../app/models'
+import { AdminAccount, Campus, LeaderAccount, Club, Student } from '../../../app/models';
 
 // CREATE LEADER ACCOUNT
 export const leaderSchema = [
@@ -135,7 +135,7 @@ export const leaderSchema = [
     .bail()
     .custom(async (value: string) => {
       const campusId = value.trim();
-      const checkCampusId = await Campus.findById(campusId)
+      const checkCampusId = await Campus.findById(campusId);
       if (!checkCampusId) {
         throw new Error(messageVietnamese.ER001('mã số sinh viên'));
       }
@@ -144,7 +144,6 @@ export const leaderSchema = [
     .bail()
     .trim()
 ];
-
 
 // UPDATE LEADER ACCOUNT
 export const leaderUpdateSchema = [
@@ -264,7 +263,7 @@ export const leaderUpdateSchema = [
     .bail()
     .custom(async (value: string) => {
       const campusId = value.trim();
-      const checkCampusId = await Campus.findById(campusId)
+      const checkCampusId = await Campus.findById(campusId);
       if (!checkCampusId) {
         throw new Error(messageVietnamese.ER001('mã số sinh viên'));
       }

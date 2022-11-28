@@ -3,11 +3,7 @@ import { messageVietnamese } from '../../../utils/message';
 import { AdminAccount, Campus, LeaderAccount } from '../../../app/models';
 
 // CREATE SCORES
-export const scoresSchema = [
-
-]
+export const scoresSchema = [];
 
 // UPDATE SCORES
-export const scoresUpdateSchema = [
-    
-]
+export const scoresUpdateSchema = [];

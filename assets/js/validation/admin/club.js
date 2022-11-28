@@ -1,6 +1,20 @@
-
+// CREATE CLUB
 $(document).ready(function() {
     const $inputForm = $('#kt_modal_evaluation_form_club')
+
+    // Preview photo
+    $('#kt_modal_evaluation_form_club #avatar').change(function() {
+        console.log('run')
+        const file = this.files[0];
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                $('#kt_modal_evaluation_form_club #preview-photo')
+                    .attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    })
 
     // Reset validation and value
     $('.modal_club_cancel').click(function() {

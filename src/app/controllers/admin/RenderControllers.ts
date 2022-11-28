@@ -4,7 +4,7 @@ import path from 'path';
 import { Campus, Event, Club, AdminAccount, LeaderAccount, Student } from '../../models';
 
 // Add files to layout
-const environment = process.env.NODE_ENV!
+const environment = process.env.NODE_ENV!;
 const forWebpackDir = {
   css: path.join(__dirname, '../public/css'),
   js: path.join(__dirname, '../public/js')

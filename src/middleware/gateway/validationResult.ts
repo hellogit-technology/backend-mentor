@@ -2,11 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { ValidationError, validationResult } from 'express-validator';
 
 interface StructureError {
-  [key: string]: Pick<ValidationError, 'msg' | 'value'>
+  [key: string]: Pick<ValidationError, 'msg' | 'value'>;
 }
 
 class ValidationResult {
-  
   handler(elements: ValidationError[]) {
     const object: StructureError = {};
     for (const element of elements) {

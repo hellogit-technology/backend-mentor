@@ -145,12 +145,12 @@ $(document).ready(function() {
         input4: 'role'
     }
 
-    methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER001('họ và tên'))
+    methodValidation.empty(`${inputName['input1']}Empty`, messageVietnamese.ER005)
     methodValidation.twoBytes(`${inputName['input1']}TwoBytes`, messageVietnamese.ER004)
     methodValidation.specialCharacters(`${inputName['input1']}Characters`, messageVietnamese.ER0012)
     methodValidation.maxLength(`${inputName['input1']}Length`, 50, 'họ và tên')
     
-    methodValidation.email(`${inputName['input2']}`, messageVietnamese.ER003)
+    methodValidation.email(`${inputName['input2']}Format`, messageVietnamese.ER003)
     methodValidation.maxLength(`${inputName['input2']}Length`, 100, 'email')
 
     // Check Role
@@ -173,7 +173,7 @@ $(document).ready(function() {
                 fullnameLength: true
             },
             email: {
-                email: true,
+                emailFormat: true,
                 emailLength: true,
                 remote: {
                     url: '/api/check-account-email-pdp-update',
@@ -231,11 +231,10 @@ $(document).ready(function() {
 
 // DELETE ADMIN ACCOUNT
 $(document).ready(function() {
-    let $accountId
     const $confirmForm = $('#modal_delete_account_pdp_form')
     $(document).on('click', '.remove-account-pdp', function() {
-        $accountId = $(this).data('id');
+        const $accountId = $(this).data('id');
+        $confirmForm.attr('method', 'post')
+        $confirmForm.attr('action', `/api/admin-account/${$accountId}?_method=DELETE`)
     })
-    $confirmForm.attr('method', 'post')
-    $confirmForm.attr('action', `/api/admin-account/${$accountId}?_method=DELETE`)
 })

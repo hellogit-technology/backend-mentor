@@ -11,6 +11,9 @@ export const messageVietnamese = {
   ER008: `Không nhập ký tự in hoa.`,
   ER009: (param: string) => `Chỉ cho phép các định dạng file là: ${param}`,
   ER0010: (param: string) => `Dung lượng tối đa của file tải lên là ${param}`,
+  ER0011: `Vui lòng chọn file để tải lên`,
+  ER0012: `Không nhập ký tự đặc biệt.`,
+  ER0013: (param: string) => `Vui lòng nhập link ${param}`,
 
   // Auth
   RES001: `Thông tin đăng nhập không đúng.`,

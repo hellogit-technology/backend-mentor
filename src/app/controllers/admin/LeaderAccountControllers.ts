@@ -9,7 +9,7 @@ class LeaderAccountControllers {
       interface BaseLeaderAccount {
         fullname: string;
         email: string;
-        schoolId: string
+        schoolId: string;
         campus: string;
         role: number;
         club: string;
@@ -43,7 +43,7 @@ class LeaderAccountControllers {
       interface BaseLeaderAccountUpdate {
         fullname?: string;
         email?: string;
-        schoolId?: string
+        schoolId?: string;
         campus?: string;
         role?: number;
         club?: string;
@@ -69,8 +69,8 @@ class LeaderAccountControllers {
       if (club) {
         requestBody['club'] = club;
       }
-      if(schoolId) {
-        requestBody['schoolId'] = schoolId
+      if (schoolId) {
+        requestBody['schoolId'] = schoolId;
       }
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.updateOne({ $set: requestBody });

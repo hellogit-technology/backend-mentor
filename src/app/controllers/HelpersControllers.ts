@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { generate } from '../../utils/generateQRCode';
 import { makeSlug } from '../../utils/slugify';
-import { LeaderAccount, AdminAccount, Campus, Club, Event, Student, Scores } from '../models'
+import { LeaderAccount, AdminAccount, Campus, Club, Event, Student, Scores } from '../models';
 
 class HelpersControllers {
   // [POST] /api/generateqrcode
@@ -37,158 +37,157 @@ class HelpersControllers {
   // [POST] /api/check-campus
   async campusIsValid(req: Request, res: Response, next: NextFunction) {
     try {
-      const {campus} = req.body
-      const result = await Campus.findById(campus)
-      if(result) {
-        return res.status(200).json(true)
+      const { campus } = req.body;
+      const result = await Campus.findById(campus);
+      if (result) {
+        return res.status(200).json(true);
       }
-      return res.status(200).json(false)
+      return res.status(200).json(false);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-club
   async clubIsValid(req: Request, res: Response, next: NextFunction) {
     try {
-      const {club} = req.body
-      const result = await Club.findById(club)
-      if(result) {
-        return res.status(200).json(true)
+      const { club } = req.body;
+      const result = await Club.findById(club);
+      if (result) {
+        return res.status(200).json(true);
       }
-      return res.status(200).json(false)
+      return res.status(200).json(false);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-club-id
   async clubIdExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {clubId} = req.body
-      const club = await Club.findOne({clubId: clubId})
-      if(club) {
-        return res.status(200).json(false)
+      const { clubId } = req.body;
+      const club = await Club.findOne({ clubId: clubId });
+      if (club) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-club-email
   async clubEmailExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {email} = req.body
-      const club = await Club.findOne({email: email})
-      if(club) {
-        return res.status(200).json(false)
+      const { email } = req.body;
+      const club = await Club.findOne({ email: email });
+      if (club) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-club-nickname
   async clubNicknameExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {nickname} = req.body
-      const club = await Club.findOne({nickname: nickname})
-      if(club) {
-        return res.status(200).json(false)
+      const { nickname } = req.body;
+      const club = await Club.findOne({ nickname: nickname });
+      if (club) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-student-id
   async studentIdExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {schoolId} = req.body
-      const student = await Event.findOne({schoolId: schoolId})
-      if(student) {
-        return res.status(200).json(false)
+      const { schoolId } = req.body;
+      const student = await Event.findOne({ schoolId: schoolId });
+      if (student) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-student-email
   async studentEmailExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {email} = req.body
-      const student = await Event.findOne({email: email})
-      if(student) {
-        return res.status(200).json(false)
+      const { email } = req.body;
+      const student = await Event.findOne({ email: email });
+      if (student) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-event-id
   async eventIdExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {eventId} = req.body
-      const event = await Event.findOne({eventId: eventId})
-      if(event) {
-        return res.status(200).json(false)
+      const { eventId } = req.body;
+      const event = await Event.findOne({ eventId: eventId });
+      if (event) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-account-email
   async accountEmailExist(req: Request, res: Response, next: NextFunction) {
     try {
-      const {email} = req.body
-      const emailPDP = await AdminAccount.findOne({email: email})
-      const emailLeader = await LeaderAccount.findOne({email: email})
-      if(emailLeader || emailPDP) {
-        return res.status(200).json(false)
+      const { email } = req.body;
+      const emailPDP = await AdminAccount.findOne({ email: email });
+      const emailLeader = await LeaderAccount.findOne({ email: email });
+      if (emailLeader || emailPDP) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-account-email-pdp-update
   async accountEmailPDPUpdate(req: Request, res: Response, next: NextFunction) {
     try {
-      const {email, id} = req.body
-      const emailPDP = await AdminAccount.findOne({email: email, _id: {$ne: id}})
-      if(emailPDP) {
-        return res.status(200).json(false)
+      const { email, id } = req.body;
+      const emailPDP = await AdminAccount.findOne({ email: email, _id: { $ne: id } });
+      if (emailPDP) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
 
   // [POST] /api/check-account-email-leader-update
   async accountEmailLeaderUpdate(req: Request, res: Response, next: NextFunction) {
     try {
-      const {email, id} = req.body
-      const emailLeader = await LeaderAccount.findOne({email: email, _id: {$ne: id}})
-      if(emailLeader) {
-        return res.status(200).json(false)
+      const { email, id } = req.body;
+      const emailLeader = await LeaderAccount.findOne({ email: email, _id: { $ne: id } });
+      if (emailLeader) {
+        return res.status(200).json(false);
       }
-      return res.status(200).json(true)
+      return res.status(200).json(true);
     } catch (error) {
-      res.status(500).json(false)
+      res.status(500).json(false);
     }
   }
-
 }
 
 export default new HelpersControllers();

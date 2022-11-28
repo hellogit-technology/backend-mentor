@@ -19,14 +19,14 @@ const ScoresSchema = new Schema(
     totalAttitude: { type: Number, max: 3 },
     month: { type: Number, max: 2, required: true },
     student: { type: Schema.Types.ObjectId, required: true, ref: 'Student' },
-    system: {type: Date},
+    system: { type: Date },
     editor: {
       userId: { type: Schema.Types.ObjectId },
       role: { type: Number }
     },
     historyEdit: [
       {
-        userId: { type: Schema.Types.ObjectId},
+        userId: { type: Schema.Types.ObjectId },
         role: { type: Number }
       }
     ]

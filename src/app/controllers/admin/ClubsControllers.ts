@@ -24,7 +24,7 @@ class ClubsControllers {
       }
       const profileSession: any = req.user;
       const { clubId, clubName, email, nickname, fanpage, founding } = req.body;
-      const result = await cloudinary.v2.uploader.upload(req.file!.path, {folder: 'Avatar'});
+      const result = await cloudinary.v2.uploader.upload(req.file!.path, { folder: 'Avatar' });
       const requestBody: BaseClub = {
         clubId: clubId,
         name: clubName,

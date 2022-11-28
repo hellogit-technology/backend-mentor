@@ -14,10 +14,8 @@ const router = express.Router();
 
 // Event
 router.post('/event', uploadDisk.single('poster'), eventsControllers.createEvent);
-router.post('/event/:id/expire', eventsControllers.setExpire)
-router.route('/event/:id')
-    .patch(uploadDisk.single('poster'), eventsControllers.updateEvent)
-    .delete(eventsControllers.deleteEvent);
+router.post('/event/:id/expire', eventsControllers.setExpire);
+router.route('/event/:id').patch(uploadDisk.single('poster'), eventsControllers.updateEvent).delete(eventsControllers.deleteEvent);
 
 // Student
 router.post('/student', studentControllers.createStudent);
@@ -26,7 +24,7 @@ router.post('/file-students', uploadDisk.single('students'), studentControllers.
 
 // Club
 router.post('/club', uploadDisk.single('avatar'), clubsControllers.createClub);
-router.route('/club/:id').patch( uploadDisk.single('avatar'), clubsControllers.updateClub).delete(clubsControllers.deleteClub);
+router.route('/club/:id').patch(uploadDisk.single('avatar'), clubsControllers.updateClub).delete(clubsControllers.deleteClub);
 
 // Leader Account
 router.post('/leader-account', leaderAccountControllers.createLeader);
@@ -44,16 +42,16 @@ router.post('/scores', scoresControllers.createScores);
 router.route('/scores/:id').patch(scoresControllers.updateScores).delete(scoresControllers.deleteScores);
 
 // Helper
-router.post('/check-campus', helpersControllers.campusIsValid)
-router.post('/check-club', helpersControllers.clubIsValid)
-router.post('/check-account-email', helpersControllers.accountEmailExist)
-router.post('/check-club-email', helpersControllers.clubEmailExist)
-router.post('/check-club-id', helpersControllers.clubIdExist)
-router.post('/check-club-nickname', helpersControllers.clubNicknameExist)
-router.post('/check-event-id', helpersControllers.eventIdExist)
-router.post('/check-student-email', helpersControllers.studentEmailExist)
-router.post('/check-student-id', helpersControllers.studentIdExist)
-router.post('/api/check-account-email-pdp-update', helpersControllers.accountEmailPDPUpdate)
-router.post('/api/check-account-email-leader-update', helpersControllers.accountEmailLeaderUpdate)
+router.post('/check-campus', helpersControllers.campusIsValid);
+router.post('/check-club', helpersControllers.clubIsValid);
+router.post('/check-account-email', helpersControllers.accountEmailExist);
+router.post('/check-club-email', helpersControllers.clubEmailExist);
+router.post('/check-club-id', helpersControllers.clubIdExist);
+router.post('/check-club-nickname', helpersControllers.clubNicknameExist);
+router.post('/check-event-id', helpersControllers.eventIdExist);
+router.post('/check-student-email', helpersControllers.studentEmailExist);
+router.post('/check-student-id', helpersControllers.studentIdExist);
+router.post('/check-account-email-pdp-update', helpersControllers.accountEmailPDPUpdate);
+router.post('/check-account-email-leader-update', helpersControllers.accountEmailLeaderUpdate);
 
 export default router;

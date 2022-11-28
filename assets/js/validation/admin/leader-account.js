@@ -22,10 +22,12 @@ $(document).ready(function() {
 
     methodValidation.empty(`${inputName['input3']}Empty`, messageVietnamese.ER001('họ tên leader'))
     methodValidation.twoBytes(`${inputName['input3']}TwoBytes`, messageVietnamese.ER004)
+    methodValidation.specialCharacters(`${inputName['input3']}Characters`, messageVietnamese.ER0012)
     methodValidation.maxLength(`${inputName['input3']}Length`, 50, 'họ tên leader')
     
     methodValidation.empty(`${inputName['input4']}Empty`, messageVietnamese.ER001('mã số sinh viên'))
     methodValidation.twoBytes(`${inputName['input4']}TwoBytes`, messageVietnamese.ER004)
+    methodValidation.specialCharacters(`${inputName['input4']}Characters`, messageVietnamese.ER0012)
     methodValidation.maxLength(`${inputName['input4']}Length`, 30, 'mã số sinh viên')
 
     $inputForm.validate({
@@ -65,12 +67,14 @@ $(document).ready(function() {
                 required: true,
                 fullnameEmpty: true,
                 fullnameTwoBytes: true,
+                fullnameCharacters: true,
                 fullnameLength: true
             },
             schoolId: {
                 required: true,
                 schoolIdEmpty: true,
                 schoolIdTwoBytes: true,
+                schoolIdCharacters: true,
                 schoolIdLength: true,
                 remote: {
                     url: '/api/check-student-id',
@@ -182,12 +186,14 @@ $(document).ready(function() {
     methodValidation.email(`${inputName['input1']}Format`, messageVietnamese.ER003)
     methodValidation.maxLength(`${inputName['input1']}Length`, 100, 'email')
 
-    methodValidation.empty(`${inputName['input3']}Empty`, messageVietnamese.ER001('họ tên leader'))
+    methodValidation.empty(`${inputName['input3']}Empty`, messageVietnamese.ER005)
     methodValidation.twoBytes(`${inputName['input3']}TwoBytes`, messageVietnamese.ER004)
+    methodValidation.specialCharacters(`${inputName['input3']}Characters`, messageVietnamese.ER0012)
     methodValidation.maxLength(`${inputName['input3']}Length`, 50, 'họ tên leader')
     
-    methodValidation.empty(`${inputName['input4']}Empty`, messageVietnamese.ER001('mã số sinh viên'))
+    methodValidation.empty(`${inputName['input4']}Empty`, messageVietnamese.ER005)
     methodValidation.twoBytes(`${inputName['input4']}TwoBytes`, messageVietnamese.ER004)
+    methodValidation.specialCharacters(`${inputName['input4']}Characters`, messageVietnamese.ER0012)
     methodValidation.maxLength(`${inputName['input4']}Length`, 30, 'mã số sinh viên')
 
     $inputForm.validate({
@@ -227,11 +233,13 @@ $(document).ready(function() {
             fullname: {
                 fullnameEmpty: true,
                 fullnameTwoBytes: true,
+                fullnameCharacters: true,
                 fullnameLength: true
             },
             schoolId: {
                 schoolIdEmpty: true,
                 schoolIdTwoBytes: true,
+                schoolIdCharacters: true,
                 schoolIdLength: true,
                 remote: {
                     url: '/api/check-student-id',
@@ -245,7 +253,6 @@ $(document).ready(function() {
                 }
             },
             campus: {
-                required: true,
                 remote: {
                     url: '/api/check-campus',
                     type: 'post',
@@ -289,11 +296,10 @@ $(document).ready(function() {
 
 // DELETE ADMIN ACCOUNT
 $(document).ready(function() {
-    let $accountId
     const $confirmForm = $('#modal_delete_account_leader_form')
     $(document).on('click', '.remove-account-leader', function() {
-        $accountId = $(this).data('id');
+        const $accountId = $(this).data('id');
+        $confirmForm.attr('method', 'post')
+        $confirmForm.attr('action', `/api/leader-account/${$accountId}?_method=DELETE`)
     })
-    $confirmForm.attr('method', 'post')
-    $confirmForm.attr('action', `/api/leader-account/${$accountId}?_method=DELETE`)
 })

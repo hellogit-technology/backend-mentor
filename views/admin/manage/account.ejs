@@ -254,7 +254,7 @@
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="btn-group align-top">
-                                                                            <button class="btn btn-secondary badge update-account-pdp" data-id="<%= account._id %>" data-fullname="<%= account.fullname %>" data-email="<%= account.email %>" data-campus="<%= account.campus.name %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
+                                                                            <button class="btn btn-secondary badge update-account-pdp" data-id="<%= account._id %>" data-fullname="<%= account.fullname %>" data-email="<%= account.email %>" data-campus="<%= account.campus._id %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
                                                                             <button class="btn btn-secondary badge remove-account-pdp" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_pdp"><i class="fa fa-trash"></i></button>
                                                                         </div>
                                                                     </td>
@@ -306,7 +306,7 @@
                                                                 </td>
                                                                 <td class="text-center align-middle">
                                                                     <div class="btn-group align-top">
-                                                                        <button class="btn btn-secondary badge update-account-leader" data-id="<%= account._id %>" data-email="<%= account.email %>" data-fullname="<%= account.fullname %>" data-club="<%= account.club.name %>" data-campus="<%= account.campus.name %>" data-schoolId="<%= account.schoolId %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
+                                                                        <button class="btn btn-secondary badge update-account-leader" data-id="<%= account._id %>" data-email="<%= account.email %>" data-fullname="<%= account.fullname %>" data-club="<%= account.club %>" data-campus="<%= account.campus %>" data-schoolId="<%= account.schoolId %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
                                                                         <button class="btn btn-secondary badge remove-account-leader" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_club"><i class="fa fa-trash"></i></button>
                                                                     </div>
                                                                 </td>
@@ -399,7 +399,7 @@
                                                     <span>Họ và tên: </span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" name="fullname" class="form-control form-control-solid"/>
+                                                <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
                                             </div>
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
@@ -419,7 +419,7 @@
                                                     <span>Cơ sở đang làm việc:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <select name="campus" id="campusPDP" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                                                <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                                                     <option value="" selected="" disabled="">Chọn cơ sở</option>
                                                     <% if (typeof(campus) !== 'undefined') { %>
                                                         <% campus.forEach(value => { %>
@@ -437,7 +437,7 @@
                                                 </label>
                                                 <!--end::Label-->
                                                 <select name="role" aria-label="Select a Role" data-control="select_role" data-placeholder="Role" class="form-select form-select-solid">
-                                                    <option value="" selected="" disabled="">Chọn loại tài  khoản</option>>
+                                                    <option value="" selected="" disabled="">Chọn loại tài khoản</option>>
                                                     <option value="0">Administor</option>
                                                     <option value="1">Manager</option>>
                                                 </select>
@@ -446,7 +446,7 @@
                                             <!--begin::Actions-->
                                             <div class="text-center">
                                                 <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
-                                                <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                                                <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
                                             </div>
                                             <!--end::Actions-->									
                                         </form>
@@ -462,7 +462,7 @@
                                                 <span>Email: </span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" name="email" class="form-control form-control-solid" />
+                                            <input type="text" name="email" id="email" class="form-control form-control-solid" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -472,7 +472,7 @@
                                                 <span>Câu lạc bộ:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <select name="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
+                                            <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
                                                 <option value="" selected="" disabled="">Chọn câu lạc bộ</option>
                                                 <% if (typeof(club) !== 'undefined') { %>
                                                     <% club.forEach(value => { %>
@@ -489,7 +489,7 @@
                                                 <span>Họ tên leader:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" name="fullname" class="form-control form-control-solid"/>
+                                            <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -499,7 +499,7 @@
                                                 <span>Mã số sinh viên:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" name="schoolId" class="form-control form-control-solid"/>
+                                            <input type="text" name="schoolId" id="schoolId" class="form-control form-control-solid"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -509,7 +509,7 @@
                                                 <span>Cơ sở đang học:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <select name="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                                            <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                                                 <option value="" selected="" disabled="">Chọn cơ sở</option>
                                                 <% if (typeof(campus) !== 'undefined') { %>
                                                     <% campus.forEach(value => { %>
@@ -522,7 +522,7 @@
                                         <!--begin::Actions-->
                                         <div class="text-center">
                                             <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
-                                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                                            <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
                                         </div>
                                         <!--end::Actions-->										
                                     </form>
@@ -612,7 +612,7 @@
                     <!--begin::Actions-->
                     <div class="text-center">
                         <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
-                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" id="kt_modal_new_target_submit" style="background-color: #fdb32c;" class="btn btn-primary">Cập nhật</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -724,7 +724,7 @@
                     <!--begin::Actions-->
                     <div class="text-center">
                         <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
-                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" id="kt_modal_new_target_submit" style="background-color: #fdb32c;" class="btn btn-primary">Cập nhật</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -773,7 +773,7 @@
                     <!--end::Heading-->		
                     <div class="text-center">
                         <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
-                        <button type="submit" id="confirm-delete-account-pdp" class="btn btn-primary">Xác Nhận</button>
+                        <button type="submit" id="confirm-delete-account-pdp" style="background-color: #ff5757;" class="btn btn-primary">Xác Nhận</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -822,7 +822,7 @@
                     <!--end::Heading-->		
                     <div class="text-center">
                         <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
-                        <button type="submit" id="confirm-delete-account-club" class="btn btn-primary">Xác Nhận</button>
+                        <button type="submit" id="confirm-delete-account-club" style="background-color: #ff5757;" class="btn btn-primary">Xác Nhận</button>
                     </div>
                     <!--end::Actions-->
                 </form>

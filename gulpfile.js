@@ -57,7 +57,6 @@ gulp.task('validate-js', () => {
             'assets/js/validation/message.js', 
             'assets/js/validation/method-validation.js', 
             'assets/js/validation/admin/*.js',
-            'assets/js/validation/clearMessage.js'
         ])
         .pipe(strip())
         .pipe(concat(`validation-${idJS}.bundle.js`))

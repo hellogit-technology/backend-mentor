@@ -11,6 +11,8 @@ import passport from 'passport';
 import fs from 'fs-extra';
 import minifyHTML from 'express-minify-html-terser';
 import methodOverride from 'method-override';
+import http from 'http';
+import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 
 declare module 'express-session' {
@@ -21,8 +23,8 @@ declare module 'express-session' {
     displayName: string;
     failurePath: string;
     modalAccount: string | null | undefined;
-    inputShowEvent: number[]
-    inputShowScores: number[]
+    inputShowEvent: number[];
+    inputShowScores: number[];
   }
 }
 
@@ -39,14 +41,20 @@ import { connectDB } from './config/mongodb';
 import { googlePassport } from './config/passport';
 import showData from './middleware/helpers';
 import { clearCache } from './middleware/clearCache';
+import { redirectHTTPS } from './middleware/forceHTTPS';
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 const port = process.env.PORT || 8080;
 
 // Logger
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Force using https (only for deployment)
+app.use(redirectHTTPS);
 
 // Caching disabled for every route
 app.use(clearCache);
@@ -61,16 +69,21 @@ app.use(
   })
 );
 
+// Use proxy for express server
+app.set('trust proxy', true);
+
 // Session
 app.use(
   session({
     secret: process.env.SECRET_KEY!,
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
-      secure: process.env.NODE_ENV === 'development' ? false : true,
-      maxAge: 60000 * 60, //? Session expire in 1 hours
-      httpOnly: process.env.NODE_ENV === 'development' ? false : true
+      secure: true, // only use cookie over https (only for deployment)
+      maxAge: 60000 * 60, // session expire in a hour
+      httpOnly: true, // dont let browser javascript access cookie
+      sameSite: 'lax' // prevent CSRF Attack
     },
     store: sessionStore
   })
@@ -109,10 +122,7 @@ app.use('/js', [
   express.static(path.join(__dirname, `${libraryPath}/bootstrap/js`)),
   express.static(path.join(__dirname, `${libraryPath}/google`))
 ]);
-app.use('/css', [
-  express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)),
-  express.static(path.join(__dirname, `../public/helpers`))
-]);
+app.use('/css', [express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)), express.static(path.join(__dirname, `../public/helpers`))]);
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
 
@@ -157,6 +167,6 @@ route(app);
 // Connect db
 connectDB();
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

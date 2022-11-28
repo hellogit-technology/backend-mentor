@@ -352,8 +352,11 @@
 								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
 									<span>Avatar:</span>
 								</label>
+								<div class="text-center" style="margin-bottom: 15px; ">
+									<img class="text-center" style="border: 1px solid #f6f2f2; max-width: 200px;max-height: 200px;min-width: 200px;min-height: 200px;" id="preview-photo" src="#" alt="Xem trước ảnh tải lên" />
+								</div>
 								<!--end::Label-->
-								<input type="file" name="avatar" class="form-control form-control-solid" />
+								<input type="file" id="avatar" name="avatar" class="form-control form-control-solid" />
 							</div>
 							<!--end::Input group-->															
                             <!--begin::Actions-->
@@ -562,7 +565,7 @@
                             <!--begin::Actions-->
 							<div class="text-center">
 								<button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_student_cancel">Huỷ</button>
-								<button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">Lưu</button>
+								<button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
 							</div>
 							<!--end::Actions-->
 						</form>
