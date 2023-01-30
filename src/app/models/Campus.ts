@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose';
 const CampusSchema = new Schema(
   {
     name: { type: String, maxlength: 50, required: true },
+    shortId: { type: String, maxlength: 2, required: true },
     address: [{ type: String, maxlength: 100 }]
   },
   {

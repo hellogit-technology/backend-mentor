@@ -3,7 +3,7 @@ import { injectFile } from '../../utils/inject';
 
 class LoginControllers {
   // [GET] /login
-  async loginRender(req: Request, res: Response, next: NextFunction) {
+  public async loginRender(req: Request, res: Response, next: NextFunction) {
     try {
       const messages = req.flash('message')[0];
       const files = {
@@ -19,7 +19,7 @@ class LoginControllers {
   }
 
   // [GET] /logout
-  logout(req: Request, res: Response, next: NextFunction) {
+  public logout(req: Request, res: Response, next: NextFunction) {
     if (req.session) {
       req.session.destroy((err) => {
         if (err) {

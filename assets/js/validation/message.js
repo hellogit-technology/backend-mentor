@@ -14,6 +14,7 @@ const messageVietnamese = {
     ER0011: `Vui lòng chọn file để tải lên`,
     ER0012: `Không nhập ký tự đặc biệt.`,
     ER0013: (param) => `Vui lòng nhập link ${param}`,
+    ER0014: `Vui lòng nhập ngày tháng năm hợp lệ`,
   
     // Auth
     RES001: `Thông tin đăng nhập không đúng.`,

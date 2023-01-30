@@ -210,39 +210,37 @@
                 <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
                         <table class="table table-bordered">
-                            <% if (typeof(eventsSchool) !== 'undefined') { %>
-                                <% if(eventsSchool.length > 0) { %>
+                            <% if (typeof(queryData.eventsSchool) !== 'undefined') { %>
+                                <% if(queryData.eventsSchool.length > 0) { %>
                                 <thead>
                                     <tr>
                                         <th style="width:100px;">Stt</th>
                                         <th style="width:100px;">ID</th>
                                         <th style="width:400px;">Tên sự kiện</th>
                                         <th style="width:200px;" class="text-center">Ngày tổ chức</th>
-                                        <th style="width:150px;" class="text-center">Đồng tổ chức</th>
+                                        <th style="width:150px;" class="text-center">Cơ sở</th>
                                         <th style="width:200px;" class="text-center">Được thêm bởi</th>
-                                        <th></th>
+                                        <th style="width: 200px;"></th>
                                         <th style="width:200px;" class="text-center">Sửa/Xoá</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% eventsSchool.forEach((event, index) => { %>
+                                    <% queryData.eventsSchool.forEach((event, index) => { %>
                                         <tr>
                                             <td class="text-nowrap align-middle"><%= index + 1 %></td>
                                             <td class="text-nowrap align-middle"><%= event.eventId %></td>
                                             <td class="text-nowrap align-middle">
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#pdp_detail_event">
+                                                <a href="" class="show-detail-event" data-id="<%= event._id %>" data-eventid="<%= event.eventId %>" data-eventname="<%= event.name %>" data-eventdate="<%= formatDate(event.date) %>" data-campus="<%= event.campus.name %>" data-clubs="<%= event.club.map(element => element.name) %>" data-poster="<%= event.poster.photo %>" data-qrcode="<%= event.qrcode.photo %>" data-bs-toggle="modal" data-bs-target="#pdp_detail_event">
                                                     <%= event.name %> 
                                                 </a>
                                             </td>
                                             <td class="text-center align-middle"><%= formatDate(event.date) %></td>
                                             <td class="text-center align-middle">
-                                                <% event.club.nickname.forEach((club)=> { %> 
-                                                    <span class="badge badge-light-success fw-bolder fs-6"><%= club %></span>
-                                                <% }) %> 
+                                                <span class="badge badge-light-success fw-bolder fs-6"><%= event.campus.name %></span>
                                             </td>
                                             <td class="text-center align-middle">
                                                 <a href="pdp/overview.html">
-                                                    <%= event.editor.name %> 
+                                                    <%= event.editor.fullname %> 
                                                 </a>
                                             </td>
                                             <td class="text-center align-middle">
@@ -252,8 +250,8 @@
                                             </td>
                                             <td class="text-center align-middle">
                                                 <div class="btn-group align-top">
-                                                    <button class="btn btn-secondary badge" type="button" data-bs-toggle="modal" data-bs-target="#pdp_edit_event">Sửa</button>
-                                                    <button class="btn btn-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-secondary badge update-event" type="button" data-id="<%= event._id %>" data-eventid="<%= event.eventId %>" data-eventname="<%= event.name %>" data-eventdate="<%= formatDate(event.date, 'YYYY-MM-DD') %>" data-campus="<%= event.campus._id %>" data-clubs="<%= event.club.map(element => element.name) %>" data-poster="<%= event.poster.photo %>" data-qrcode="<%= event.qrcode.photo %>" data-bs-toggle="modal" data-bs-target="#pdp_edit_event">Sửa</button>
+                                                    <button class="btn btn-secondary badge remove-event" type="button" data-id="<%= event._id %>" data-bs-toggle="modal" data-bs-target="#delete_event"><i class="fa fa-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>  
@@ -314,17 +312,6 @@
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->		
-                    <div class="row mb-8">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>ID:</span>
-                        </label>
-                        <div class="row">
-                            <div class="col-md-12 fv-row">
-                                <output type="text" class="form-control form-control-solid" style="margin-bottom:10px;">GEvS22001</output>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end::Input group-->			
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                         <!--begin::Label-->
@@ -332,34 +319,8 @@
                             <span>Tên sự kiện: </span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="LEARNING BLOCKCHAIN: INTELLECTUAL PROPERTY ON THE BLOCKCHAIN"/>
+                        <input type="text" name="eventName" id="eventName" class="form-control form-control-solid catch-event-qrcode" />
                     </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Ngày diễn ra:</span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="date" class="form-control form-control-solid" id="Date" placeholder="16/07/2022">
-                    </div>
-                    <!--end::Input group-->
-                     <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Đồng tổ chức</span>
-                        </label>
-                        <!--end::Label-->
-                        <select name="club_typer" aria-label="Select a Club" data-control="select_club" data-placeholder="Câu lạc bộ" class="form-select form-select-solid">
-                            <option>Câu lạc bộ</option>
-                            <option selected value="">HELLOGIT_UoG Information Technology Club</option>
-                            <option value="">Greenwich Page Turner Club</option>
-                            <option value="none">None</option>
-                        </select>
-                    </div>
-                    <a href="#">+ Thêm câu lạc bộ</a>
                     <!--end::Input group-->
                     <!--begin: upload eventPoster-->
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
@@ -367,25 +328,64 @@
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                             <span>Poster sự kiện:</span>
                         </label>
+                        <div class="text-center" style="margin-bottom: 15px; ">
+                            <img class="text-center" style="border: 1px solid #f6f2f2; max-width: 550px;max-height: 310px;min-width: 550px;min-height: 310px;" id="preview-photo" src="#" alt="Xem trước ảnh tải lên" />
+                        </div>
                         <!--end::Label-->
-                        <input type="file" class="form-control form-control-solid" id="eventPoster">
+                        <input type="file" name="poster" class="form-control form-control-solid" id="poster">
                     </div>
-                    <!--end: upload eventPoster-->		
+                    <!--end: upload eventPoster-->
+                    <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>QR Code:</span>
+                            <span>Ngày diễn ra:</span>
                         </label>
                         <!--end::Label-->
-                        <div class="text-center">
-                            <img src="assets/media/qrcode/testqr.png" width="120px;" height="120px" alt="">
+                        <input type="date" name="date" class="form-control form-control-solid" id="eventDate">
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Cơ sở: </span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                            <option value="" selected="" disabled="">Chọn cơ sở</option>
+                            <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                <% queryData.campus.forEach(value => { %>
+                                    <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                        <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-2 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Đồng tổ chức</span>
+                        </label>
+                        <!--end::Label-->
+                        <div id="main-club-input">
+                            <select id="club-event-1" name="club[]" aria-label="Select a Club" data-control="select_club" data-placeholder="Câu lạc bộ" class="form-select form-select-solid">
+                                <option value="" selected="" disabled="">Câu lạc bộ</option>
+                                <% if (typeof(queryData.clubs) !== 'undefined' ) { %>
+                                    <% queryData.clubs.forEach(value => {  %>
+                                        <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                    <%  }) %>
+                                <% } %>
+                            </select>
                         </div>
                     </div>
+                    <p style="color: #00b2ff; cursor: pointer; margin-top: 20px" id="add-input-club-event">+ Thêm câu lạc bộ</a>
+                    <!--end::Input group-->
                     <!--begin::Actions-->
                     <div class="text-center">
-                        <button type="reset" class="btn btn-light me-3">Huỷ</button>    
-                        <button type="download" id="pdp_download_qr" class="btn btn-success me-3">Download QR</button>                         
-                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary"></button>
+                        <button type="reset" class="btn btn-light me-3">Huỷ</button>                          
+                        <button type="submit" id="kt_modal_new_target_submit" style="background-color: #fdb32c;" class="btn btn-primary">Xác nhận</button>
                     </div>
                     <!--end::Actions-->
                 </form>

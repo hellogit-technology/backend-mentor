@@ -8,23 +8,22 @@ import posterControllers from '../app/controllers/admin/PosterControllers';
 import scoresControllers from '../app/controllers/admin/ScoresControllers';
 import helpersControllers from '../app/controllers/HelpersControllers';
 
-import { uploadDisk } from '../config/multer';
+import { upload } from '../config/multer';
 
 const router = express.Router();
 
 // Event
-router.post('/event', uploadDisk.single('poster'), eventsControllers.createEvent);
-router.post('/event/:id/expire', eventsControllers.setExpire);
-router.route('/event/:id').patch(uploadDisk.single('poster'), eventsControllers.updateEvent).delete(eventsControllers.deleteEvent);
+router.post('/event', upload.single('poster'), eventsControllers.createEvent);
+router.route('/event/:id').patch(upload.single('poster'), eventsControllers.updateEvent).delete(eventsControllers.deleteEvent);
 
 // Student
 router.post('/student', studentControllers.createStudent);
 router.route('/student/:id').patch(studentControllers.updateStudent).delete(studentControllers.deleteStudent);
-router.post('/file-students', uploadDisk.single('students'), studentControllers.uploadStudents);
+router.post('/file-students', upload.single('students'), studentControllers.uploadStudents);
 
 // Club
-router.post('/club', uploadDisk.single('avatar'), clubsControllers.createClub);
-router.route('/club/:id').patch(uploadDisk.single('avatar'), clubsControllers.updateClub).delete(clubsControllers.deleteClub);
+router.post('/club', upload.single('avatar'), clubsControllers.createClub);
+router.route('/club/:id').patch(upload.single('avatar'), clubsControllers.updateClub).delete(clubsControllers.deleteClub);
 
 // Leader Account
 router.post('/leader-account', leaderAccountControllers.createLeader);
@@ -35,7 +34,7 @@ router.post('/admin-account', adminAccountControllers.createAdmin);
 router.route('/admin-account/:id').patch(adminAccountControllers.updateAdmin).delete(adminAccountControllers.deleteAdmin);
 
 // Poster
-router.post('/poster', uploadDisk.array('annPoster', 10), posterControllers.uploadPosters);
+router.post('/poster', upload.array('annPoster', 10), posterControllers.uploadPosters);
 
 // Scores
 router.post('/scores', scoresControllers.createScores);
@@ -53,5 +52,8 @@ router.post('/check-student-email', helpersControllers.studentEmailExist);
 router.post('/check-student-id', helpersControllers.studentIdExist);
 router.post('/check-account-email-pdp-update', helpersControllers.accountEmailPDPUpdate);
 router.post('/check-account-email-leader-update', helpersControllers.accountEmailLeaderUpdate);
+router.post('/download-qrcode', helpersControllers.downloadQRCode)
+router.post('/event/qrcode-status', helpersControllers.getStatusExpire)
+router.post('/event/:id/expire', helpersControllers.setStatusExpire)
 
 export default router;

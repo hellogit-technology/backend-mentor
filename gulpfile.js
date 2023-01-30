@@ -6,13 +6,33 @@ const terser = require('gulp-terser')
 const strip = require('gulp-strip-comments');
 const randomstring = require('randomstring')
 
-const idJS = randomstring.generate({
-    length: 15
-});
+// Make ID file
+const idJS = randomstring.generate({length: 15});
+const idCSS = randomstring.generate({length: 15})
 
-const idCSS = randomstring.generate({
-    length: 15
-})
+// Watch change JS files
+const jsDirectory = [
+    'assets/js/global/*.js', 
+    'assets/js/login/*.js',
+    'assets/js/status/*.js',
+    'assets/js/validation/message.js', 
+    'assets/js/validation/method-validation.js', 
+    'assets/js/validation/admin/*.js',
+    'assets/js/helpers/*.js',
+    'assets/js/toast/*.js'
+]
+
+// Watch change CSS files
+const cssDirectory = [
+    'assets/css/global/*.css',
+    'assets/css/login/*.css',
+    'assets/css/status/404.css',
+    'assets/css/status/403.css',
+    'assets/css/status/500.css',
+    'assets/css/validation/*.css',
+    'assets/css/toast/*.css'
+]
+
 
 // Bundle js files
 gulp.task('global-js', () => {
@@ -79,6 +99,19 @@ gulp.task('helpers-js', () => {
         .pipe(gulp.dest('public/js'))
 })
 
+gulp.task('toast-js', () => {
+    return gulp
+        .src('assets/js/toast/*.js')
+        .pipe(strip())
+        .pipe(concat(`toast-${idJS}.bundle.js`))
+        .pipe(terser({
+            compress: true,
+            mangle: true
+        }))
+        .pipe(gulp.dest('public/js'))
+})
+
+
 // Minify css files
 gulp.task('global-css', () => {
     return gulp
@@ -128,6 +161,15 @@ gulp.task('validate-css', () => {
         .pipe(gulp.dest('public/css'))
 })
 
+gulp.task('toast-css', () => {
+    return gulp
+        .src('assets/css/toast/*.css')
+        .pipe(concat(`toast-${idCSS}.min.css`))
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(gulp.dest('public/css'))
+})
+
+
 // Optimize images
 gulp.task('images', () => {
     return gulp
@@ -136,12 +178,14 @@ gulp.task('images', () => {
         .pipe(gulp.dest('public/img'))
 })
 
+
 // Move all library to public file
 gulp.task('move-library', () => {
     return gulp
         .src(['assets/lib*/**/*', 'assets/helpers*/**/*'])
         .pipe(gulp.dest('public'))
 })
+
 
 // Run tasks
 gulp.task('minify-files', 
@@ -151,40 +195,18 @@ gulp.task('minify-files',
         'status-js',
         'validate-js',
         'helpers-js',
+        'toast-js',
         'global-css',
         'login-css',
         'status-404',
         'status-403',
         'status-500',
         'validate-css',
+        'toast-css',
         'images',
         'move-library'
-    )) 
+    )
+) 
 
-
-// Watch and run tasks
-gulp.task('watch-files', () => {
-    gulp.watch(
-        [
-            'assets/js/global/*.js', 
-            'assets/js/login/*.js', 
-            'assets/js/status/*.js',
-            'assets/js/validation/*.js',
-            'assets/js/validation/create/*.js',
-            'assets/js/helpers/*.js'
-        ], 
-    gulp.series('global-js', 'login-js', 'status-js', 'validate-js', 'helpers-js'))
-
-    gulp.watch(
-        [
-            'assets/css/global/*.css', 
-            'assets/css/login/*.css', 
-            'assets/css/status/*.css',
-            'assets/css/validation/*.css'
-        ], 
-    gulp.series('global-css', 'login-css', 'status-404', 'status-403', 'status-500', 'validate-css'))
-
-    gulp.watch('assets/img/*', gulp.series('images'))
-})
 
 

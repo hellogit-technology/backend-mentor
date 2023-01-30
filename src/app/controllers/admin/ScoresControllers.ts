@@ -7,7 +7,7 @@ import { messageVietnamese } from '../../../utils/message';
 
 class ScoresControllers {
   // [POST] /api/
-  async createScores(req: Request, res: Response, next: NextFunction) {
+  public async createScores(req: Request, res: Response, next: NextFunction) {
     // Use transaction for Scores, Student
     const session = await Scores.startSession();
     session.startTransaction();
@@ -61,25 +61,27 @@ class ScoresControllers {
       const savedScores = await newScores.save({ session: session });
       await session.commitTransaction();
       session.endSession();
-      req.flash('message', messageVietnamese.RES004B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES004B('điểm'));
       res.redirect('/admin/scores');
     } catch (error) {
       await session.abortTransaction();
       session.endSession();
       req.session.modalAccount = 'scores';
-      req.flash('error', messageVietnamese.RES004A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES004A('điểm'));
       res.redirect('/admin/scores');
     }
   }
 
   // [PATCH] /api/
-  async updateScores(req: Request, res: Response, next: NextFunction) {
+  public async updateScores(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (error) {}
   }
 
   // [DELETE] /api
-  async deleteScores(req: Request, res: Response, next: NextFunction) {
+  public async deleteScores(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (error) {}
   }

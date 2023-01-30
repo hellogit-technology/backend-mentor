@@ -1,0 +1,94 @@
+/* Google Font Import - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --error: #EB455F;
+    --success: #439A97;
+}
+
+.wrapper-toast-main{
+   position: fixed;
+   bottom: 0;
+   right: 0;
+   padding-right: 5px
+}
+
+.toast-main-show{
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: 1.3fr 6fr 0.5fr;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+.success-toast-show{
+    border-left: 8px solid #47D764;
+}
+
+.error-toast-show{
+    border-left: 8px solid #ff355b;
+}
+
+.info-toast-show{
+    border-left: 8px solid #2F86EB;
+}
+
+.warning-toast-show{
+    border-left: 8px solid #FFC021;
+}
+
+.error-toast-show i{
+    color: #ff355b;
+}
+
+.info-toast-show i{
+    color: #2F86EB;
+}
+
+.warning-toast-show i{
+    color: #FFC021;
+}
+
+.toast-main-show:not(:last-child){
+    margin-bottom: 50px;
+}
+.container-1-toast-main,.container-2-toast-main{
+    align-self: center;
+} 
+
+.container-2-toast-main {
+    margin-left: 10px;
+}
+
+.container-1-toast-main i{
+    font-size: 35px;
+}
+
+.success-toast-show i{
+    color: #47D764;
+}
+
+.container-2-toast-main p:first-child{
+    color: #101020;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Poppins",sans-serif;
+}
+.container-2-toast-main p:last-child{
+    font-size: 14px;
+    font-weight: 400;
+    color: #656565;
+    font-family: "Poppins",sans-serif;
+}
+
+.toast-main-show .close-toast{
+    align-self: flex-start;
+    background-color: transparent;
+    font-size: 25px;
+    color: #656565;
+    line-height: 0;
+    cursor: pointer;
+    border: none;
+}

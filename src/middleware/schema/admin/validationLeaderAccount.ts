@@ -82,8 +82,8 @@ export const leaderSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('họ tên leader', 30, valueLength));
+      if (valueLength > 50) {
+        throw new Error(messageVietnamese.ER002A('họ tên leader', 50, valueLength));
       }
       return true;
     })
@@ -106,8 +106,8 @@ export const leaderSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 50) {
-        throw new Error(messageVietnamese.ER002A('mã số sinh viên', 50, valueLength));
+      if (valueLength > 30) {
+        throw new Error(messageVietnamese.ER002A('mã số sinh viên', 30, valueLength));
       }
       return true;
     })
@@ -117,8 +117,8 @@ export const leaderSchema = [
       const checkSchoolId = await Student.findOne({
         schoolId: schoolId
       });
-      if (!checkSchoolId) {
-        throw new Error(messageVietnamese.ER007('Email'));
+      if (checkSchoolId) {
+        throw new Error(messageVietnamese.ER007('Mã số sinh viên'));
       }
       return true;
     })
@@ -131,13 +131,13 @@ export const leaderSchema = [
     .custom((value: string) => {
       return value.trim().length !== 0;
     })
-    .withMessage(messageVietnamese.ER001('mã số sinh viên'))
+    .withMessage(messageVietnamese.ER001('cơ sở đang học'))
     .bail()
     .custom(async (value: string) => {
       const campusId = value.trim();
       const checkCampusId = await Campus.findById(campusId);
       if (!checkCampusId) {
-        throw new Error(messageVietnamese.ER001('mã số sinh viên'));
+        throw new Error(messageVietnamese.ER001('cơ sở đang học'));
       }
       return true;
     })
@@ -171,13 +171,14 @@ export const leaderUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, {req}) => {
+      const leaderAccountId = req.param?.id
       const email = value.trim();
-      const checkAdminEmail = await AdminAccount.findOne({
-        email: email
+      const checkAdminEmail = await LeaderAccount.findOne({
+        email: email, _id: { $ne: leaderAccountId }
       });
       const checkLeaderEmail = await LeaderAccount.findOne({
-        email: email
+        email: email, _id: { $ne: leaderAccountId }
       });
       if (checkAdminEmail || checkLeaderEmail) {
         throw new Error(messageVietnamese.ER007('Email'));
@@ -216,8 +217,8 @@ export const leaderUpdateSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('họ tên leader', 30, valueLength));
+      if (valueLength > 50) {
+        throw new Error(messageVietnamese.ER002A('họ tên leader', 50, valueLength));
       }
       return true;
     })
@@ -237,19 +238,20 @@ export const leaderUpdateSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 50) {
-        throw new Error(messageVietnamese.ER002A('mã số sinh viên', 50, valueLength));
+      if (valueLength > 30) {
+        throw new Error(messageVietnamese.ER002A('mã số sinh viên', 30, valueLength));
       }
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, {req}) => {
+      const leaderAccountId = req.params?.id
       const schoolId = value.trim();
       const checkSchoolId = await Student.findOne({
-        schoolId: schoolId
+        schoolId: schoolId, _id: { $ne: leaderAccountId }
       });
-      if (!checkSchoolId) {
-        throw new Error(messageVietnamese.ER007('Email'));
+      if (checkSchoolId) {
+        throw new Error(messageVietnamese.ER007('Mã số sinh viên'));
       }
       return true;
     })
@@ -259,13 +261,13 @@ export const leaderUpdateSchema = [
     .custom((value: string) => {
       return value.trim().length !== 0;
     })
-    .withMessage(messageVietnamese.ER001('mã số sinh viên'))
+    .withMessage(messageVietnamese.ER001('cơ sở đang học'))
     .bail()
     .custom(async (value: string) => {
       const campusId = value.trim();
       const checkCampusId = await Campus.findById(campusId);
       if (!checkCampusId) {
-        throw new Error(messageVietnamese.ER001('mã số sinh viên'));
+        throw new Error(messageVietnamese.ER001('cơ sở đang học'));
       }
       return true;
     })

@@ -2,17 +2,20 @@ import { Request, Response, NextFunction } from 'express';
 import { messageVietnamese } from '../../../utils/message';
 import { cloudinary } from '../../../config/cloudinary';
 import { makeSlug } from '../../../utils/slugify';
-import { Event } from '../../models';
+import { Campus, Event } from '../../models';
 import { generate } from '../../../utils/generateQRCode';
+import { makeUniqueID } from '../../../utils/uniqueID';
+import {dataUri} from '../../../config/multer'
 
 class EventsControllers {
   // [POST] /api/event
-  async createEvent(req: Request, res: Response, next: NextFunction) {
+  public async createEvent(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseEvent {
         eventId: string;
         name: string;
         date: string;
+        campus: string;
         club?: string[];
         poster: {
           photo: string;
@@ -27,24 +30,33 @@ class EventsControllers {
         expire: boolean;
         editor: string;
       }
+
       const profileSession: any = req.user;
-      const { eventId, eventName, date, club } = req.body;
+      const { eventName, campus, date, club } = req.body;
 
       // Generate QR Code
       const checkingDomain = process.env.CHECKING_EVENT_DOMAIN!;
       const imageBrandUrl = process.env.IMAGE_URL!;
       const eventSlug = makeSlug(eventName);
+      const campusQuery = await Campus.findById(campus);
+      const cityId = campusQuery?.shortId as string;
+      const eventId = makeUniqueID('event', cityId, 4);
       const checkingLink = `${checkingDomain}/${eventId}/${eventSlug}`;
       const base64Image = await generate(checkingLink, imageBrandUrl);
 
       // Upload to Cloudinary
       const qrCodeResult = await cloudinary.v2.uploader.upload(base64Image, { folder: 'QRCode' });
-      const posterResult = await cloudinary.v2.uploader.upload(req.file!.path, { folder: 'Event' });
+      const photo = dataUri(req).content
+      if(!photo) {
+        throw new Error('Not found file')
+      }
+      const posterResult = await cloudinary.v2.uploader.upload(photo, { folder: 'Event' });
 
       const requestBody: BaseEvent = {
         eventId: eventId,
         name: eventName,
         date: date,
+        campus: campus,
         poster: {
           photo: posterResult['secure_url'],
           cloudinaryId: posterResult['public_id']
@@ -63,22 +75,25 @@ class EventsControllers {
       }
       const newEvent = new Event(requestBody);
       const savedStudent = await newEvent.save();
-      req.flash('message', messageVietnamese.RES004B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES004B('sự kiện'));
       res.redirect('/admin/events');
     } catch (error) {
       req.session.modalAccount = 'event';
-      req.flash('error', messageVietnamese.RES004A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES004A('sự kiện'));
       res.redirect('/admin/events');
     }
   }
 
   // [PATCH] /api/event/:id
-  async updateEvent(req: Request, res: Response, next: NextFunction) {
+  public async updateEvent(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseEventUpdate {
         eventId?: string;
         name?: string;
         date?: string;
+        campus?: string;
         club?: string[];
         poster?: {
           photo: string;
@@ -94,18 +109,23 @@ class EventsControllers {
         editor: string;
       }
       const profileSession: any = req.user;
-      const { eventId, eventName, date, club } = req.body;
+      const { eventName, campus, date, club } = req.body;
       const event = await Event.findById(req.params.id);
-
-      // Generate QR Code
-      const checkingDomain = process.env.CHECKING_EVENT_DOMAIN!;
-      const imageBrandUrl = process.env.IMAGE_URL!;
 
       const requestBody: BaseEventUpdate = {
         editor: profileSession['userId'] as string
       };
 
-      if (eventId) {
+      // Generate QR Code
+      const checkingDomain = process.env.CHECKING_EVENT_DOMAIN!;
+      const imageBrandUrl = process.env.IMAGE_URL!;
+
+      if (campus) {
+        const campusQuery = await Campus.findById(campus);
+        const cityId = campusQuery?.shortId as string;
+        const eventId = makeUniqueID('event', cityId, 4);
+        requestBody['campus'] = campus;
+
         if (eventName) {
           requestBody['name'] = eventName;
           const eventSlug = makeSlug(eventName);
@@ -126,7 +146,6 @@ class EventsControllers {
           requestBody['qrcode']!.photo = qrCodeResult['secure_url'];
           requestBody['qrcode']!.cloudinaryId = qrCodeResult['public_id'];
         }
-        requestBody['eventId'] = eventId;
       }
 
       if (date) {
@@ -144,50 +163,28 @@ class EventsControllers {
         requestBody['poster']!.cloudinaryId = posterResult['public_id'];
       }
       await event!.updateOne({ $set: requestBody });
-      req.flash('message', messageVietnamese.RES002B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES002B('sự kiện'));
       res.redirect('/admin/events');
     } catch (error) {
-      req.flash('error', messageVietnamese.RES002A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES002A('sự kiện'));
       res.redirect('/admin/events');
     }
   }
 
   // [DELETE] /api/event/:id
-  async deleteEvent(req: Request, res: Response, next: NextFunction) {
+  public async deleteEvent(req: Request, res: Response, next: NextFunction) {
     try {
       const event = await Event.findById(req.params.id);
       await event!.deleteOne();
-      req.flash('message', messageVietnamese.RES003B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES003B('sự kiện'));
       res.redirect('/admin/events');
     } catch (error) {
-      req.flash('error', messageVietnamese.RES003A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES003A('sự kiện'));
       res.redirect('/admin/events');
-    }
-  }
-
-  // [POST] /api/event/:id/expire
-  async setExpire(req: Request, res: Response, next: NextFunction) {
-    try {
-      const eventId = req.params.id;
-      const { expire } = req.body;
-      const event = await Event.findById(eventId);
-      if (!event) {
-        return res.status(500).json(false);
-      }
-      if (!expire) {
-        return res.status(500).json(false);
-      }
-      if (expire === 'true' && event['expire'] === false) {
-        await event.updateOne({ $set: { expire: true } });
-        return res.status(200).json({ status: 'expired' });
-      }
-      if (expire === 'false' && event['expire'] === true) {
-        await event.updateOne({ $set: { expire: false } });
-        return res.status(200).json({ status: 'alive' });
-      }
-      return res.status(200).json(true);
-    } catch (error) {
-      res.status(500).json(false);
     }
   }
 }

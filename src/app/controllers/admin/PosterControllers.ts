@@ -4,7 +4,7 @@ class PosterControllers {
   // [POST] /api/poster
   async uploadPosters(req: Request, res: Response, next: NextFunction) {
     try {
-      res.attachment()
+      res.attachment();
     } catch (error) {}
   }
 }

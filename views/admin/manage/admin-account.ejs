@@ -209,27 +209,27 @@
                     <h3 class="card-title">Tài khoản</h3>
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6">
-                            <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 0) { %>
+                            <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0) { %>
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#accountPDP">PDP</a>
                                 </li>
                             <% } %>
                             <li class="nav-item">
-                                <a class="nav-link <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 1) { %>active<% } %>" data-bs-toggle="tab" href="#accountLeader">Leader</a>
+                                <a class="nav-link <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>active<% } %>" data-bs-toggle="tab" href="#accountLeader">Leader</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
-                        <% if (typeof(profileSession) !== 'undefined' &&  profileSession['role'] === 0) { %>
+                        <% if (typeof(accountSession) !== 'undefined' &&  accountSession['role'] === 0) { %>
                             <div class="tab-pane fade show active" id="accountPDP" role="tabpanel">
                                 <div class="card-body" style="font-size:15px;">
                                     <div class="e-table">
                                         <div class="table-responsive table-lg mt-3">
                                             <table class="table table-bordered">
-                                                <% if (typeof(adminAccount) !== 'undefined' ) { %>
-                                                    <% if(adminAccount.length > 0) { %>
+                                                <% if (typeof(queryData.adminAccount) !== 'undefined' ) { %>
+                                                    <% if(queryData.adminAccount.length > 0) { %>
                                                         <thead>
                                                             <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                                                                 <th style="width:50px;">Stt</th>
@@ -241,7 +241,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <% adminAccount.forEach((account, index) => { %>
+                                                            <% queryData.adminAccount.forEach((account, index) => { %>
                                                                 <tr> 
                                                                     <td class="text-nowrap align-middle"><%= index + 1 %></td>
                                                                     <td class="text-nowrap align-middle"><%= account.fullname %></td>
@@ -273,13 +273,13 @@
                                 </div>
                             </div>
                         <% } %>
-                        <div class="tab-pane fade <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 1) { %>show active<% } %>" id="accountLeader" role="tabpanel">
+                        <div class="tab-pane fade <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>show active<% } %>" id="accountLeader" role="tabpanel">
                             <div class="card-body" style="font-size:15px;">
                                 <div class="e-table">
                                     <div class="table-responsive table-lg mt-3">
                                         <table class="table table-bordered">
-                                            <% if (typeof(leaderAccount) !== 'undefined') { %>
-                                                <% if(leaderAccount.length > 0) { %>
+                                            <% if (typeof(queryData.leaderAccount) !== 'undefined') { %>
+                                                <% if(queryData.leaderAccount.length > 0) { %>
                                                     <thead>
                                                         <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                                                             <th style="width:50px;">Stt</th>
@@ -292,7 +292,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <% leaderAccount.forEach((account, index) => { %>
+                                                        <% queryData.leaderAccount.forEach((account, index) => { %>
                                                             <tr> 
                                                                 <td class="text-nowrap align-middle"><%= index + 1 %></td>
                                                                 <td class="text-nowrap align-middle"><%= account.email %></td>
@@ -376,20 +376,20 @@
                         <div class="card-header card-header-stretch">
                             <div class="card-toolbar">
                                 <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6">
-                                    <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 0)  { %>
+                                    <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0)  { %>
                                         <li class="nav-item">
                                             <a class="nav-link active" data-bs-toggle="tab" href="#addaccountPDP">PDP</a>
                                         </li>
                                     <% } %>
                                     <li class="nav-item">
-                                        <a class="nav-link <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 1) { %>active<% } %>" data-bs-toggle="tab" href="#addaccountLeader">Leader</a>
+                                        <a class="nav-link <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>active<% } %>" data-bs-toggle="tab" href="#addaccountLeader">Leader</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
-                                 <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 0) { %>
+                                 <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0) { %>
                                     <div class="tab-pane fade show active" id="addaccountPDP" role="tabpanel">
                                         <form id="accountPDPForm">
                                             <!--begin::Input group-->
@@ -421,8 +421,8 @@
                                                 <!--end::Label-->
                                                 <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                                                     <option value="" selected="" disabled="">Chọn cơ sở</option>
-                                                    <% if (typeof(campus) !== 'undefined') { %>
-                                                        <% campus.forEach(value => { %>
+                                                    <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                                        <% queryData.campus.forEach(value => { %>
                                                             <option value="<%= value['_id'] %>"><%= value['name'] %></option>
                                                         <% }) %> 
                                                     <% } %>
@@ -453,7 +453,7 @@
                                     </div>
                                  <% } %>
                                 
-                                <div class="tab-pane fade <% if (typeof(profileSession) !== 'undefined' && profileSession['role'] === 1) { %>show active<% } %>" id="addaccountLeader" role="tabpanel">
+                                <div class="tab-pane fade <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>show active<% } %>" id="addaccountLeader" role="tabpanel">
                                     <form id="accountLeaderForm">
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-8 fv-row">
@@ -474,8 +474,8 @@
                                             <!--end::Label-->
                                             <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
                                                 <option value="" selected="" disabled="">Chọn câu lạc bộ</option>
-                                                <% if (typeof(club) !== 'undefined') { %>
-                                                    <% club.forEach(value => { %>
+                                                <% if (typeof(queryData.clubs) !== 'undefined') { %>
+                                                    <% queryData.clubs.forEach(value => { %>
                                                         <option value="<%= value['_id'] %>"><%= value['name'] %></option>
                                                     <% }) %> 
                                                 <% } %>
@@ -511,8 +511,8 @@
                                             <!--end::Label-->
                                             <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                                                 <option value="" selected="" disabled="">Chọn cơ sở</option>
-                                                <% if (typeof(campus) !== 'undefined') { %>
-                                                    <% campus.forEach(value => { %>
+                                                <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                                    <% queryData.campus.forEach(value => { %>
                                                         <option value="<%= value['_id'] %>"><%= value['name'] %></option>
                                                     <% }) %> 
                                                 <% } %>
@@ -601,8 +601,8 @@
                         </label>
                         <!--end::Label-->
                         <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" class="form-select form-select-solid">
-                            <% if (typeof(campus) !=='undefined') { %>
-                                <% campus.forEach((campus, index) => { %> 
+                            <% if (typeof(queryData.campus) !=='undefined') { %>
+                                <% queryData.campus.forEach((campus, index) => { %> 
                                     <option value="<%= campus._id %>"><%= campus.name %></option>
                                 <% }) %> 
                             <% } %>
@@ -677,8 +677,8 @@
                         </label>
                         <!--end::Label-->
                         <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
-                            <% if (typeof(club) !== 'undefined') { %>
-                                <% club.forEach((club, index) => { %> 
+                            <% if (typeof(queryData.clubs) !== 'undefined') { %>
+                                <% queryData.clubs.forEach((club, index) => { %> 
                                     <option value="<%= club.clubId %>"><%= club.name %></option>
                                 <% }) %> 
                             <% } %>
@@ -712,8 +712,8 @@
                         </label>
                         <!--end::Label-->
                         <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
-                            <% if (typeof(campus) !== 'undefined') { %>
-                                <% campus.forEach((campus, index) => { %> 
+                            <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                <% queryData.campus.forEach((campus, index) => { %> 
                                     <option value="<%= campus._id %>"><%= campus.name %></option>
                                 <% }) %> 
                             <% } %>

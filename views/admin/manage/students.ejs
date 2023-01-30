@@ -221,8 +221,8 @@
                 <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
                         <table class="table table-bordered">
-                            <% if (typeof(student) !== 'undefined') { %>
-                                <% if (student.length > 0) { %>
+                            <% if (typeof(queryData.student) !== 'undefined') { %>
+                                <% if (queryData.student.length > 0) { %>
                                     <thead>
                                         <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                                             <th style="width:100px;">Stt</th>
@@ -235,7 +235,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% student.forEach((person, index) => { %> 
+                                        <% queryData.student.forEach((person, index) => { %> 
                                             <tr> 
                                                 <td class="text-nowrap align-middle"><%= index + 1 %></td>
                                                 <td class="text-nowrap align-middle"><%= person.schoolId %></td>
@@ -249,7 +249,7 @@
                                                 </td>
                                                 <td class="text-center align-middle">
                                                     <div class="btn-group align-top">
-                                                        <button class="btn btn-secondary badge update-student" type="button" data-id="<%= person._id %>" data-schoolId="<%= person.schoolId %>" data-fullname="<%= person.fullname %>" data-email="<%= person.email %>" data-campus="<%= person.campus %>" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
+                                                        <button class="btn btn-secondary badge update-student" type="button" data-id="<%= person._id %>" data-schoolid="<%= person.schoolId %>" data-fullname="<%= person.fullname %>" data-email="<%= person.email %>" data-campus="<%= person.campus._id %>" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
                                                         <button class="btn btn-secondary badge remove-student" data-id="<%= person._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_student"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                 </td>
@@ -318,7 +318,7 @@
                             <span>ID:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="schoolId" class="form-control form-control-solid" />
+                        <input type="text" name="schoolId" id="schoolId" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->							
                     <!--begin::Input group-->
@@ -328,7 +328,7 @@
                             <span>Họ và tên: </span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="fullname" class="form-control form-control-solid" />
+                        <input type="text" name="fullname" id="fullname" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
@@ -338,7 +338,7 @@
                             <span>Email:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="email" class="form-control form-control-solid">
+                        <input type="text" name="email" id="email" class="form-control form-control-solid">
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
@@ -350,8 +350,8 @@
                         <!--end::Label-->
                         <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                             <option value="" selected="" disabled="">Chọn cơ sở</option>
-                            <% if (typeof(campus) !== 'undefined') { %>
-                                <% campus.forEach(value => { %>
+                            <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                <% queryData.campus.forEach(value => { %>
                                     <option value="<%= value['_id'] %>"><%= value['name'] %></option>
                                 <% }) %> 
                             <% } %>

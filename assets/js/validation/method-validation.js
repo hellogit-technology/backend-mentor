@@ -56,31 +56,11 @@ class MethodValidation {
     // Check date
     isDate(nameMethod, message) {
         $.validator.addMethod(nameMethod, function(value, element) {
-            const validatePattern = /^(\d{4})(\/|)(\d{1,2})(\/|)(\d{1,2})$/;
-            if (value) {
-                const dateValues = value.match(validatePattern);
-                function checkDate(inputDate) {
-                    if (inputDate == null) return false;
-            
-                    const dtYear = inputDate[1];
-                    const dtMonth = inputDate[3];
-                    const dtDay = inputDate[5];
-            
-                    if (dtMonth < 1 || dtMonth > 12) return false;
-                    else if (dtDay < 1 || dtDay > 31) return false;
-                    else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31) return false;
-                    else if (dtMonth == 2) {
-                    var isleap = dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0);
-                    if (dtDay > 29 || (dtDay == 29 && !isleap)) return false;
-                    }
-                    return true;
-                };
-            
-                if (checkDate(dateValues) === false) {
-                   return false
-                }
+            if(value) {
+                const date = new Date(value)
+                return date instanceof Date && !isNaN(date);
             }
-            return true;
+            return true
         }, message)
     }
 
@@ -98,6 +78,7 @@ class MethodValidation {
             return this.optional(element) || !regex.test(value)
         }, message)
     }
+
 }
 
 const methodValidation = new MethodValidation

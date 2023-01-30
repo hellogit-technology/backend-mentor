@@ -16,7 +16,7 @@
         <div class="menu menu-column menu-pill menu-title-gray-600 menu-icon-gray-400 menu-state-primary menu-arrow-gray-500 menu-active-bg-primary fw-bold fs-5 my-5 mt-lg-2 mb-lg-0" id="kt_aside_menu" data-kt-menu="true">
             <div class="hover-scroll-y me-n3 pe-3" id="kt_aside_menu_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-offset="20px">
                 <div class="menu-item mb-1">
-                    <a class="menu-link <% if(typeof(dashboard) !== 'undefined') { %><%= dashboard %><% } %>" href="/admin/dashboard">
+                    <a class="menu-link <% if(typeof(infoPage.dashboard) !== 'undefined') { %><%= infoPage.dashboard %><% } %>" href="/admin/dashboard">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -34,7 +34,7 @@
                     </a>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link <% if(typeof(scores) !== 'undefined') { %><%= scores %><% } %>" href="/admin/scores">
+                    <a class="menu-link <% if(typeof(infoPage.scores) !== 'undefined') { %><%= infoPage.scores %><% } %>" href="/admin/scores">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -52,7 +52,7 @@
                         <span class="menu-title">Điểm số</span>
                     </a>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(eventsMenu) !== 'undefined' ) { %><%= eventsMenu.main %><% } %>">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(infoPage.eventsMenu) !== 'undefined' ) { %><%= infoPage.eventsMenu.main %><% } %>">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
@@ -70,7 +70,7 @@
                         <span class="menu-title">Sự kiện</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion <% if (typeof(eventsMenu) !== 'undefined' ) { %><%= eventsMenu.sub %><% } %>">
+                    <div class="menu-sub menu-sub-accordion <% if (typeof(infoPage.eventsMenu) !== 'undefined' ) { %><%= infoPage.eventsMenu.sub %><% } %>">
                         <div class="menu-item">
                             <a class="menu-link" data-bs-toggle="modal" data-bs-target="#pdp_new_event">
                                 <span class="menu-bullet">
@@ -80,7 +80,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link <% if(typeof(events) !== 'undefined') { %><%= events %><% } %>" href="/admin/events">
+                            <a class="menu-link <% if(typeof(infoPage.events) !== 'undefined') { %><%= infoPage.events %><% } %>" href="/admin/events">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(clubsMenu) !== 'undefined' ) { %><%= clubsMenu.main %><% } %>">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(infoPage.clubsMenu) !== 'undefined' ) { %><%= infoPage.clubsMenu.main %><% } %>">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/Code/Compiling.svg-->
@@ -104,7 +104,7 @@
                         <span class="menu-title">Câu lạc bộ</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion <% if (typeof(clubsMenu) !== 'undefined' ) { %><%= clubsMenu.sub %><% } %>">
+                    <div class="menu-sub menu-sub-accordion <% if (typeof(infoPage.clubsMenu) !== 'undefined' ) { %><%= infoPage.clubsMenu.sub %><% } %>">
                         <div class="menu-item">
                             <a class="menu-link" data-bs-toggle="modal" data-bs-target="#pdp_new_club">
                                 <span class="menu-bullet">
@@ -114,7 +114,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link <% if(typeof(manageClubs) !== 'undefined') { %><%= manageClubs %><% } %>" href="/admin/clubs">
+                            <a class="menu-link <% if(typeof(infoPage.manageClubs) !== 'undefined') { %><%= infoPage.manageClubs %><% } %>" href="/admin/clubs">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -123,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(studentsMenu) !== 'undefined' ) { %><%= studentsMenu.main %><% } %>">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(infoPage.studentsMenu) !== 'undefined' ) { %><%= infoPage.studentsMenu.main %><% } %>">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
@@ -141,7 +141,7 @@
                         <span class="menu-title">Sinh viên</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion <% if (typeof(studentsMenu) !== 'undefined' ) { %><%= studentsMenu.sub %><% } %>">
+                    <div class="menu-sub menu-sub-accordion <% if (typeof(infoPage.studentsMenu) !== 'undefined' ) { %><%= infoPage.studentsMenu.sub %><% } %>">
                         <div class="menu-item">
                             <a class="menu-link" data-bs-toggle="modal" data-bs-target="#pdp_new_student">
                                 <span class="menu-bullet">
@@ -151,7 +151,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link <% if(typeof(students) !== 'undefined') { %><%= students %><% } %>" href="/admin/students">
+                            <a class="menu-link <% if(typeof(infoPage.students) !== 'undefined') { %><%= infoPage.students %><% } %>" href="/admin/students">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link <% if(typeof(account) !== 'undefined') { %><%= account %><% } %>" href="/admin/accounts">
+                    <a class="menu-link <% if(typeof(infoPage.account) !== 'undefined') { %><%= infoPage.account %><% } %>" href="/admin/accounts">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -179,7 +179,7 @@
                     </a>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link <% if(typeof(system) !== 'undefined') { %><%= system %><% } %>" href="/admin/system">
+                    <a class="menu-link <% if(typeof(infoPage.system) !== 'undefined') { %><%= infoPage.system %><% } %>" href="/admin/system">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -195,7 +195,7 @@
                     </a>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link <% if(typeof(tutorial) !== 'undefined') { %><%= tutorial %><% } %>" href="/admin/tutorial">
+                    <a class="menu-link <% if(typeof(infoPage.tutorial) !== 'undefined') { %><%= infoPage.tutorial %><% } %>" href="/admin/tutorial">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
                             <span class="svg-icon svg-icon-2">

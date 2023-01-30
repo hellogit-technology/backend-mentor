@@ -5,6 +5,7 @@ const EventSchema = new Schema(
     eventId: { type: String, maxlength: 30, required: true },
     name: { type: String, maxlength: 300, required: true },
     date: { type: Date, required: true },
+    campus: { type: Schema.Types.ObjectId, required: true, ref: 'Campus' },
     club: [{ type: Schema.Types.ObjectId, ref: 'Club' }],
     poster: {
       photo: { type: String, required: true },

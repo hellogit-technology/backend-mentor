@@ -1,7 +1,9 @@
-
-
+// CREATE SCORES
 $(document).ready(function() {
     const $inputForm = $('#user-input-form-validate')
+
+    // Auto complete
+    
 
     const inputName = {
         input1: 'schoolId',

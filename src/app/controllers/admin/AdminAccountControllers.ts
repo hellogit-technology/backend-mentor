@@ -4,7 +4,7 @@ import { messageVietnamese } from '../../../utils/message';
 
 class AdminAccountControllers {
   // [POST] /api/admin-account
-  async createAdmin(req: Request, res: Response, next: NextFunction) {
+  public async createAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseAdminAccount {
         fullname: string;
@@ -24,17 +24,19 @@ class AdminAccountControllers {
       };
       const newAdminAccount = new AdminAccount(requestBody);
       const savedAdminAccount = await newAdminAccount.save();
-      req.flash('message', `${messageVietnamese.RES004B} (Admin Account)`);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES004B('admin account'));
       res.redirect('/admin/accounts');
     } catch (error) {
       req.session.modalAccount = 'admin';
-      req.flash('error', `${messageVietnamese.RES004A} (Admin Account)`);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES004A('admin account'));
       res.redirect('/admin/accounts');
     }
   }
 
   // [PATCH] /api/admin-account/:id
-  async updateAdmin(req: Request, res: Response, next: NextFunction) {
+  public async updateAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseAdminAccountUpdate {
         fullname?: string;
@@ -62,24 +64,28 @@ class AdminAccountControllers {
       }
       const admin = await AdminAccount.findById(req.params.id);
       await admin!.updateOne({ $set: requestBody });
-      req.flash('message', `${messageVietnamese.RES002B} (Admin Account)`);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES002B('admin account'));
       res.redirect('/admin/accounts');
     } catch (error) {
       req.session.modalAccount = 'admin';
-      req.flash('error', `${messageVietnamese.RES002A} (Admin Account)`);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES002A('admin account'));
       res.redirect('/admin/accounts');
     }
   }
 
   // [DELETE] /api/admin-account/:id
-  async deleteAdmin(req: Request, res: Response, next: NextFunction) {
+  public async deleteAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const admin = await AdminAccount.findById(req.params.id);
       await admin!.deleteOne();
-      req.flash('message', `${messageVietnamese.RES003B} (Admin Account)`);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES003B('admin account'));
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.flash('error', `${messageVietnamese.RES003A} (Admin Account)`);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES003A('admin account'));
       res.redirect('/admin/accounts');
     }
   }

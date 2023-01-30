@@ -123,8 +123,8 @@ export const mentorUpdateSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('họ và tên', 30, valueLength));
+      if (valueLength > 50) {
+        throw new Error(messageVietnamese.ER002A('họ và tên', 50, valueLength));
       }
       return true;
     })
@@ -154,13 +154,14 @@ export const mentorUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, {req}) => {
+      const adminAccountId = req.params?.id 
       const email = value.trim();
       const checkAdminEmail = await AdminAccount.findOne({
-        email: email
+        email: email,  _id: { $ne: adminAccountId } 
       });
       const checkLeaderEmail = await LeaderAccount.findOne({
-        email: email
+        email: email, _id: { $ne: adminAccountId }
       });
       if (checkAdminEmail || checkLeaderEmail) {
         throw new Error(messageVietnamese.ER007('Email'));

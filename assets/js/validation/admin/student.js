@@ -129,7 +129,7 @@ $(document).ready(function() {
     // Pass data to modal form
     $(document).on('click', '.update-student', function() {
         $studentId = $(this).data('id');
-        const $schoolId = $(this).data('schoolId')
+        const $schoolId = $(this).data('schoolid')
         const $fullname = $(this).data('fullname');
         const $email = $(this).data('email');
         const $campus = $(this).data('campus');
@@ -252,12 +252,12 @@ $(document).ready(function() {
 })
 
 
-// DELETE ADMIN ACCOUNT
+// DELETE STUDENT
 $(document).ready(function() {
     const $confirmForm = $('#modal_delete_student_form')
     $(document).on('click', '.remove-student', function() {
         const $studentId = $(this).data('id');
         $confirmForm.attr('method', 'post')
-        $confirmForm.attr('action', `/api/student/${$accountId}?_method=DELETE`)
+        $confirmForm.attr('action', `/api/student/${$studentId}?_method=DELETE`)
     })
 })

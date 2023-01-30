@@ -209,32 +209,44 @@
                 <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
                         <table class="table table-bordered">
-                            <% if (typeof(clubs) !== 'undefined') { %>
-                                <% if(clubs.length > 0) { %>
+                            <% if (typeof(queryData.clubs) !== 'undefined') { %>
+                                <% if(queryData.clubs.length > 0) { %>
                                     <thead>
                                         <tr>
                                             <th style="width:100px;">Stt</th>
                                             <th style="width:100px;">ID</th>
                                             <th style="width:400px;">Tên câu lạc bộ</th>
                                             <th style="width:250px;">Email</th>
-                                            <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                            <th style="width:100px;" class="text-center">Nickname</th>
+                                            <th style="width:200px;" class="text-center">Fanpage</th>
+                                            <th style="width:250px;" class="text-center">Được thêm bởi</th>
                                             <th style="width:200px;" class="text-center">Sửa/Xoá</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% clubs.forEach((club, index) => { %>
+                                        <% queryData.clubs.forEach((club, index) => { %>
                                             <tr>
                                                 <td class="text-nowrap align-middle"><%= index + 1 %></td>
                                                 <td class="text-nowrap align-middle"><%= club.clubId %></td>
                                                 <td class="text-nowrap align-middle">
-                                                    <a href="admin/club/HelloGIT.html">
+                                                    <a href="/admin/club/">
                                                         <%= club.name %> 
                                                     </a>
                                                 </td>
                                                 <td class="text-nowrap align-middle"><%= club.email %></td>
                                                 <td class="text-center align-middle">
+                                                    <span class="badge badge-light-warning fw-bolder fs-6 px-2 py-1 ms-2">
+                                                        <%= club.nickname %> 
+                                                    </span>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <a href="<%= club.fanpage %>">
+                                                        <%= club.nickname %> 
+                                                    </a>
+                                                </td>
+                                                <td class="text-center align-middle">
                                                     <a href="#">
-                                                        <%= club.editor.name %> 
+                                                        <%= club.editor.fullname %> 
                                                     </a>
                                                 </td>
                                                 <td class="text-center align-middle">
@@ -305,22 +317,12 @@
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>ID câu lạc bộ:</span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" id="clubId" class="form-control form-control-solid"/>
-                    </div>
-                    <!--end::Input group-->	
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                             <span>Tên câu lạc bộ: </span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="clubName" class="form-control form-control-solid" />
+                        <input type="text" name="clubName" id="clubName" class="form-control form-control-solid" />
                     </div>
-                    <!--end::Input group-->						
+                    <!--end::Input group-->			
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                         <!--begin::Label-->
@@ -328,7 +330,7 @@
                             <span>Email:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="email" class="form-control form-control-solid" />
+                        <input type="text" name="email" id="email" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
@@ -338,7 +340,7 @@
                             <span>Nickname:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="nickname" class="form-control form-control-solid"/>
+                        <input type="text" name="nickname" id="nickname" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->	
                     <!--begin::Input group-->
@@ -348,7 +350,7 @@
                             <span>Fanpage:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="fanpage" class="form-control form-control-solid"/>
+                        <input type="text" name="fanpage" id="fanpage" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->	
                     <!--begin::Input group-->
@@ -358,34 +360,37 @@
                             <span>Ngày thành lập:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="date" id="founding" class="form-control form-control-solid" />
+                        <input type="date" name="founding" id="founding" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->	
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Cơ sở:</span>
+                            <span>Cơ sở: </span>
                         </label>
                         <!--end::Label-->
                         <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
                             <option value="" selected="" disabled="">Chọn cơ sở</option>
-                            <% if (typeof(campus) !== 'undefined') { %>
-                                <% campus.forEach(value => { %>
+                            <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                <% queryData.campus.forEach(value => { %>
                                     <option value="<%= value['_id'] %>"><%= value['name'] %></option>
                                 <% }) %> 
                             <% } %>
                         </select>
                     </div>
-                    <!--end::Input group-->
+                    <!--end::Input group-->		
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Logo câu lạc bộ:</span>
+                            <span>Avatar:</span>
                         </label>
+                        <div class="text-center" style="margin-bottom: 15px; ">
+                            <img class="text-center" style="border: 1px solid #f6f2f2; max-width: 200px;max-height: 200px;min-width: 200px;min-height: 200px;" id="preview-photo" src="#" alt="Xem trước ảnh tải lên" />
+                        </div>
                         <!--end::Label-->
-                        <input type="file" class="form-control form-control-solid" />
+                        <input type="file" id="avatar" name="avatar" class="form-control form-control-solid" />
                     </div>
                     <!--end::Input group-->															
                     <!--begin::Actions-->

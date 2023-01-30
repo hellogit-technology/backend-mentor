@@ -1,41 +1,58 @@
 import { Request, Response, NextFunction } from 'express';
-import { generate } from '../../utils/generateQRCode';
-import { makeSlug } from '../../utils/slugify';
 import { LeaderAccount, AdminAccount, Campus, Club, Event, Student, Scores } from '../models';
+import {getBase64Image} from '../../utils/convertImage'
 
 class HelpersControllers {
-  // [POST] /api/generateqrcode
-  async qrcodeGenerate(req: Request, res: Response, next: NextFunction) {
+  // [POST] /api/download-qrcode
+  public async downloadQRCode(req: Request, res: Response, next: NextFunction) {
     try {
-      const failedGenerate = {
-        status: false,
-        message: 'Can not generate qrcode'
-      };
-      const { eventId, eventName } = req.body;
-      const domainChecking = process.env.DOMAIN_CHECKING_EVENT!;
-      if (!eventId || !eventName) {
-        return res.status(200).json(failedGenerate);
-      }
-      const slugEvent = makeSlug(eventName);
-      const urlCheckingEvent = `${domainChecking}/${eventId}/${slugEvent}`;
-      const logoQRCode =
-        'https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-6/308581596_443907851175067_6120826876682676291_n.png?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=EfCu8QcrNygAX9mNv45&tn=CwR_3-WgLiXtoYie&_nc_ht=scontent.fsgn5-15.fna&oh=00_AT9T6glie4LIj7c9TzscMvEEgYgM5fIPfaJ8qtgPV9tB_g&oe=63488194';
-      const qrcode = await generate(urlCheckingEvent, logoQRCode);
-      if (!qrcode) {
-        res.status(200).json(failedGenerate);
-      } else {
-        res.status(200).json({
-          status: true,
-          qrcode: qrcode
-        });
-      }
+      const {imageURL} = req.body
+      if(!imageURL) return res.status(404).json(false)
+      const base64Image = await getBase64Image(imageURL)
+      res.status(200).json(base64Image)
     } catch (error) {
-      console.log(error);
+      res.status(500).json(false)
+    }
+  }
+
+  // [POST] /api/event/:id/expire
+  public async setStatusExpire(req: Request, res: Response, next: NextFunction) {
+    try {
+      const eventId = req.params.id
+      const {expire} = req.body
+      const event = await Event.findById(eventId)
+      if(!event) return res.status(404).json({status: 'Not exist eventId'})
+      const baseExpire = event['expire']
+      if(baseExpire !== expire && expire === 'true') {
+        await Event.updateOne({ $set: {expire: true} });
+        return res.status(200).json({status: 'expired'})
+      }
+
+      if(baseExpire !== expire && expire === 'false') {
+        await Event.updateOne({ $set: {expire: false} });
+        return res.status(200).json({status: 'alive'})
+      }
+      res.status(404).json({status: 'Unidentified Operation'})
+    } catch (error) {
+      res.status(500).json({status: 'Error'})
+    }
+  }
+
+  // [POST] /api/event/qrcode-status
+  public async getStatusExpire(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {eventId} = req.body
+      const event = await Event.findById(eventId)
+      if(!event) return res.status(404).json('Not exist')
+      const expire = event['expire']
+      res.status(200).json(expire)
+    } catch (error) {
+      res.status(500).json('Error')
     }
   }
 
   // [POST] /api/check-campus
-  async campusIsValid(req: Request, res: Response, next: NextFunction) {
+  public async campusIsValid(req: Request, res: Response, next: NextFunction) {
     try {
       const { campus } = req.body;
       const result = await Campus.findById(campus);
@@ -49,7 +66,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-club
-  async clubIsValid(req: Request, res: Response, next: NextFunction) {
+  public async clubIsValid(req: Request, res: Response, next: NextFunction) {
     try {
       const { club } = req.body;
       const result = await Club.findById(club);
@@ -63,7 +80,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-club-id
-  async clubIdExist(req: Request, res: Response, next: NextFunction) {
+  public async clubIdExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { clubId } = req.body;
       const club = await Club.findOne({ clubId: clubId });
@@ -77,7 +94,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-club-email
-  async clubEmailExist(req: Request, res: Response, next: NextFunction) {
+  public async clubEmailExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
       const club = await Club.findOne({ email: email });
@@ -91,7 +108,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-club-nickname
-  async clubNicknameExist(req: Request, res: Response, next: NextFunction) {
+  public async clubNicknameExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { nickname } = req.body;
       const club = await Club.findOne({ nickname: nickname });
@@ -105,10 +122,10 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-student-id
-  async studentIdExist(req: Request, res: Response, next: NextFunction) {
+  public async studentIdExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { schoolId } = req.body;
-      const student = await Event.findOne({ schoolId: schoolId });
+      const student = await Student.findOne({ schoolId: schoolId });
       if (student) {
         return res.status(200).json(false);
       }
@@ -119,10 +136,10 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-student-email
-  async studentEmailExist(req: Request, res: Response, next: NextFunction) {
+  public async studentEmailExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
-      const student = await Event.findOne({ email: email });
+      const student = await Student.findOne({ email: email });
       if (student) {
         return res.status(200).json(false);
       }
@@ -133,7 +150,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-event-id
-  async eventIdExist(req: Request, res: Response, next: NextFunction) {
+  public async eventIdExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { eventId } = req.body;
       const event = await Event.findOne({ eventId: eventId });
@@ -147,7 +164,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-account-email
-  async accountEmailExist(req: Request, res: Response, next: NextFunction) {
+  public async accountEmailExist(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
       const emailPDP = await AdminAccount.findOne({ email: email });
@@ -162,7 +179,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-account-email-pdp-update
-  async accountEmailPDPUpdate(req: Request, res: Response, next: NextFunction) {
+  public async accountEmailPDPUpdate(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, id } = req.body;
       const emailPDP = await AdminAccount.findOne({ email: email, _id: { $ne: id } });
@@ -176,7 +193,7 @@ class HelpersControllers {
   }
 
   // [POST] /api/check-account-email-leader-update
-  async accountEmailLeaderUpdate(req: Request, res: Response, next: NextFunction) {
+  public async accountEmailLeaderUpdate(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, id } = req.body;
       const emailLeader = await LeaderAccount.findOne({ email: email, _id: { $ne: id } });

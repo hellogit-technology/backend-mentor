@@ -21,8 +21,8 @@ export const studentSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 20) {
-        throw new Error(messageVietnamese.ER002A('ID', 20, valueLength));
+      if (valueLength > 30) {
+        throw new Error(messageVietnamese.ER002A('ID', 30, valueLength));
       }
       return true;
     })
@@ -56,8 +56,8 @@ export const studentSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 100) {
-        throw new Error(messageVietnamese.ER002A('họ và tên', 100, valueLength));
+      if (valueLength > 50) {
+        throw new Error(messageVietnamese.ER002A('họ và tên', 50, valueLength));
       }
       return true;
     })
@@ -87,7 +87,7 @@ export const studentSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, { req }) => {
       const email = value.trim();
       const checkEmail = await Student.findOne({
         email: email
@@ -111,7 +111,7 @@ export const studentSchema = [
     .custom(async (value: string) => {
       const campusId = value.trim();
       const checkCampusId = await Campus.findById(campusId);
-      if (checkCampusId) {
+      if (!checkCampusId) {
         throw new Error(messageVietnamese.ER001('cơ sở đang học'));
       }
       return true;
@@ -136,16 +136,18 @@ export const studentUpdateSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 20) {
-        throw new Error(messageVietnamese.ER002A('ID', 20, valueLength));
+      if (valueLength > 30) {
+        throw new Error(messageVietnamese.ER002A('ID', 30, valueLength));
       }
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, { req }) => {
+      const studentId = req.params?.id;
       const schoolId = value.trim();
       const checkUsername = await Student.findOne({
-        schoolId: schoolId
+        schoolId: schoolId,
+        _id: { $ne: studentId }
       });
       if (checkUsername) {
         throw new Error(messageVietnamese.ER007('ID'));
@@ -168,8 +170,8 @@ export const studentUpdateSchema = [
     .bail()
     .custom((value: string) => {
       const valueLength = value.length;
-      if (valueLength > 100) {
-        throw new Error(messageVietnamese.ER002A('họ và tên', 100, valueLength));
+      if (valueLength > 50) {
+        throw new Error(messageVietnamese.ER002A('họ và tên', 50, valueLength));
       }
       return true;
     })
@@ -196,10 +198,12 @@ export const studentUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, { req }) => {
+      const studentId = req.params?.id;
       const email = value.trim();
       const checkEmail = await Student.findOne({
-        email: email
+        email: email,
+        _id: { $ne: studentId }
       });
       if (checkEmail) {
         throw new Error(messageVietnamese.ER007('Email'));
@@ -217,7 +221,7 @@ export const studentUpdateSchema = [
     .custom(async (value: string) => {
       const campusId = value.trim();
       const checkCampusId = await Campus.findById(campusId);
-      if (checkCampusId) {
+      if (!checkCampusId) {
         throw new Error(messageVietnamese.ER001('cơ sở đang học'));
       }
       return true;

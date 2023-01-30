@@ -4,7 +4,7 @@ import { messageVietnamese } from '../../../utils/message';
 
 class LeaderAccountControllers {
   // [POST] /api/leader-account
-  async createLeader(req: Request, res: Response, next: NextFunction) {
+  public async createLeader(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseLeaderAccount {
         fullname: string;
@@ -28,17 +28,19 @@ class LeaderAccountControllers {
       };
       const newLeaderAccount = new LeaderAccount(requestBody);
       const savedLeaderAccount = await newLeaderAccount.save();
-      req.flash('message', `${messageVietnamese.RES004B} (Leader Account)`);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES004B('leader account'));
       res.redirect('/admin/accounts');
     } catch (error) {
       req.session.modalAccount = 'leader';
-      req.flash('error', `${messageVietnamese.RES004A} (Leader Account)`);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES004A('leader account'));
       res.redirect('/admin/accounts');
     }
   }
 
   // [PATCH] /api/leader-account/:id
-  async updateLeader(req: Request, res: Response, next: NextFunction) {
+  public async updateLeader(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseLeaderAccountUpdate {
         fullname?: string;
@@ -84,15 +86,17 @@ class LeaderAccountControllers {
   }
 
   // [DELETE] /api/leader-account/:id
-  async deleteLeader(req: Request, res: Response, next: NextFunction) {
+  public async deleteLeader(req: Request, res: Response, next: NextFunction) {
     try {
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.deleteOne();
-      req.flash('message', `${messageVietnamese.RES003B} (Leader Account)`);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES003B('leader account'));
       res.redirect('/admin/accounts');
     } catch (error) {
       req.session.modalAccount = 'leader';
-      req.flash('error', `${messageVietnamese.RES003A} (Leader Account)`);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES003A('leader account'));
       res.redirect('/admin/accounts');
     }
   }

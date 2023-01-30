@@ -1,44 +1,9 @@
 import { check } from 'express-validator';
 import { messageVietnamese } from '../../../utils/message';
-import { Club } from '../../../app/models';
+import { Club, Campus } from '../../../app/models';
 
 // CREATE CLUB
 export const clubSchema = [
-  check('clubId')
-    .notEmpty()
-    .withMessage(messageVietnamese.ER001('ID câu lạc bộ'))
-    .bail()
-    .custom((value: string) => {
-      return value.trim().length !== 0;
-    })
-    .withMessage(messageVietnamese.ER001('ID câu lạc bộ'))
-    .bail()
-    .custom((value: string) => {
-      const regex2Bytes = /[\uD800-\uDFFF\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/;
-      return !regex2Bytes.test(value);
-    })
-    .withMessage(messageVietnamese.ER004)
-    .bail()
-    .custom((value: string) => {
-      const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('ID câu lạc bộ', 30, valueLength));
-      }
-      return true;
-    })
-    .bail()
-    .custom(async (value: string) => {
-      const clubId = value.trim();
-      const checkClubId = await Club.findOne({
-        clubId: clubId
-      });
-      if (checkClubId) {
-        throw new Error(messageVietnamese.ER007('ID câu lạc bộ'));
-      }
-      return true;
-    })
-    .bail()
-    .trim(),
   check('clubName')
     .notEmpty()
     .withMessage(messageVietnamese.ER001('tên câu lạc bộ'))
@@ -75,7 +40,7 @@ export const clubSchema = [
     .isLowercase()
     .withMessage(messageVietnamese.ER008)
     .bail()
-    .custom((value) => {
+    .custom((value: string) => {
       const regex =
         /^.+@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
       return regex.test(value);
@@ -111,7 +76,7 @@ export const clubSchema = [
     })
     .withMessage(messageVietnamese.ER001('nickname'))
     .bail()
-    .custom((value) => {
+    .custom((value: string) => {
       const regex2Bytes = /[\uD800-\uDFFF\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/;
       return !regex2Bytes.test(value);
     })
@@ -125,10 +90,11 @@ export const clubSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, {req}) => {
+      const clubId = req.params?.id
       const nickname = value.trim();
       const checkNickname = await Club.findOne({
-        nickname: nickname
+        nickname: nickname, _id: {$ne: clubId}
       });
       if (checkNickname) {
         throw new Error(messageVietnamese.ER007('Nickname'));
@@ -214,43 +180,30 @@ export const clubSchema = [
       const fileSize = req.file.size;
       return fileSize < sizeLimit;
     })
-    .withMessage(messageVietnamese.ER0010('5 MB'))
-];
-
-// UPDATE CLUB
-export const clubUpdateSchema = [
-  check('clubId')
+    .withMessage(messageVietnamese.ER0010('5 MB')),
+  check('campus')
+    .notEmpty()
+    .withMessage(messageVietnamese.ER001('cơ sở'))
+    .bail()
     .custom((value: string) => {
       return value.trim().length !== 0;
     })
-    .withMessage(messageVietnamese.ER001('ID câu lạc bộ'))
-    .bail()
-    .custom((value: string) => {
-      const regex2Bytes = /[\uD800-\uDFFF\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/;
-      return !regex2Bytes.test(value);
-    })
-    .withMessage(messageVietnamese.ER004)
-    .bail()
-    .custom((value: string) => {
-      const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('ID câu lạc bộ', 30, valueLength));
-      }
-      return true;
-    })
+    .withMessage(messageVietnamese.ER001('cơ sở'))
     .bail()
     .custom(async (value: string) => {
-      const clubId = value.trim();
-      const checkClubId = await Club.findOne({
-        clubId: clubId
-      });
-      if (checkClubId) {
-        throw new Error(messageVietnamese.ER007('ID câu lạc bộ'));
+      const campusId = value.trim();
+      const checkCampusId = await Campus.findById(campusId);
+      if (!checkCampusId) {
+        throw new Error(messageVietnamese.ER001('cơ sở'));
       }
       return true;
     })
     .bail()
     .trim(),
+];
+
+// UPDATE CLUB
+export const clubUpdateSchema = [
   check('clubName')
     .custom((value: string) => {
       return value.trim().length !== 0;
@@ -296,10 +249,11 @@ export const clubUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, {req}) => {
+      const clubId = req.params?.id
       const email = value.trim();
       const checkEmail = await Club.findOne({
-        email: email
+        email: email, _id: {$ne: clubId}
       });
       if (checkEmail) {
         throw new Error(messageVietnamese.ER007('Email'));
@@ -328,10 +282,11 @@ export const clubUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string) => {
+    .custom(async (value: string, {req}) => {
+      const clubId = req.params?.id
       const nickname = value.trim();
       const checkNickname = await Club.findOne({
-        nickname: nickname
+        nickname: nickname, _id: {$ne: clubId}
       });
       if (checkNickname) {
         throw new Error(messageVietnamese.ER007('Nickname'));
@@ -407,5 +362,21 @@ export const clubUpdateSchema = [
       const fileSize = req.file.size;
       return fileSize < sizeLimit;
     })
-    .withMessage(messageVietnamese.ER0010('5 MB'))
+    .withMessage(messageVietnamese.ER0010('5 MB')),
+  check('campus')
+    .custom((value: string) => {
+      return value.trim().length !== 0;
+    })
+    .withMessage(messageVietnamese.ER001('cơ sở'))
+    .bail()
+    .custom(async (value: string) => {
+      const campusId = value.trim();
+      const checkCampusId = await Campus.findById(campusId);
+      if (!checkCampusId) {
+        throw new Error(messageVietnamese.ER001('cơ sở'));
+      }
+      return true;
+    })
+    .bail()
+    .trim()
 ];

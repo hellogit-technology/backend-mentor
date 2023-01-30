@@ -4,7 +4,7 @@ import { messageVietnamese } from '../../../utils/message';
 
 class StudentControllers {
   // [POST] /api/student
-  async createStudent(req: Request, res: Response, next: NextFunction) {
+  public async createStudent(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseStudent {
         fullname: string;
@@ -24,23 +24,25 @@ class StudentControllers {
       };
       const newStudent = new Student(requestBody);
       const savedStudent = await newStudent.save();
-      req.flash('message', messageVietnamese.RES004B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES004B('sinh viên'));
       res.redirect('/admin/students');
     } catch (error) {
       req.session.modalAccount = 'student';
-      req.flash('error', messageVietnamese.RES004A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES004A('sinh viên'));
       res.redirect('/admin/students');
     }
   }
 
   // [POST] /api/file-students
-  async uploadStudents(req: Request, res: Response, next: NextFunction) {
+  public async uploadStudents(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (error) {}
   }
 
   // [PATCH] /api/student/:id
-  async updateStudent(req: Request, res: Response, next: NextFunction) {
+  public async updateStudent(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseStudentUpdate {
         fullname?: string;
@@ -68,24 +70,28 @@ class StudentControllers {
       }
       const student = await Student.findById(req.params.id);
       await student!.updateOne({ $set: requestBody });
-      req.flash('message', messageVietnamese.RES002B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES002B('sinh viên'));
       res.redirect('/admin/students');
     } catch (error) {
       req.session.modalAccount = 'student';
-      req.flash('message', messageVietnamese.RES002A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES002A('sinh viên'));
       res.redirect('/admin/students');
     }
   }
 
   // [DELETE] /api/student/:id
-  async deleteStudent(req: Request, res: Response, next: NextFunction) {
+  public async deleteStudent(req: Request, res: Response, next: NextFunction) {
     try {
       const student = await Student.findById(req.params.id);
       await student!.deleteOne();
-      req.flash('message', messageVietnamese.RES003B);
+      req.flash('result', 'successfully')
+      req.flash('message', messageVietnamese.RES003B('sinh viên'));
       res.redirect('/admin/students');
     } catch (error) {
-      req.flash('error', messageVietnamese.RES003A);
+      req.flash('result', 'failed')
+      req.flash('message', messageVietnamese.RES003A('sinh viên'));
       res.redirect('/admin/students');
     }
   }

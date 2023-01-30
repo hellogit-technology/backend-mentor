@@ -1,44 +1,9 @@
 import { check } from 'express-validator';
 import { messageVietnamese } from '../../../utils/message';
-import { Event, Club } from '../../../app/models';
+import { Club, Campus } from '../../../app/models';
 
 // CREATE EVENT
 export const eventSchema = [
-  check('eventId')
-    .notEmpty()
-    .withMessage(messageVietnamese.ER001('ID sự kiện'))
-    .bail()
-    .custom((value: string) => {
-      return value.trim().length != 0;
-    })
-    .withMessage(messageVietnamese.ER001('ID sự kiện'))
-    .bail()
-    .custom((value: string) => {
-      const regex2Bytes = /[\uD800-\uDFFF\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/;
-      return !regex2Bytes.test(value);
-    })
-    .withMessage(messageVietnamese.ER004)
-    .bail()
-    .custom((value: string) => {
-      const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('ID sự kiện', 30, valueLength));
-      }
-      return true;
-    })
-    .bail()
-    .custom(async (value: string) => {
-      const eventId = value.trim();
-      const checkEventId = await Event.findOne({
-        eventId: eventId
-      });
-      if (checkEventId) {
-        throw new Error(messageVietnamese.ER007('ID sự kiện'));
-      }
-      return true;
-    })
-    .bail()
-    .trim(),
   check('eventName')
     .notEmpty()
     .withMessage(messageVietnamese.ER001('tên sự kiện'))
@@ -146,43 +111,30 @@ export const eventSchema = [
         throw new Error(messageVietnamese.ER001('đồng tổ chức'));
       }
       return true;
-    })
+    }),
+    check('campus')
+      .notEmpty()
+      .withMessage(messageVietnamese.ER001('cơ sở'))
+      .bail()
+      .custom((value: string) => {
+        return value.trim().length !== 0;
+      })
+      .withMessage(messageVietnamese.ER001('cơ sở'))
+      .bail()
+      .custom(async (value: string) => {
+        const campusId = value.trim();
+        const checkCampusId = await Campus.findById(campusId);
+        if (!checkCampusId) {
+          throw new Error(messageVietnamese.ER001('cơ sở'));
+        }
+        return true;
+      })
+      .bail()
+      .trim(),
 ];
 
 // UPDATE EVENT
 export const eventUpdateSchema = [
-  check('eventId')
-    .custom((value: string) => {
-      return value.trim().length != 0;
-    })
-    .withMessage(messageVietnamese.ER001('ID sự kiện'))
-    .bail()
-    .custom((value: string) => {
-      const regex2Bytes = /[\uD800-\uDFFF\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/;
-      return !regex2Bytes.test(value);
-    })
-    .withMessage(messageVietnamese.ER004)
-    .bail()
-    .custom((value: string) => {
-      const valueLength = value.length;
-      if (valueLength > 30) {
-        throw new Error(messageVietnamese.ER002A('ID sự kiện', 30, valueLength));
-      }
-      return true;
-    })
-    .bail()
-    .custom(async (value: string) => {
-      const eventId = value.trim();
-      const checkEventId = await Event.findOne({
-        eventId: eventId
-      });
-      if (checkEventId) {
-        throw new Error(messageVietnamese.ER007('ID sự kiện'));
-      }
-      return true;
-    })
-    .bail()
-    .trim(),
   check('eventName')
     .custom((value: string) => {
       return value.trim().length !== 0;
@@ -279,5 +231,22 @@ export const eventUpdateSchema = [
         throw new Error(messageVietnamese.ER001('đồng tổ chức'));
       }
       return true;
+    }),
+  check('campus')
+    .custom((value: string) => {
+      return value.trim().length !== 0;
     })
+    .withMessage(messageVietnamese.ER001('cơ sở'))
+    .bail()
+    .custom(async (value: string) => {
+      const campusId = value.trim();
+      const checkCampusId = await Campus.findById(campusId);
+      if (!checkCampusId) {
+        throw new Error(messageVietnamese.ER001('cơ sở'));
+      }
+      return true;
+    })
+    .bail()
+    .trim()
+
 ];

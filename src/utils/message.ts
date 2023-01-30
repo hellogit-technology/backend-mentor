@@ -17,11 +17,11 @@ export const messageVietnamese = {
 
   // Auth
   RES001: `Thông tin đăng nhập không đúng.`,
-  RES002A: `Cập nhật thất bại.`,
-  RES002B: `Cập nhật thành công.`,
-  RES003A: `Xóa thất bại.`,
-  RES003B: `Xóa thành công.`,
-  RES004A: `Tạo mới thất bại.`,
-  RES004B: `Tạo mới thành công.`,
+  RES002A: (param: string) => `Cập nhật ${param} thất bại.`,
+  RES002B: (param: string) => `Cập nhật ${param} thành công.`,
+  RES003A: (param: string) => `Xóa ${param} thất bại.`,
+  RES003B: (param: string) => `Xóa ${param} thành công.`,
+  RES004A: (param: string) => `Tạo mới ${param} thất bại.`,
+  RES004B: (param: string) => `Tạo mới ${param} thành công.`,
   RES005: `Tài khoản không thể truy cập.`
 };

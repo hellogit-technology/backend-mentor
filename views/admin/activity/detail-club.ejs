@@ -1,0 +1,117 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+        <!--begin::Container-->
+        <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 mb-5 mb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+                <!--begin::Heading-->
+                <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">Quản lý câu lạc bộ</h1>
+                <!--end::Heading-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb fw-bold fs-base mb-1">
+                    <li class="breadcrumb-item text-muted">
+                        <a href="index.html" class="text-muted text-hover-primary">Trang chủ</a>
+                    </li>
+                    <li class="breadcrumb-item text-muted">Quản lý câu lạc bộ</li>
+                    <li class="breadcrumb-item text-muted">HelloGIT</li>
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title=-->
+            <!--begin::Logo bar-->
+            <div class="d-flex d-lg-none align-items-center flex-grow-1">
+                <!--begin::Aside Toggle-->
+                <div class="btn btn-icon btn-circle btn-active-light-primary ms-n2 me-1" id="kt_aside_toggle">
+                    <!--begin::Svg Icon | path: icons/duotone/Text/Menu.svg-->
+                    <span class="svg-icon svg-icon-2x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24" />
+                                <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
+                                <path d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z" fill="#000000" opacity="0.3" />
+                            </g>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Aside Toggle-->
+                <!--begin::Logo-->
+                <a href="index.html" class="d-lg-none">
+                    <img alt="Logo" src="../assets/media/logos/logo-compact.png" width="100%" class="max-h-40px" />
+                </a>
+                <!--end::Logo-->
+            </div>
+            <!--end::Logo bar-->
+            <!--begin::Toolbar wrapper-->
+            <div class="d-flex align-items-stretch flex-shrink-0">
+                <!--begin:Activities-->
+                <%- include('../partials/activity.ejs') %> 
+                <!--end:Activities-->
+                <!--begin::Notifications-->
+                <%- include('../partials/notification.ejs') %> 
+                <!--end::Notifications-->
+                <!--begin::User-->
+                <%- include('../../partials/profile.ejs') %>
+                <!--end::User -->
+            </div>
+            <!--end::Toolbar wrapper-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">
+        <!--begin::Container-->
+        <div class="container" id="kt_content_container">
+            <!--begin::Layout - Overview-->
+            <div class="d-flex flex-column flex-xl-row">
+                <!--begin::Sidebar-->
+                <div class="flex-column flex-lg-row-auto w-100 w-xl-325px mb-10">
+                    <!--begin::Card-->
+                    <div class="card card-flush" data-kt-sticky="true" data-kt-sticky-name="account-navbar" data-kt-sticky-offset="{default: false, xl: '80px'}" data-kt-sticky-width="{lg: '250px', xl: '325px'}" data-kt-sticky-left="auto" data-kt-sticky-top="90px" data-kt-sticky-animation="false" data-kt-sticky-zindex="95">
+                        <!--begin::Card header-->
+                        <div class="card-header justify-content-end">
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0 p-10">
+                            <!--begin::Summary-->
+                            <div class="d-flex flex-center flex-column mb-10">
+                                <!--begin::Avatar-->
+                                <div class="symbol mb-3 symbol-100px symbol-circle">
+                                    <img alt="Pic" src="../../assets/media/avatars/hellogit.png" />
+                                </div>
+                                <!--end::Avatar-->
+                                <!--begin::Name-->
+                                <a href="https://www.facebook.com/HelloGIT" class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">HELLOGIT_UoG Information Technology Club</a>
+                                <!--end::Name-->
+                                <!--begin::Position-->
+                                <div class="d-flex flex-center">
+                                    <span class="badge badge-light-primary fw-bolder fs-6 px-2 py-1 ms-2">HelloGIT</span>
+                                </div>
+                                <hr>
+                                <a href="https://www.facebook.com/HelloGIT" class="btn btn-primary"><i class="bi bi-chat-square-text-fill fs-4 me-2"></i>Gửi tin nhắn</a>
+                                <!--end::Position-->
+                            </div>
+                            <!--end::Summary-->
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                    <!--end::Card-->
+                </div>
+                <!--end::Sidebar-->
+            </div>
+            <!--end::Layout - Overview-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <%- include('../partials/footer.ejs') %>
+    <!--end::Footer-->
+</div>
+<!--end::Wrapper-->
+</div>
+<!--end::Page-->
+</div>
