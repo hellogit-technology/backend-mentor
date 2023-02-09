@@ -1,3 +1,5 @@
+'use strict'
+
 // CREATE ADMIN ACCOUNT
 $(document).ready(function() {
     const $inputForm = $('#accountPDPForm')
@@ -237,4 +239,17 @@ $(document).ready(function() {
         $confirmForm.attr('method', 'post')
         $confirmForm.attr('action', `/api/admin-account/${$accountId}?_method=DELETE`)
     })
+})
+
+// SEARCH ADMIN ACCOUNT
+$(document).ready(function() {
+    const $searchForm = $('#search-admin-accounts')
+    $('#search-admin-accounts #search').keyup(function(event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            $searchForm.attr('method', 'get')
+            $searchForm.attr('action', '/admin/admin-accounts')
+            $searchForm.submit();
+        }
+    });
 })

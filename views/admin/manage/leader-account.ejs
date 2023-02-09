@@ -1,0 +1,739 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+        <!--begin::Container-->
+        <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 mb-5 mb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+                <!--begin::Heading-->
+                <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">Quản lý tài khoản Leader</h1>
+                <!--end::Heading-->
+                <!--begin::Breadcrumb-->
+                <%- include('../../partials/breadcrumb.ejs') %> 
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title=-->
+            <!--begin::Toolbar wrapper-->
+            <div class="d-flex align-items-stretch flex-shrink-0">
+                <!--begin::Add-->
+                <div class="d-flex align-items-center ms-1 ms-lg-3">
+                    <!--begin::drawer toggle-->
+                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"  data-bs-toggle="modal" data-bs-target="#admin_new_account">
+                        <!--begin::Svg Icon | path: icons/duotone/Design/Substract.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <img src="/img/add.svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"></img>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::drawer toggle-->
+                </div>
+                <!--end:Add-->
+                 <!--begin::Search-->
+                <div class="d-flex align-items-stretch ms-1 ms-lg-3">
+                    <!--begin::Search-->
+                    <div id="kt_header_search" class="d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <!--begin::Search toggle-->
+                        <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
+                            <div class="btn btn-icon btn-active-light-primary">
+                                <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                        </g>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                        </div>
+                        <!--end::Search toggle-->
+                        <!--begin::Menu-->
+                        <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px">
+                            <!--begin::Wrapper-->
+                            <div data-kt-search-element="wrapper">
+                                <!--begin::Form-->
+                                <form data-kt-search-element="form" class="w-100 position-relative mb-3" autocomplete="off">
+                                    <!--begin::Icon-->
+                                    <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                                    <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <!--end::Icon-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-flush ps-10" name="search" value="" placeholder="Tìm kiếm" data-kt-search-element="input" />
+                                    <!--end::Input-->
+                                    <!--begin::Spinner-->
+                                    <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-1" data-kt-search-element="spinner">
+                                        <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                                    </span>
+                                    <!--end::Spinner-->
+                                    <!--begin::Reset-->
+                                    <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none" data-kt-search-element="clear">
+                                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                                        <span class="svg-icon svg-icon-2 svg-icon-lg-1 me-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                                    <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                    <!--end::Reset-->
+                                </form>
+                                <!--end::Form-->
+                                <!--begin::Separator-->
+                                <div class="separator border-gray-200 mb-6"></div>
+                                <!--end::Separator-->
+                                <!--begin::Recently viewed-->
+                                <div class="mb-4" data-kt-search-element="main">
+                                    <!--begin::Heading-->
+                                    <div class="d-flex flex-stack fw-bold mb-4">
+                                        <!--begin::Label-->
+                                        <span class="text-muted fs-6 me-2">Đã tìm kiếm gần đây:</span>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Items-->
+                                    <div class="scroll-y mh-200px mh-lg-325px">
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-5">	
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40px symbol-circle me-4">
+                                                <img src="../assets/media/avatars/tienpercy.jpg" alt="" />
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div class="d-flex flex-column">
+                                                <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Trần Vĩnh Tiến</a>
+                                                <span class="fs-7 text-muted fw-bold">GCS190159</span>
+                                            </div>
+                                            <!--end::Title-->
+                                        </div>
+                                        <!--end::Item-->
+                                    </div>
+                                    <!--end::Items-->
+                                </div>
+                                <!--end::Recently viewed-->
+                                <!--begin::Empty-->
+                                <div data-kt-search-element="empty" class="text-center d-none">
+                                    <!--begin::Icon-->
+                                    <div class="pt-10 pb-10">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/File-Search.svg-->
+                                        <span class="svg-icon svg-icon-4x opacity-50">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M3 4C3 2.34315 4.34315 1 6 1H15.7574C16.553 1 17.3161 1.31607 17.8787 1.87868L20.1213 4.12132C20.6839 4.68393 21 5.44699 21 6.24264V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V4Z" fill="#12131A" />
+                                                <path d="M15 1.89181C15 1.39927 15.3993 1 15.8918 1V1C16.6014 1 17.2819 1.28187 17.7836 1.78361L20.2164 4.21639C20.7181 4.71813 21 5.39863 21 6.10819V6.10819C21 6.60073 20.6007 7 20.1082 7H16C15.4477 7 15 6.55228 15 6V1.89181Z" fill="#12131A" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.032 15.4462C12.4365 15.7981 11.7418 16 11 16C8.79086 16 7 14.2091 7 12C7 9.79086 8.79086 8 11 8C13.2091 8 15 9.79086 15 12C15 12.7418 14.7981 13.4365 14.4462 14.032L16.7072 16.293C17.0977 16.6835 17.0977 17.3167 16.7072 17.7072C16.3167 18.0977 15.6835 18.0977 15.293 17.7072L13.032 15.4462ZM13 12C13 13.1046 12.1046 14 11 14C9.89543 14 9 13.1046 9 12C9 10.8954 9.89543 10 11 10C12.1046 10 13 10.8954 13 12Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Icon-->
+                                    <!--begin::Message-->
+                                    <div class="pb-15 fw-bold">
+                                        <h3 class="text-gray-600 fs-5 mb-2">Không tìm thấy kết quả</h3>
+                                        <div class="text-muted fs-7">Vui lòng nhập lại thông tin</div>
+                                    </div>
+                                    <!--end::Message-->
+                                </div>
+                                <!--end::Empty-->
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Menu-->
+                    </div>
+                    <!--end::Search-->
+                </div>
+                <!--end::Search-->
+                <!--begin:Activities-->
+                <%- include('../../partials/activity.ejs') %> 
+                <!--end:Activities-->
+                <!--begin::Notifications-->
+                <%- include('../../partials/notification.ejs') %>
+                <!--end::Notifications-->
+                <!--begin::User-->
+                <%- include('../../partials/profile.ejs') %> 
+                <!--end::User -->
+            </div>
+            <!--end::Toolbar wrapper-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">		
+        <!--begin::Student--> 
+        <div class="e-panel card" style="margin-left:10px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="e-table">
+                    <div class="table-responsive table-lg mt-3">
+                        <table class="table table-bordered">
+                            <% if (typeof(queryData.leaderAccount) !== 'undefined') { %>
+                                <% if(queryData.leaderAccount.length > 0) { %>
+                                    <thead>
+                                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                            <th style="width:50px;">Stt</th>
+                                            <th style="width:300px;">Tài khoản</th>
+                                            <th style="width:250px;">Tên Leader</th>	
+                                            <th style="width:150px;">Câu lạc bộ</th>
+                                            <th style="width:150px;">Cơ sở đang học</th>
+                                            <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                            <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% queryData.leaderAccount.forEach((account, index) => { %>
+                                            <tr> 
+                                                <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                                <td class="text-nowrap align-middle"><%= account.email %></td>
+                                                <td class="text-nowrap align-middle"><%= account.fullname %></td>
+                                                <td class="text-nowrap align-middle"><%= account.club.name %></td>
+                                                <td class="text-nowrap align-middle"><%= account.campus.name %></td>
+                                                <td class="text-center align-middle">
+                                                    <a href="#">
+                                                        <%= account.editor.fullname %>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <div class="btn-group align-top">
+                                                        <button class="btn btn-secondary badge update-account-leader" data-id="<%= account._id %>" data-email="<%= account.email %>" data-fullname="<%= account.fullname %>" data-club="<%= account.club %>" data-campus="<%= account.campus %>" data-schoolId="<%= account.schoolId %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
+                                                        <button class="btn btn-secondary badge remove-account-leader" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_club"><i class="fa fa-trash"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>  
+                                        <% }) %> 
+                                    </tbody>
+                                <% } else { %>
+                                    <div class="row g-3 text-center">
+                                        <h3>No Record</h3>
+                                    </div>
+                                <% } %> 
+                            <% } %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Student-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Show result-->
+    <%- include('../../partials/pagination.ejs') %> 
+    <!--end::Show result-->
+    <!--begin::Footer-->
+    <%- include('../../partials/footer.ejs') %>
+    <!--end::Footer-->
+</div>
+
+<!--begin::Modal - New Account-->
+<div class="modal fade" id="admin_new_account" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary modal_account_cancel" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Thêm tài khoản</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->	
+                    <div class="card ">
+                        <div class="card-header card-header-stretch">
+                            <div class="card-toolbar">
+                                <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6">
+                                    <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0)  { %>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#addaccountPDP">PDP</a>
+                                        </li>
+                                    <% } %>
+                                    <li class="nav-item">
+                                        <a class="nav-link <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>active<% } %>" data-bs-toggle="tab" href="#addaccountLeader">Leader</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                 <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0) { %>
+                                    <div class="tab-pane fade show active" id="addaccountPDP" role="tabpanel">
+                                        <form id="accountPDPForm">
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-8 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Họ và tên: </span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Email:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <input type="text" name="email" id="email" class="form-control form-control-solid">
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Cơ sở đang làm việc:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                                                    <option value="" selected="" disabled="">Chọn cơ sở</option>
+                                                    <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                                        <% queryData.campus.forEach(value => { %>
+                                                            <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                                        <% }) %> 
+                                                    <% } %>
+                                                </select>
+                                            </div>
+                                            <!--end::Input group-->		
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Loại tài khoản:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <select name="role" aria-label="Select a Role" data-control="select_role" data-placeholder="Role" class="form-select form-select-solid">
+                                                    <option value="" selected="" disabled="">Chọn loại tài khoản</option>>
+                                                    <option value="0">Administor</option>
+                                                    <option value="1">Manager</option>>
+                                                </select>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="text-center">
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
+                                                <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
+                                            </div>
+                                            <!--end::Actions-->									
+                                        </form>
+                                    </div>
+                                 <% } %>
+                                
+                                <div class="tab-pane fade <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>show active<% } %>" id="addaccountLeader" role="tabpanel">
+                                    <form id="accountLeaderForm">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Email: </span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" name="email" id="email" class="form-control form-control-solid" />
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Câu lạc bộ:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
+                                                <option value="" selected="" disabled="">Chọn câu lạc bộ</option>
+                                                <% if (typeof(queryData.clubs) !== 'undefined') { %>
+                                                    <% queryData.clubs.forEach(value => { %>
+                                                        <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                                    <% }) %> 
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Họ tên leader:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Mã số sinh viên:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" name="schoolId" id="schoolId" class="form-control form-control-solid"/>
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Cơ sở đang học:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                                                <option value="" selected="" disabled="">Chọn cơ sở</option>
+                                                <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                                    <% queryData.campus.forEach(value => { %>
+                                                        <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                                    <% }) %> 
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->	
+                                        <!--begin::Actions-->
+                                        <div class="text-center">
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
+                                            <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
+                                        </div>
+                                        <!--end::Actions-->										
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>	
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - New Account-->
+
+<!--begin::Modal - Edit Account PDP-->
+<div class="modal fade" id="edit_account_pdp" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_update_pdp_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Chỉnh sửa thông tin tài khoản</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->						
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Họ và tên: </span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Email:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="email" name="email" class="form-control form-control-solid">
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Cơ sở đang làm việc:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" class="form-select form-select-solid">
+                            <% if (typeof(queryData.campus) !=='undefined') { %>
+                                <% queryData.campus.forEach((campus, index) => { %> 
+                                    <option value="<%= campus._id %>"><%= campus.name %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="kt_modal_new_target_submit" style="background-color: #fdb32c;" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Edit Account PDP-->
+
+<!--begin::Modal - Edit Account Club-->
+<div class="modal fade" id="edit_account_club" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_update_leader_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Chỉnh sửa thông tin tài khoản</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->						
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Email: </span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="email" name="email" class="form-control form-control-solid"/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Câu lạc bộ:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
+                            <% if (typeof(queryData.clubs) !== 'undefined') { %>
+                                <% queryData.clubs.forEach((club, index) => { %> 
+                                    <option value="<%= club.clubId %>"><%= club.name %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Tên Leader:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="fullname" id="fullname" class="form-control form-control-solid">
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Mã số sinh viên:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="schoolId" name="schoolId" class="form-control form-control-solid"/>
+                    </div>
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Cơ sở đang học:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                            <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                <% queryData.campus.forEach((campus, index) => { %> 
+                                    <option value="<%= campus._id %>"><%= campus.name %></option>
+                                <% }) %> 
+                            <% } %>
+                            
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="kt_modal_new_target_submit" style="background-color: #fdb32c;" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Edit Account Club-->
+
+<!--begin::Modal - Confirm Delete Account PDP-->
+<div class="modal fade" id="delete_account_pdp" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_delete_account_pdp_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Xác nhận xóa tài khoản PDP?</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->		
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="confirm-delete-account-pdp" style="background-color: #ff5757;" class="btn btn-primary">Xác Nhận</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Confirm Delete Account PDP-->
+
+<!--begin::Modal - Confirm Delete Account Leader-->
+<div class="modal fade" id="delete_account_club" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="modal_delete_account_leader_form" class="form">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Xác nhận xóa tài khoản Leader?</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->		
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Huỷ</button>
+                        <button type="submit" id="confirm-delete-account-club" style="background-color: #ff5757;" class="btn btn-primary">Xác Nhận</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Confirm Delete Account Leader-->
+
+
+
+ 
+

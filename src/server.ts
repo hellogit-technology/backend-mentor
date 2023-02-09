@@ -120,12 +120,9 @@ app.use('/js', [
   express.static(path.join(__dirname, `${libraryPath}/flatpickr`)),
   express.static(path.join(__dirname, `${libraryPath}/chart`)),
   express.static(path.join(__dirname, `${libraryPath}/bootstrap/js`)),
-  express.static(path.join(__dirname, `${libraryPath}/google`)),
+  express.static(path.join(__dirname, `${libraryPath}/google`))
 ]);
-app.use('/css', [
-  express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)), 
-  express.static(path.join(__dirname, `../public/helpers`)),
-]);
+app.use('/css', [express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)), express.static(path.join(__dirname, `../public/helpers`))]);
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public', 'img/favicon.png')));
 

@@ -154,14 +154,16 @@ export const mentorUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string, {req}) => {
-      const adminAccountId = req.params?.id 
+    .custom(async (value: string, { req }) => {
+      const adminAccountId = req.params?.id;
       const email = value.trim();
       const checkAdminEmail = await AdminAccount.findOne({
-        email: email,  _id: { $ne: adminAccountId } 
+        email: email,
+        _id: { $ne: adminAccountId }
       });
       const checkLeaderEmail = await LeaderAccount.findOne({
-        email: email, _id: { $ne: adminAccountId }
+        email: email,
+        _id: { $ne: adminAccountId }
       });
       if (checkAdminEmail || checkLeaderEmail) {
         throw new Error(messageVietnamese.ER007('Email'));

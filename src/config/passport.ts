@@ -2,7 +2,7 @@ import { Strategy } from 'passport-google-oauth20';
 import { PassportStatic } from 'passport';
 import { LeaderAccount, AdminAccount } from '../app/models';
 import { messageVietnamese } from '../utils/message';
-import {AccountSession} from '../types/Passport'
+import { AccountSession } from '../types/Passport';
 
 const GoogleStrategy = Strategy;
 
@@ -37,7 +37,7 @@ export const googlePassport = (passport: PassportStatic) => {
               email: profile['_json'].email!,
               displayName: profile['_json'].name!,
               photo: profile['_json'].picture!,
-              role: 0,
+              role: 0
             };
           } else {
             adminSession = {
@@ -46,7 +46,7 @@ export const googlePassport = (passport: PassportStatic) => {
               email: profile['_json'].email!,
               displayName: profile['_json'].name!,
               photo: profile['_json'].picture!,
-              role: 1,
+              role: 1
             };
           }
 
@@ -60,7 +60,7 @@ export const googlePassport = (passport: PassportStatic) => {
             email: profile['_json'].email!,
             displayName: profile['_json'].name!,
             photo: profile['_json'].picture!,
-            role: 2,
+            role: 2
           };
           return done(null, leaderSession);
         }

@@ -1,89 +1,152 @@
 import { Request, Response, NextFunction } from 'express';
 import { sumScores } from '../../../utils/sum';
-import { RequestBody, EventScores, AttitudeScores } from '../../../types/Scores';
+import { BaseScores, BaseScoresUpdate, EventScores, AttitudeScores } from '../../../types/Scores';
 import { getMonth } from '../../../utils/getTime';
 import { Student, Scores } from '../../models';
 import { messageVietnamese } from '../../../utils/message';
+import { AccountSession } from '../../../types/Passport';
+import mongoose, { Schema } from 'mongoose';
+
+type UserObjectId = {
+  type: typeof Schema.Types.ObjectId;
+};
+
+type Role = {
+  type: NumberConstructor;
+};
+
+/**
+ * @description Handle Scores RestfulAPI
+ * @author Merlin Le
+ */
 
 class ScoresControllers {
-  // [POST] /api/
+  /**
+   * [POST] /api/scores
+   * @function createScores
+   * @description Create scores of a student
+   */
+
   public async createScores(req: Request, res: Response, next: NextFunction) {
-    // Use transaction for Scores, Student
-    const session = await Scores.startSession();
-    session.startTransaction();
-
     try {
-      let totalEvent;
-      let totalAttitude;
-      const profileSession: any = req.user;
-      const { schoolId, fullname, email, eventScores, attitudeScores } = req.body;
-
-      // Find student by school id & email
-      const student = await Student.findOne({ schoolId: schoolId, email: email });
-
-      // Student scores write to database
-      const requestBody: RequestBody = {
+      const accountSession: AccountSession = req.user!;
+      const { schoolId, eventScores, attitudeScores } = req.body;
+      const student = await Student.findOne({ schoolId: schoolId });
+      const requestBody: BaseScores = {
         month: getMonth(),
         student: student!._id.toString(),
         editor: {
-          userId: profileSession['userId'] as string,
-          role: profileSession['role'] as number
+          userId: accountSession['userId'] as string,
+          role: accountSession['role'] as number
         },
         historyEdit: [
           {
-            userId: profileSession['userId'] as string,
-            role: profileSession['role'] as number
+            userId: accountSession['userId'] as string,
+            role: accountSession['role'] as number
           }
         ]
       };
       if (eventScores) {
-        const arrayEventsScores: number[] = eventScores.map((event: EventScores) => parseInt(event.scores));
-        const arrayEvents: string[] = eventScores.map((event: EventScores) => event.event);
-        const arrayClubsStudent: any = student?.club;
-        let missingClubs: any = [];
-        arrayEvents.forEach((value, index) => {
-          if (arrayClubsStudent.includes(value) === false) {
-            missingClubs.push(value);
-          }
-        });
-        student?.updateOne({ $push: { club: { $each: missingClubs } } }, { session: session });
-        totalEvent = sumScores(arrayEventsScores);
+        const arrayEventsScores: number[] = eventScores.map((event: EventScores) => event.scores);
+        const totalEventScores = sumScores(arrayEventsScores);
         requestBody['event'] = eventScores;
-        requestBody['totalEvent'] = totalEvent;
+        requestBody['totalEvent'] = totalEventScores;
       }
       if (attitudeScores) {
-        const arrayAttitude: number[] = attitudeScores.mao((attitude: AttitudeScores) => parseInt(attitude.scores));
-        totalAttitude = sumScores(arrayAttitude);
-        requestBody['totalAttitude'] = attitudeScores;
-        requestBody['totalAttitude'] = totalAttitude;
+        const arrayAttitudeScores: number[] = attitudeScores.map((attitude: AttitudeScores) => attitude.scores);
+        const totalAttitudeScores = sumScores(arrayAttitudeScores);
+        requestBody['attitude'] = attitudeScores;
+        requestBody['totalAttitude'] = totalAttitudeScores;
       }
       const newScores = new Scores(requestBody);
-      const savedScores = await newScores.save({ session: session });
-      await session.commitTransaction();
-      session.endSession();
-      req.flash('result', 'successfully')
+      await newScores.save();
+      req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES004B('điểm'));
       res.redirect('/admin/scores');
     } catch (error) {
-      await session.abortTransaction();
-      session.endSession();
-      req.session.modalAccount = 'scores';
-      req.flash('result', 'failed')
+      req.flash('modalScores', 'true');
+      req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES004A('điểm'));
       res.redirect('/admin/scores');
     }
   }
 
-  // [PATCH] /api/
+  /**
+   * [PATCH] /api/scores/:id
+   * @function updateScores
+   * @description Update scores of a student
+   */
+
   public async updateScores(req: Request, res: Response, next: NextFunction) {
     try {
-    } catch (error) {}
+      const accountSession: AccountSession = req.user!;
+      const scoresId = req.params.id;
+      const scores = await Scores.findById(scoresId);
+      const { eventScores, attitudeScores } = req.body;
+      const requestBody: BaseScoresUpdate = {
+        editor: {
+          userId: accountSession['userId'] as string,
+          role: accountSession['role'] as number
+        }
+      };
+      if (eventScores) {
+        const newEventsScoresArray = eventScores.map((element: EventScores) => element.scores);
+        const totalEventsScores = sumScores(newEventsScoresArray);
+        requestBody['event'] = eventScores;
+        requestBody['totalEvent'] = totalEventsScores;
+      }
+      if (attitudeScores) {
+        const newAttitudeScoresArray = attitudeScores.map((element: AttitudeScores) => element.club);
+        const totalAttitudeScores = sumScores(newAttitudeScoresArray);
+        requestBody['attitude'] = attitudeScores;
+        requestBody['totalEvent'] = totalAttitudeScores;
+      }
+      const userId: any = accountSession['userId'];
+      const role: any = accountSession['role'];
+      await scores?.updateOne({
+        $set: requestBody,
+        $push: {
+          historyEdit: {
+            userId: userId as UserObjectId,
+            role: role as Role
+          }
+        }
+      });
+      req.flash('result', 'successfully');
+      req.flash('message', messageVietnamese.RES002B('điểm'));
+      res.redirect('/admin/scores');
+    } catch (error) {
+      req.flash('modalScores', 'true');
+      req.flash('result', 'failed');
+      req.flash('message', messageVietnamese.RES002A('điểm'));
+      res.redirect('/admin/scores');
+    }
   }
 
-  // [DELETE] /api
+  /**
+   * [DELETE] /api/scores/:id
+   * @function deleteScores
+   * @description Remove scores of a student
+   * @alias DeletedScores Storage all deleted scores
+   */
+
   public async deleteScores(req: Request, res: Response, next: NextFunction) {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
-    } catch (error) {}
+      const scores = await Scores.findById(req.params.id);
+      await scores!.deleteOne();
+      req.flash('result', 'successfully');
+      req.flash('message', messageVietnamese.RES003B('điểm'));
+      res.redirect('/admin/scores');
+    } catch (error) {
+      await session.abortTransaction();
+      session.endSession();
+      req.flash('modalScores', 'true');
+      req.flash('result', 'failed');
+      req.flash('message', messageVietnamese.RES003A('điểm'));
+      res.redirect('/admin/scores');
+    }
   }
 }
 

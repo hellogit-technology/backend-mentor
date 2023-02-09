@@ -90,11 +90,12 @@ export const clubSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string, {req}) => {
-      const clubId = req.params?.id
+    .custom(async (value: string, { req }) => {
+      const clubId = req.params?.id;
       const nickname = value.trim();
       const checkNickname = await Club.findOne({
-        nickname: nickname, _id: {$ne: clubId}
+        nickname: nickname,
+        _id: { $ne: clubId }
       });
       if (checkNickname) {
         throw new Error(messageVietnamese.ER007('Nickname'));
@@ -199,7 +200,7 @@ export const clubSchema = [
       return true;
     })
     .bail()
-    .trim(),
+    .trim()
 ];
 
 // UPDATE CLUB
@@ -249,11 +250,12 @@ export const clubUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string, {req}) => {
-      const clubId = req.params?.id
+    .custom(async (value: string, { req }) => {
+      const clubId = req.params?.id;
       const email = value.trim();
       const checkEmail = await Club.findOne({
-        email: email, _id: {$ne: clubId}
+        email: email,
+        _id: { $ne: clubId }
       });
       if (checkEmail) {
         throw new Error(messageVietnamese.ER007('Email'));
@@ -282,11 +284,12 @@ export const clubUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string, {req}) => {
-      const clubId = req.params?.id
+    .custom(async (value: string, { req }) => {
+      const clubId = req.params?.id;
       const nickname = value.trim();
       const checkNickname = await Club.findOne({
-        nickname: nickname, _id: {$ne: clubId}
+        nickname: nickname,
+        _id: { $ne: clubId }
       });
       if (checkNickname) {
         throw new Error(messageVietnamese.ER007('Nickname'));

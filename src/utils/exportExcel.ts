@@ -8,7 +8,6 @@ export const exportExcel = (res: Response, data: any[], workSheetColumnNames: []
   const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
   XLSX.utils.book_append_sheet(workBook, workSheet, workSheetName);
   const buffer: Buffer = XLSX.write(workBook, { type: 'buffer' });
-
   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
   res.setHeader('Content-Disposition', `attachment; filename=${fileName}_${moment(Date.now()).tz('Asia/Ho_Chi_Minh').format('YYYYMMDDHHmmss')}.xlsx`);
   res.send(buffer);

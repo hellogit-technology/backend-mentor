@@ -1,8 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectFile } from '../../utils/inject';
 
+/**
+ * @description Handle Login/Logout
+ * @author Merlin Le
+ */
+
 class LoginControllers {
-  // [GET] /login
+  /**
+   * [GET] /login
+   * @function loginRender
+   * @description Render login page
+   */
+
   public async loginRender(req: Request, res: Response, next: NextFunction) {
     try {
       const messages = req.flash('message')[0];
@@ -14,20 +24,20 @@ class LoginControllers {
       const heading = 'Đăng nhập';
       res.status(200).render('login/index', { layout: false, messages, files, title, heading });
     } catch (error) {
-      console.log(error);
+      console.table(error);
     }
   }
 
-  // [GET] /logout
+  /**
+   * [GET] /logout
+   * @function logout
+   * @pdescription End session logout CMS
+   */
+
   public logout(req: Request, res: Response, next: NextFunction) {
     if (req.session) {
-      req.session.destroy((err) => {
-        if (err) {
-          res.status(400).json({
-            message: 'Unable to log out',
-            error: err
-          });
-        }
+      req.session.destroy((error) => {
+        if (error) console.table(error);
         return res.redirect('/login');
       });
     } else {

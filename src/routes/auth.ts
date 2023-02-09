@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import { requiredAuth } from '../middleware/auth';
-import {AccountSession} from '../types/Passport'
+import { AccountSession } from '../types/Passport';
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.get(
 );
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login', failureFlash: true }), (req: Request, res: Response, next: NextFunction) => {
-  if(!req.user) return res.redirect('/login');
+  if (!req.user) return res.redirect('/login');
   const session: AccountSession = req.user;
   if (session.role === 0 || session.role === 1) return res.redirect('/admin');
   return res.redirect('/');
@@ -25,7 +25,7 @@ router.get('/logout', requiredAuth, (req: Request, res: Response, next: NextFunc
       if (err) return res.status(400).json('Unable to log out');
       return res.redirect('/login');
     });
-  } 
+  }
   return res.end();
 });
 

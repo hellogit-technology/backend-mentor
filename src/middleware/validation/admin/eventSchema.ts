@@ -112,25 +112,25 @@ export const eventSchema = [
       }
       return true;
     }),
-    check('campus')
-      .notEmpty()
-      .withMessage(messageVietnamese.ER001('cơ sở'))
-      .bail()
-      .custom((value: string) => {
-        return value.trim().length !== 0;
-      })
-      .withMessage(messageVietnamese.ER001('cơ sở'))
-      .bail()
-      .custom(async (value: string) => {
-        const campusId = value.trim();
-        const checkCampusId = await Campus.findById(campusId);
-        if (!checkCampusId) {
-          throw new Error(messageVietnamese.ER001('cơ sở'));
-        }
-        return true;
-      })
-      .bail()
-      .trim(),
+  check('campus')
+    .notEmpty()
+    .withMessage(messageVietnamese.ER001('cơ sở'))
+    .bail()
+    .custom((value: string) => {
+      return value.trim().length !== 0;
+    })
+    .withMessage(messageVietnamese.ER001('cơ sở'))
+    .bail()
+    .custom(async (value: string) => {
+      const campusId = value.trim();
+      const checkCampusId = await Campus.findById(campusId);
+      if (!checkCampusId) {
+        throw new Error(messageVietnamese.ER001('cơ sở'));
+      }
+      return true;
+    })
+    .bail()
+    .trim()
 ];
 
 // UPDATE EVENT
@@ -248,5 +248,4 @@ export const eventUpdateSchema = [
     })
     .bail()
     .trim()
-
 ];

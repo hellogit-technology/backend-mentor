@@ -23,5 +23,6 @@ export const messageVietnamese = {
   RES003B: (param: string) => `Xóa ${param} thành công.`,
   RES004A: (param: string) => `Tạo mới ${param} thất bại.`,
   RES004B: (param: string) => `Tạo mới ${param} thành công.`,
-  RES005: `Tài khoản không thể truy cập.`
+  RES005: `Tài khoản không thể truy cập.`,
+  RES006: `Đã có sự cố xảy ra.`
 };

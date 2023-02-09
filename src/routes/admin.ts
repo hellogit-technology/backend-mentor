@@ -9,7 +9,8 @@ router.get('/profile/:slug', renderControllers.profile);
 router.get('/scores', renderControllers.scores);
 router.get('/system', renderControllers.system);
 router.get('/tutorial', renderControllers.tutorial);
-router.get('/accounts', renderControllers.accounts);
+router.get('/leader-accounts', renderControllers.leaderAccounts);
+router.get('/admin-accounts', renderControllers.adminAccounts)
 router.get('/clubs', renderControllers.clubs);
 router.get('/club/:slug', renderControllers.clubMembers);
 router.get('/events', renderControllers.events);

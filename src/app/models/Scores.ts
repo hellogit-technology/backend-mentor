@@ -1,17 +1,16 @@
-import { Timestamp } from 'mongodb';
 import { Schema, model } from 'mongoose';
 
 const ScoresSchema = new Schema(
   {
     event: [
       {
-        scores: { type: String, maxlength: 3 },
+        scores: { type: Number, max: 3 },
         event: { type: Schema.Types.ObjectId, ref: 'Event' }
       }
     ],
     attitude: [
       {
-        scores: { type: String, maxlength: 3 },
+        scores: { type: Number, max: 3 },
         club: { type: Schema.Types.ObjectId, ref: 'Club' }
       }
     ],

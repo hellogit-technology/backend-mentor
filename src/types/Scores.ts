@@ -1,13 +1,15 @@
-export interface RequestBody {
+import { Schema } from 'mongoose';
+
+export interface BaseScores {
   event?: [
     {
-      scores: string;
+      scores: number;
       event: string;
     }
   ];
   attitude?: [
     {
-      scores: string;
+      scores: number;
       club: string;
     }
   ];
@@ -27,12 +29,39 @@ export interface RequestBody {
   ];
 }
 
+export interface BaseScoresUpdate {
+  event?: [
+    {
+      scores: number;
+      event: string;
+    }
+  ];
+  attitude?: [
+    {
+      scores: number;
+      club: string;
+    }
+  ];
+  totalEvent?: number;
+  totalAttitude?: number;
+  editor: {
+    userId: string;
+    role: number;
+  };
+}
+
 export interface EventScores {
-  scores: string;
-  event: string;
+  scores: number;
+  event: {
+    type: typeof Schema.Types.ObjectId;
+    ref: 'Event';
+  };
 }
 
 export interface AttitudeScores {
-  scores: string;
-  club: string;
+  scores: number;
+  club: {
+    type: typeof Schema.Types.ObjectId;
+    ref: 'Club';
+  };
 }

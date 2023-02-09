@@ -1,9 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import { LeaderAccount } from '../../models';
 import { messageVietnamese } from '../../../utils/message';
+import { AccountSession } from '../../../types/Passport';
+
+/**
+ * @description Handle Leader RestfulAPI
+ * @author Merlin Le
+ */
 
 class LeaderAccountControllers {
-  // [POST] /api/leader-account
+  /**
+   * [POST] /api/leader-account
+   * @function createLeader
+   * @description Create leader account (Leader role)
+   */
+
   public async createLeader(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseLeaderAccount {
@@ -15,7 +26,7 @@ class LeaderAccountControllers {
         club: string;
         editor: string;
       }
-      const profileSession: any = req.user;
+      const accountSession: AccountSession = req.user!;
       const { fullname, email, campus, role, club, schoolId } = req.body;
       const requestBody: BaseLeaderAccount = {
         fullname: fullname,
@@ -24,22 +35,27 @@ class LeaderAccountControllers {
         campus: campus,
         role: role as number,
         club: club,
-        editor: profileSession['userId'] as string
+        editor: accountSession['userId'] as string
       };
       const newLeaderAccount = new LeaderAccount(requestBody);
-      const savedLeaderAccount = await newLeaderAccount.save();
-      req.flash('result', 'successfully')
+      await newLeaderAccount.save();
+      req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES004B('leader account'));
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.session.modalAccount = 'leader';
-      req.flash('result', 'failed')
+      req.flash('modalLeaderAccount', 'true');
+      req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES004A('leader account'));
       res.redirect('/admin/accounts');
     }
   }
 
-  // [PATCH] /api/leader-account/:id
+  /**
+   * [PATCH] /api/leader-account/:id
+   * @function updateLeader
+   * @description Update leader account (Leader role)
+   */
+
   public async updateLeader(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseLeaderAccountUpdate {
@@ -51,51 +67,44 @@ class LeaderAccountControllers {
         club?: string;
         editor: string;
       }
-      const profileSession: any = req.user;
+      const accountSession: AccountSession = req.user!;
       const { fullname, email, campus, role, club, schoolId } = req.body;
       let requestBody: BaseLeaderAccountUpdate = {
-        editor: profileSession['userId'] as string
+        editor: accountSession['userId'] as string
       };
-      if (fullname) {
-        requestBody['fullname'] = fullname;
-      }
-      if (email) {
-        requestBody['email'] = fullname;
-      }
-      if (campus) {
-        requestBody['campus'] = campus;
-      }
-      if (role) {
-        requestBody['role'] = role;
-      }
-      if (club) {
-        requestBody['club'] = club;
-      }
-      if (schoolId) {
-        requestBody['schoolId'] = schoolId;
-      }
+      if (fullname) requestBody['fullname'] = fullname;
+      if (email) requestBody['email'] = fullname;
+      if (campus) requestBody['campus'] = campus;
+      if (role) requestBody['role'] = role;
+      if (club) requestBody['club'] = club;
+      if (schoolId) requestBody['schoolId'] = schoolId;
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.updateOne({ $set: requestBody });
       req.flash('message', `${messageVietnamese.RES002B} (Leader Account)`);
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.session.modalAccount = 'leader';
-      req.flash('error', `${messageVietnamese.RES002A} (Leader Account)`);
+      req.flash('modalLeaderAccount', 'true');
+      req.flash('result', 'failed');
+      req.flash('message', `${messageVietnamese.RES002A} (Leader Account)`);
       res.redirect('/admin/accounts');
     }
   }
 
-  // [DELETE] /api/leader-account/:id
+  /**
+   * [DELETE] /api/leader-account/:id
+   * @function deleteLeader
+   * @description Remove leader account (Leader role)
+   */
+
   public async deleteLeader(req: Request, res: Response, next: NextFunction) {
     try {
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.deleteOne();
-      req.flash('result', 'successfully')
+      req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES003B('leader account'));
       res.redirect('/admin/accounts');
     } catch (error) {
-      req.session.modalAccount = 'leader';
-      req.flash('result', 'failed')
+      req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES003A('leader account'));
       res.redirect('/admin/accounts');
     }

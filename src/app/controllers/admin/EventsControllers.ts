@@ -5,10 +5,21 @@ import { makeSlug } from '../../../utils/slugify';
 import { Campus, Event } from '../../models';
 import { generate } from '../../../utils/generateQRCode';
 import { makeUniqueID } from '../../../utils/uniqueID';
-import {dataUri} from '../../../config/multer'
+import { dataUri } from '../../../config/multer';
+import { AccountSession } from '../../../types/Passport';
+
+/**
+ * @description Handle Event RestfulAPI
+ * @author Merlin Le
+ */
 
 class EventsControllers {
-  // [POST] /api/event
+  /**
+   * [POST] /api/event
+   * @function createEvent
+   * @description Create a event
+   */
+
   public async createEvent(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseEvent {
@@ -31,10 +42,8 @@ class EventsControllers {
         editor: string;
       }
 
-      const profileSession: any = req.user;
+      const accountSession: AccountSession = req.user!;
       const { eventName, campus, date, club } = req.body;
-
-      // Generate QR Code
       const checkingDomain = process.env.CHECKING_EVENT_DOMAIN!;
       const imageBrandUrl = process.env.IMAGE_URL!;
       const eventSlug = makeSlug(eventName);
@@ -43,15 +52,9 @@ class EventsControllers {
       const eventId = makeUniqueID('event', cityId, 4);
       const checkingLink = `${checkingDomain}/${eventId}/${eventSlug}`;
       const base64Image = await generate(checkingLink, imageBrandUrl);
-
-      // Upload to Cloudinary
-      const qrCodeResult = await cloudinary.v2.uploader.upload(base64Image, { folder: 'QRCode' });
-      const photo = dataUri(req).content
-      if(!photo) {
-        throw new Error('Not found file')
-      }
-      const posterResult = await cloudinary.v2.uploader.upload(photo, { folder: 'Event' });
-
+      const photo = dataUri(req).content;
+      if (!photo) throw new Error('Not found image');
+      const [qrCodeResult, posterResult] = await Promise.all([cloudinary.v2.uploader.upload(base64Image, { folder: 'QRCode' }), cloudinary.v2.uploader.upload(photo, { folder: 'Event' })]);
       const requestBody: BaseEvent = {
         eventId: eventId,
         name: eventName,
@@ -67,26 +70,28 @@ class EventsControllers {
           cloudinaryId: qrCodeResult['public_id']
         },
         expire: false,
-        editor: profileSession['userId'] as string
+        editor: accountSession['userId'] as string
       };
-
-      if (club) {
-        requestBody['club'] = club;
-      }
+      if (club) requestBody['club'] = club;
       const newEvent = new Event(requestBody);
-      const savedStudent = await newEvent.save();
-      req.flash('result', 'successfully')
+      await newEvent.save();
+      req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES004B('sự kiện'));
       res.redirect('/admin/events');
     } catch (error) {
-      req.session.modalAccount = 'event';
-      req.flash('result', 'failed')
+      req.flash('modalEvent', 'true');
+      req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES004A('sự kiện'));
       res.redirect('/admin/events');
     }
   }
 
-  // [PATCH] /api/event/:id
+  /**
+   * [PATCH] /api/event/:id
+   * @function updateEvent
+   * @description Update a event
+   */
+
   public async updateEvent(req: Request, res: Response, next: NextFunction) {
     try {
       interface BaseEventUpdate {
@@ -108,15 +113,13 @@ class EventsControllers {
         expire?: boolean;
         editor: string;
       }
-      const profileSession: any = req.user;
+
+      const accountSession: AccountSession = req.user!;
       const { eventName, campus, date, club } = req.body;
       const event = await Event.findById(req.params.id);
-
       const requestBody: BaseEventUpdate = {
-        editor: profileSession['userId'] as string
+        editor: accountSession['userId'] as string
       };
-
-      // Generate QR Code
       const checkingDomain = process.env.CHECKING_EVENT_DOMAIN!;
       const imageBrandUrl = process.env.IMAGE_URL!;
 
@@ -147,14 +150,8 @@ class EventsControllers {
           requestBody['qrcode']!.cloudinaryId = qrCodeResult['public_id'];
         }
       }
-
-      if (date) {
-        requestBody['date'] = date;
-      }
-      if (club) {
-        requestBody['club'] = club;
-      }
-
+      if (date) requestBody['date'] = date;
+      if (club) requestBody['club'] = club;
       if (req.file!.path) {
         const public_id = event?.poster;
         await cloudinary.v2.uploader.destroy(public_id!.toString());
@@ -163,26 +160,32 @@ class EventsControllers {
         requestBody['poster']!.cloudinaryId = posterResult['public_id'];
       }
       await event!.updateOne({ $set: requestBody });
-      req.flash('result', 'successfully')
+      req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES002B('sự kiện'));
       res.redirect('/admin/events');
     } catch (error) {
-      req.flash('result', 'failed')
+      req.flash('modalEvent', 'true');
+      req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES002A('sự kiện'));
       res.redirect('/admin/events');
     }
   }
 
-  // [DELETE] /api/event/:id
+  /**
+   * [DELETE] /api/event/:id
+   * @function deleteEvent
+   * @description Delete a event
+   */
+
   public async deleteEvent(req: Request, res: Response, next: NextFunction) {
     try {
       const event = await Event.findById(req.params.id);
       await event!.deleteOne();
-      req.flash('result', 'successfully')
+      req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES003B('sự kiện'));
       res.redirect('/admin/events');
     } catch (error) {
-      req.flash('result', 'failed')
+      req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES003A('sự kiện'));
       res.redirect('/admin/events');
     }

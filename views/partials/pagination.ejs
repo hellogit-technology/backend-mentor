@@ -1,12 +1,14 @@
 <div class="d-flex justify-content-center">
     <ul class="pagination mt-3 mb-0">
-        <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
+
+        <%- pagination('/admin/admin-accounts', queryData.pagination['current'], queryData.pagination['pages']) %> 
+        <!-- <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
         <li class="active page-item"><a href="#" class="page-link">1</a></li>
         <li class="page-item"><a href="#" class="page-link">2</a></li>
         <li class="page-item"><a href="#" class="page-link">3</a></li>
         <li class="page-item"><a href="#" class="page-link">4</a></li>
         <li class="page-item"><a href="#" class="page-link">5</a></li>
         <li class="page-item"><a href="#" class="page-link">›</a></li>
-        <li class="page-item"><a href="#" class="page-link">»</a></li>
+        <li class="page-item"><a href="#" class="page-link">»</a></li> -->
     </ul>
 </div>

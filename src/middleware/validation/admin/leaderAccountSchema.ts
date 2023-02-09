@@ -171,14 +171,16 @@ export const leaderUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string, {req}) => {
-      const leaderAccountId = req.param?.id
+    .custom(async (value: string, { req }) => {
+      const leaderAccountId = req.param?.id;
       const email = value.trim();
       const checkAdminEmail = await LeaderAccount.findOne({
-        email: email, _id: { $ne: leaderAccountId }
+        email: email,
+        _id: { $ne: leaderAccountId }
       });
       const checkLeaderEmail = await LeaderAccount.findOne({
-        email: email, _id: { $ne: leaderAccountId }
+        email: email,
+        _id: { $ne: leaderAccountId }
       });
       if (checkAdminEmail || checkLeaderEmail) {
         throw new Error(messageVietnamese.ER007('Email'));
@@ -244,11 +246,12 @@ export const leaderUpdateSchema = [
       return true;
     })
     .bail()
-    .custom(async (value: string, {req}) => {
-      const leaderAccountId = req.params?.id
+    .custom(async (value: string, { req }) => {
+      const leaderAccountId = req.params?.id;
       const schoolId = value.trim();
       const checkSchoolId = await Student.findOne({
-        schoolId: schoolId, _id: { $ne: leaderAccountId }
+        schoolId: schoolId,
+        _id: { $ne: leaderAccountId }
       });
       if (checkSchoolId) {
         throw new Error(messageVietnamese.ER007('Mã số sinh viên'));
