@@ -2,7 +2,7 @@
 
 
 $(document).ready(function() {
-    const $inputForm = $('#kt_modal_evaluation_form_excel_students')
+    const $inputForm = $('#modal_upload_excel_form')
 
     const inputName = {
         input1: 'students',

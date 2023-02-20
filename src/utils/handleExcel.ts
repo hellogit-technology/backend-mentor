@@ -1,8 +1,15 @@
-import XLSX, { WritingOptions } from 'xlsx';
+import XLSX from 'xlsx';
 import { Response } from 'express';
 import moment from 'moment-timezone';
 
-export const exportExcel = (res: Response, data: any[], workSheetColumnNames: [], workSheetName: string, fileName: string) => {
+export const importFile = (buffer: Buffer): unknown[] => {
+  const workBook = XLSX.read(buffer, {type: 'buffer'});
+  const workSheet = workBook.Sheets[workBook.SheetNames[0]];
+  const data = XLSX.utils.sheet_to_json(workSheet);
+  return data
+};
+
+export const exportFile = (res: Response, data: any[], workSheetColumnNames: [], workSheetName: string, fileName: string) => {
   const workBook = XLSX.utils.book_new();
   const workSheetData = [workSheetColumnNames, ...data];
   const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);

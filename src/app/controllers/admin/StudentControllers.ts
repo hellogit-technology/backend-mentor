@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { Student } from '../../models';
 import { messageVietnamese } from '../../../utils/message';
 import { AccountSession } from '../../../types/Passport';
+import {importFile} from '../../../utils/handleExcel'
 
 /**
  * @description Handle Student RestfulAPI
@@ -55,7 +56,11 @@ class StudentControllers {
 
   public async uploadStudents(req: Request, res: Response, next: NextFunction) {
     try {
-    } catch (error) {}
+      importFile(req.file!.buffer)
+      res.end()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   /**

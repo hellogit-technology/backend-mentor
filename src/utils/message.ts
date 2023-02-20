@@ -1,4 +1,5 @@
 export const messageVietnamese = {
+
   // Input Validation
   ER001: (param: string) => `Mục ${param} bắt buộc nhập.`,
   ER002A: (param: string, length: number, current: number) => `Mục ${param} tối đa ${length} ký tự. (hiện tại ${current} ký tự.)`,
@@ -24,5 +25,9 @@ export const messageVietnamese = {
   RES004A: (param: string) => `Tạo mới ${param} thất bại.`,
   RES004B: (param: string) => `Tạo mới ${param} thành công.`,
   RES005: `Tài khoản không thể truy cập.`,
-  RES006: `Đã có sự cố xảy ra.`
+  RES006: `Đã có sự cố xảy ra.`,
+
+  // Excel File
+  XLS001: (param: string) => `Định dạng tiêu đề không đúng (tiêu đề đúng: ${param})`,
+  XLS002: (param: number) => `Không đủ số lượng data (yêu cầu ${param})`,
 };

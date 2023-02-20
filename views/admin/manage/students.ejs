@@ -192,26 +192,32 @@
                 <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
                         <table class="table table-bordered">
-                            <% if (typeof(queryData.student) !== 'undefined') { %>
-                                <% if (queryData.student.length > 0) { %>
+                            <% if (typeof(queryData.students) !== 'undefined') { %>
+                                <% if (queryData.students.length > 0) { %>
                                     <thead>
                                         <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                            <th style="width:100px;">Stt</th>
+                                            <th style="width:50px;">Stt</th>
                                             <th style="width:100px;">ID</th>
-                                            <th style="width:300px;">Họ và tên</th>
-                                            <th style="width:250px;">Email</th>
+                                            <th style="width:150px;">Họ và tên</th>
+                                            <th style="width:300px;">Email</th>
+                                            <th style="width:150px;">Câu lạc bộ</th>
                                             <th style="width:250px;">Cơ sở đang học</th>
-                                            <th style="width:200px;" class="text-center">Được thêm bởi</th>
-                                            <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                            <th style="width:250px;" class="text-center">Được thêm bởi</th>
+                                            <th style="width:250px;" class="text-center">Sửa/Xoá</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% queryData.student.forEach((person, index) => { %> 
+                                        <% queryData.students.forEach((person, index) => { %> 
                                             <tr> 
                                                 <td class="text-nowrap align-middle"><%= index + 1 %></td>
                                                 <td class="text-nowrap align-middle"><%= person.schoolId %></td>
                                                 <td class="text-nowrap align-middle"><%= person.fullname %></td>
                                                 <td class="text-nowrap align-middle"><%= person.email %></td>
+                                                <% if (person.club.length > 0) { %>
+                                                    <td class="text-nowrap align-middle">Clubs</td>
+                                                <% } else { %>
+                                                    <td class="text-nowrap align-middle">Không có</td>
+                                                <% } %>  
                                                 <td class="text-nowrap align-middle"><%= person.campus.name %></td>
                                                 <td class="text-center align-middle">
                                                     <a href="#">
@@ -420,7 +426,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_upload_excel_form" class="form" action="#">
+                <form id="modal_upload_excel_form" enctype="multipart/form-data" class="form">
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->

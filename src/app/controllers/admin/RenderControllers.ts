@@ -433,10 +433,13 @@ class RenderControllers {
 
   public async students(req: Request, res: Response, next: NextFunction) {
     try {
+      let searchCondition: QueryOptions
       const accountSession: AccountSession = req.user!;
+      const {search} = req.query
       const page = parseInt(req.query.page as string) || 1;
+      const limitItem = RenderControllers.limitItems['students']
       const files = RenderControllers.injectionAssets;
-      const infoPage = {
+      const infoPage: InfoPage = {
         title: 'Sinh viên | PDP Greenwich Vietnam',
         students: 'active',
         heading: 'Sinh viên',
@@ -449,10 +452,20 @@ class RenderControllers {
           {title: 'Quản lí sinh viên', link: '/admin/students'}
         ]
       };
+      if(search) {
+        infoPage['search'] = {
+          searchBox: 'active show',
+          queryData: search as string
+        }
+        const regex = new RegExp(`.*${search as string}.*`, 'i');
+        searchCondition = { $or: [{ fullname: regex }, { email: regex }, {schoolId: regex}] }
+      } else {
+        searchCondition = {}
+      }
       const [campusResult, clubsResult, studentsResult] = await Promise.all([
         Campus.find({}),
         Club.find({}),
-        Student.find({})
+        Student.find(searchCondition)
           .populate('campus')
           .populate('editor')
           .limit(RenderControllers.limitItems.students)
@@ -461,7 +474,13 @@ class RenderControllers {
       const queryData = {
         campus: campusResult,
         clubs: clubsResult,
-        students: studentsResult
+        students: studentsResult,
+        totalItem: studentsResult.length,
+        itemsOnePage: limitItem,
+        pagination: {
+          current: page,
+          pages: Math.ceil(studentsResult.length / limitItem)
+        }
       };
       const toastMessage = {
         result: req.flash('result')[0],
@@ -477,7 +496,7 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      console.error(error);
     }
   }
 
@@ -568,9 +587,11 @@ class RenderControllers {
     try {
       let searchCondition: QueryOptions
       const accountSession: AccountSession = req.user!;
+      const {search} = req.query
       const page = parseInt(req.query.page as string) || 1;
+      const limitItem = RenderControllers.limitItems['leaderAccount']
       const files = RenderControllers.injectionAssets;
-      const infoPage = {
+      const infoPage: InfoPage = {
         title: 'Tài khoản Leader | PDP Greenwich Vietnam',
         leaderAccount: 'active',
         heading: 'Tài khoản Leader',
@@ -583,10 +604,20 @@ class RenderControllers {
           {title: 'Quản lí tài khoản Leader', link: '/admin/leader-accounts'}
         ]
       };
+      if(search) {
+        infoPage['search'] = {
+          searchBox: 'active show',
+          queryData: search as string
+        }
+        const regex = new RegExp(`.*${search as string}.*`, 'i')
+        searchCondition = { $or: [{ fullname: regex }, { email: regex }, {schoolId: regex}] }
+      } else {
+        searchCondition = {}
+      }
       const [campusResult, clubsResult, leaderResult] = await Promise.all([
         Campus.find({}),
         Club.find({}),
-        LeaderAccount.find({})
+        LeaderAccount.find(searchCondition)
           .populate('campus')
           .populate('club')
           .populate('editor')
@@ -596,7 +627,13 @@ class RenderControllers {
       const queryData = {
         campus: campusResult,
         clubs: clubsResult,
-        leaderAccount: leaderResult
+        leaderAccount: leaderResult,
+        totalItem: leaderResult.length,
+        itemsOnePage: limitItem,
+        pagination: {
+          current: page,
+          pages: Math.ceil(leaderResult.length / limitItem)
+        }
       };
       const toastMessage = {
         result: req.flash('result')[0],
@@ -615,7 +652,7 @@ class RenderControllers {
         validationMessage
       });
     } catch (error) {
-      console.table(error);
+      console.error(error);
     }
   }
 }
