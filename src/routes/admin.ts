@@ -1,7 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import renderControllers from '../app/controllers/admin/RenderControllers';
 
-const router = express.Router();
+const router = Router();
 
 // Render
 router.get('/dashboard', renderControllers.dashboard);

@@ -9,13 +9,13 @@ import { AccountSession } from '../../../types/Passport';
  */
 
 class LeaderAccountControllers {
+
   /**
-   * [POST] /api/leader-account
-   * @function createLeader
-   * @description Create leader account (Leader role)
+   * @function createLeader Create leader account (Leader role)
+   * @method POST /api/leader-account
    */
 
-  public async createLeader(req: Request, res: Response, next: NextFunction) {
+  public createLeader = async(req: Request, res: Response, next: NextFunction) => {
     try {
       interface BaseLeaderAccount {
         fullname: string;
@@ -41,22 +41,21 @@ class LeaderAccountControllers {
       await newLeaderAccount.save();
       req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES004B('leader account'));
-      res.redirect('/admin/accounts');
+      res.redirect('/admin/leader-accounts');
     } catch (error) {
       req.flash('modalLeaderAccount', 'true');
       req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES004A('leader account'));
-      res.redirect('/admin/accounts');
+      res.redirect('/admin/leader-accounts');
     }
   }
 
   /**
-   * [PATCH] /api/leader-account/:id
-   * @function updateLeader
-   * @description Update leader account (Leader role)
+   * @function updateLeader Update leader account (Leader role)
+   * @method PATCH /api/leader-account/:id
    */
 
-  public async updateLeader(req: Request, res: Response, next: NextFunction) {
+  public updateLeader = async(req: Request, res: Response, next: NextFunction) => {
     try {
       interface BaseLeaderAccountUpdate {
         fullname?: string;
@@ -80,33 +79,33 @@ class LeaderAccountControllers {
       if (schoolId) requestBody['schoolId'] = schoolId;
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.updateOne({ $set: requestBody });
+      req.flash('result', 'successfully');
       req.flash('message', `${messageVietnamese.RES002B} (Leader Account)`);
-      res.redirect('/admin/accounts');
+      res.redirect('/admin/leader-accounts');
     } catch (error) {
       req.flash('modalLeaderAccount', 'true');
       req.flash('result', 'failed');
       req.flash('message', `${messageVietnamese.RES002A} (Leader Account)`);
-      res.redirect('/admin/accounts');
+      res.redirect('/admin/leader-accounts');
     }
   }
 
   /**
-   * [DELETE] /api/leader-account/:id
-   * @function deleteLeader
-   * @description Remove leader account (Leader role)
+   * @function deleteLeader Remove leader account (Leader role)
+   * @method DELETE /api/leader-account/:id
    */
 
-  public async deleteLeader(req: Request, res: Response, next: NextFunction) {
+  public deleteLeader = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const leader = await LeaderAccount.findById(req.params.id);
       await leader!.deleteOne();
       req.flash('result', 'successfully');
       req.flash('message', messageVietnamese.RES003B('leader account'));
-      res.redirect('/admin/accounts');
+      res.redirect('/admin/leader-accounts');
     } catch (error) {
       req.flash('result', 'failed');
       req.flash('message', messageVietnamese.RES003A('leader account'));
-      res.redirect('/admin/accounts');
+      res.redirect('/admin/leader-accounts');
     }
   }
 }

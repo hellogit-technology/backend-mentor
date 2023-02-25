@@ -9,18 +9,41 @@ import { getBase64Image } from '../../utils/convertImage';
 
 class HelpersControllers {
 
+  /**
+   * @function maxLength Check lengh data
+   * @returns true/false
+   */
 
-  private validateBody(data: string, ) {
-
+  private maxLength = (data: string, max: number) => {
+    return data.length <= max
   }
 
   /**
-   * [POST] /api/download-qrcode
-   * @function downloadQRCode
-   * @description Download QRCode image
+   * @function sanitize Prevent NoSQL injection
+   * @param query Query filter mongo
+   * @returns filterd object
    */
 
-  public async downloadQRCode(req: Request, res: Response, next: NextFunction) {
+  private sanitize = (query: unknown) => {
+    if (query instanceof Object) {
+        for (let key in query) {
+            if (/^\$/.test(key)) {
+                delete query[key as keyof typeof query];
+            } else {
+                this.sanitize(query[key as keyof typeof query]);
+            }
+        }
+    }
+    return query;
+  };
+
+  /**
+   * @function downloadQRCode Download QRCode image
+   * @method POST /api/download-qrcode
+   * @returns true/false
+   */
+
+  public downloadQRCode = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { imageURL } = req.body;
       if (!imageURL) return res.status(404).json(false);
@@ -32,12 +55,12 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/event/:id/expire
    * @function setStatusExpire
-   * @description
+   * @method POST /api/event/:id/expire
+   * @returns
    */
 
-  public async setStatusExpire(req: Request, res: Response, next: NextFunction) {
+  public setStatusExpire = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const eventId = req.params.id;
       const { expire } = req.body;
@@ -60,12 +83,12 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/event/qrcode-status
-   * @function
-   * @description
+   * @function getStatusExpire 
+   * @method POST /api/event/qrcode-status
+   * @returns
    */
 
-  public async getStatusExpire(req: Request, res: Response, next: NextFunction) {
+  public getStatusExpire = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { eventId } = req.body;
       const event = await Event.findById(eventId);
@@ -78,14 +101,15 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/valid-campus
-   * @function campusIsValid
-   * @description Check campus data is valid
+   * @function campusIsValid Check campus data is valid
+   * @method POST /api/valid-campus
+   * @returns true/false
    */
 
-  public async campusIsValid(req: Request, res: Response, next: NextFunction) {
+  public campusIsValid = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { campus } = req.body;
+      if(!this.maxLength(campus, 24)) return res.status(200).json(false);
       const result = await Campus.findById(campus);
       if (result) return res.status(200).json(true);
       return res.status(200).json(false);
@@ -95,14 +119,15 @@ class HelpersControllers {
   }
 
   /**
-   *  [POST] /api/valid-club
-   * @function clubIsValid
-   * @description Check club data is valid
+   * @function clubIsValid Check club data is valid
+   * @method POST /api/valid-club
+   * @returns true/false
    */
 
-  public async clubIsValid(req: Request, res: Response, next: NextFunction) {
+  public clubIsValid = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { club } = req.body;
+      if(!this.maxLength(club, 24)) return res.status(200).json(false);
       const result = await Club.findById(club);
       if (result) return res.status(200).json(true);
       return res.status(200).json(false);
@@ -112,15 +137,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-club-id
-   * @function clubIdExist
-   * @description Check club ID is existed
+   * @function clubIdExist Check club ID is existed
+   * @method POST /api/check-club-id
+   * @returns true/false
    */
 
-  public async clubIdExist(req: Request, res: Response, next: NextFunction) {
+  public clubIdExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { clubId } = req.body;
-      const club = await Club.findOne({ clubId: clubId });
+      if(!this.maxLength(clubId, 30)) return res.status(200).json(false);
+      const club = await Club.findOne({ clubId: this.sanitize(clubId)});
       if (club) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -129,15 +155,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-club-email
-   * @function clubEmailExist
-   * @description Check club email is existed
+   * @function clubEmailExist Check club email is existed
+   * @method POST /api/check-club-email
+   * @returns true/false
    */
 
-  public async clubEmailExist(req: Request, res: Response, next: NextFunction) {
+  public clubEmailExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { email } = req.body;
-      const club = await Club.findOne({ email: email });
+      if(!this.maxLength(email, 100)) return res.status(200).json(false);
+      const club = await Club.findOne({ email: this.sanitize(email)});
       if (club) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -146,15 +173,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-club-nickname
-   * @function clubNicknameExist
-   * @description Check club nickname is existed
+   * @function clubNicknameExist Check club nickname is existed
+   * @method POST /api/check-club-nickname
+   * @returns true/false
    */
 
-  public async clubNicknameExist(req: Request, res: Response, next: NextFunction) {
+  public clubNicknameExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { nickname } = req.body;
-      const club = await Club.findOne({ nickname: nickname });
+      if(!this.maxLength(nickname, 50)) return res.status(200).json(false);
+      const club = await Club.findOne({ nickname: this.sanitize(nickname) });
       if (club) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -163,15 +191,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-student-id
-   * @function studentIdExist
-   * @description Check student ID is existed
+   * @function studentIdExist Check student ID is existed
+   * @method POST /api/check-student-id
+   * @returns true/false
    */
 
-  public async studentIdExist(req: Request, res: Response, next: NextFunction) {
+  public studentIdExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { schoolId } = req.body;
-      const student = await Student.findOne({ schoolId: schoolId });
+      if(!this.maxLength(schoolId, 30)) return res.status(200).json(false);
+      const student = await Student.findOne({ schoolId: this.sanitize(schoolId) });
       if (student) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -180,15 +209,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-student-email
-   * @function studentEmailExist
-   * @description Check student email is existed
+   * @function studentEmailExist Check student email is existed
+   * @method POST /api/check-student-email
+   * @returns true/false
    */
 
-  public async studentEmailExist(req: Request, res: Response, next: NextFunction) {
+  public studentEmailExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { email } = req.body;
-      const student = await Student.findOne({ email: email });
+      if(!this.maxLength(email, 100)) return res.status(200).json(false);
+      const student = await Student.findOne({ email: this.sanitize(email) });
       if (student) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -197,15 +227,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-event-id
-   * @function eventIdExist
-   * @description Check event ID is existed
+   * @function eventIdExist Check event ID is existed
+   * @method POST /api/check-event-id 
+   * @returns true/false
    */
 
-  public async eventIdExist(req: Request, res: Response, next: NextFunction) {
+  public eventIdExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { eventId } = req.body;
-      const event = await Event.findOne({ eventId: eventId });
+      if(!this.maxLength(eventId, 30)) return res.status(200).json(false);
+      const event = await Event.findOne({ eventId: this.sanitize(eventId) });
       if (event) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -214,15 +245,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-account-email
-   * @function accountEmailExist
-   * @description Check account email is existed
+   * @function accountEmailExist Check account email is existed
+   * @method POST /api/check-account-email
+   * @returns true/false
    */
 
-  public async accountEmailExist(req: Request, res: Response, next: NextFunction) {
+  public accountEmailExist = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { email } = req.body;
-      const [emailAdmin, emailLeader] = await Promise.all([AdminAccount.findOne({ email: email }), LeaderAccount.findOne({ email: email })]);
+      if(!this.maxLength(email, 100)) return res.status(200).json(false);
+      const [emailAdmin, emailLeader] = await Promise.all([AdminAccount.findOne({ email: this.sanitize(email) }), LeaderAccount.findOne({ email: this.sanitize(email) })]);
       if (emailLeader || emailAdmin) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -231,15 +263,16 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-account-email-admin-update
-   * @function accountEmailAdminUpdate
-   * @description Check admin email is existed when update
+   * @function accountEmailAdminUpdate Check admin email is existed when update
+   * @method POST /api/check-account-email-admin-update
+   * @returns true/false
    */
 
-  public async accountEmailAdminUpdate(req: Request, res: Response, next: NextFunction) {
+  public accountEmailAdminUpdate = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, id } = req.body;
-      const emailAdmin = await AdminAccount.findOne({ email: email, _id: { $ne: id } });
+      if(!this.maxLength(email, 100) || !this.maxLength(id, 24)) return res.status(200).json(false);
+      const emailAdmin = await AdminAccount.findOne({ email: this.sanitize(email), _id: { $ne: this.sanitize(id) } });
       if (emailAdmin) return res.status(200).json(false);
       return res.status(200).json(true);
     } catch (error) {
@@ -248,17 +281,36 @@ class HelpersControllers {
   }
 
   /**
-   * [POST] /api/check-account-email-leader-update
-   * @function accountEmailLeaderUpdate
-   * @description Check leader email is existed when update
+   * @function accountEmailLeaderUpdate Check leader email is existed when update
+   * @method POST /api/check-account-email-leader-update
+   * @returns true/false
    */
 
-  public async accountEmailLeaderUpdate(req: Request, res: Response, next: NextFunction) {
+  public accountEmailLeaderUpdate = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, id } = req.body;
-      const emailLeader = await LeaderAccount.findOne({ email: email, _id: { $ne: id } });
+      if(!this.maxLength(email, 100) || !this.maxLength(id, 24)) return res.status(200).json(false);
+      const emailLeader = await LeaderAccount.findOne({ email: this.sanitize(email), _id: { $ne: this.sanitize(id) } });
       if (emailLeader) return res.status(200).json(false);
       return res.status(200).json(true);
+    } catch (error) {
+      res.status(500).json(false);
+    }
+  }
+
+  /**
+   * @function schoolIdAvailable Check school id is available
+   * @method POST /api/check-student-id-available
+   * @returns true/false
+   */
+
+  public schoolIdAvailable= async(req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { schoolId } = req.body;
+      if(!this.maxLength(schoolId, 30)) return res.status(200).json(false);
+      const student = await Student.findOne({ schoolId: this.sanitize(schoolId) });
+      if (student) return res.status(200).json(true);
+      return res.status(200).json(false);
     } catch (error) {
       res.status(500).json(false);
     }

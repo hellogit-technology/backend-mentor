@@ -18,7 +18,7 @@
                 <!--begin::Add-->
                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                     <!--begin::drawer toggle-->
-                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"  data-bs-toggle="modal" data-bs-target="#admin_new_account">
+                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"  data-bs-toggle="modal" data-bs-target="#leader_new_account">
                         <!--begin::Svg Icon | path: icons/duotone/Design/Substract.svg-->
                         <span class="svg-icon svg-icon-1">
                             <img src="/img/add.svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"></img>
@@ -236,8 +236,8 @@
     <!--end::Footer-->
 </div>
 
-<!--begin::Modal - New Account-->
-<div class="modal fade" id="admin_new_account" tabindex="-1" aria-hidden="true">
+<!--begin::Modal - New Leader Account-->
+<div class="modal fade" id="leader_new_account" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -261,172 +261,85 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                
+                <form id="accountLeaderForm" class="form">
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Thêm tài khoản</h1>
+                        <h1 class="mb-3">Thêm tài khoản Leader</h1>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->	
-                    <div class="card ">
-                        <div class="card-header card-header-stretch">
-                            <div class="card-toolbar">
-                                <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6">
-                                    <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0)  { %>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#addaccountPDP">PDP</a>
-                                        </li>
-                                    <% } %>
-                                    <li class="nav-item">
-                                        <a class="nav-link <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>active<% } %>" data-bs-toggle="tab" href="#addaccountLeader">Leader</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="tab-content" id="myTabContent">
-                                 <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 0) { %>
-                                    <div class="tab-pane fade show active" id="addaccountPDP" role="tabpanel">
-                                        <form id="accountPDPForm">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-8 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Họ và tên: </span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Email:</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <input type="text" name="email" id="email" class="form-control form-control-solid">
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Cơ sở đang làm việc:</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
-                                                    <option value="" selected="" disabled="">Chọn cơ sở</option>
-                                                    <% if (typeof(queryData.campus) !== 'undefined') { %>
-                                                        <% queryData.campus.forEach(value => { %>
-                                                            <option value="<%= value['_id'] %>"><%= value['name'] %></option>
-                                                        <% }) %> 
-                                                    <% } %>
-                                                </select>
-                                            </div>
-                                            <!--end::Input group-->		
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Loại tài khoản:</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <select name="role" aria-label="Select a Role" data-control="select_role" data-placeholder="Role" class="form-select form-select-solid">
-                                                    <option value="" selected="" disabled="">Chọn loại tài khoản</option>>
-                                                    <option value="0">Administor</option>
-                                                    <option value="1">Manager</option>>
-                                                </select>
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Actions-->
-                                            <div class="text-center">
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
-                                                <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
-                                            </div>
-                                            <!--end::Actions-->									
-                                        </form>
-                                    </div>
-                                 <% } %>
-                                
-                                <div class="tab-pane fade <% if (typeof(accountSession) !== 'undefined' && accountSession['role'] === 1) { %>show active<% } %>" id="addaccountLeader" role="tabpanel">
-                                    <form id="accountLeaderForm">
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-8 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span>Email: </span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" name="email" id="email" class="form-control form-control-solid" />
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span>Câu lạc bộ:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
-                                                <option value="" selected="" disabled="">Chọn câu lạc bộ</option>
-                                                <% if (typeof(queryData.clubs) !== 'undefined') { %>
-                                                    <% queryData.clubs.forEach(value => { %>
-                                                        <option value="<%= value['_id'] %>"><%= value['name'] %></option>
-                                                    <% }) %> 
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span>Họ tên leader:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span>Mã số sinh viên:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" name="schoolId" id="schoolId" class="form-control form-control-solid"/>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span>Cơ sở đang học:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
-                                                <option value="" selected="" disabled="">Chọn cơ sở</option>
-                                                <% if (typeof(queryData.campus) !== 'undefined') { %>
-                                                    <% queryData.campus.forEach(value => { %>
-                                                        <option value="<%= value['_id'] %>"><%= value['name'] %></option>
-                                                    <% }) %> 
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                        <!--end::Input group-->	
-                                        <!--begin::Actions-->
-                                        <div class="text-center">
-                                            <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
-                                            <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
-                                        </div>
-                                        <!--end::Actions-->										
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>	
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Email: </span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="email" id="email" class="form-control form-control-solid" />
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Câu lạc bộ:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="club" id="club" aria-label="Select a Club" data-control="select_club" data-placeholder="Club" class="form-select form-select-solid">
+                            <option value="" selected="" disabled="">Chọn câu lạc bộ</option>
+                            <% if (typeof(queryData.clubs) !== 'undefined') { %>
+                                <% queryData.clubs.forEach(value => { %>
+                                    <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Họ tên leader:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="fullname" id="fullname" class="form-control form-control-solid"/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Mã số sinh viên:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="schoolId" id="schoolId" class="form-control form-control-solid"/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row" style="margin-top: 30px;">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Cơ sở đang học:</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="campus" id="campus" aria-label="Select a Campus" data-control="select_campus" data-placeholder="Campus" class="form-select form-select-solid">
+                            <option value="" selected="" disabled="">Chọn cơ sở</option>
+                            <% if (typeof(queryData.campus) !== 'undefined') { %>
+                                <% queryData.campus.forEach(value => { %>
+                                    <option value="<%= value['_id'] %>"><%= value['name'] %></option>
+                                <% }) %> 
+                            <% } %>
+                        </select>
+                    </div>
+                    <!--end::Input group-->	
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3 modal_account_cancel">Huỷ</button>
+                        <button type="submit" id="kt_modal_new_target_submit" style="background-color: #3cd13c;" class="btn btn-primary">Lưu</button>
+                    </div>
+                    <!--end::Actions-->										
+                </form>
                 <!--end:Form-->
             </div>
             <!--end::Modal body-->
@@ -435,7 +348,7 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-<!--end::Modal - New Account-->
+<!--end::Modal - New Leader Account-->
 
 <!--begin::Modal - Edit Account PDP-->
 <div class="modal fade" id="edit_account_pdp" tabindex="-1" aria-hidden="true">

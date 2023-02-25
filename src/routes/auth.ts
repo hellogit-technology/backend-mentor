@@ -1,9 +1,9 @@
-import express, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import passport from 'passport';
 import { requiredAuth } from '../middleware/auth';
 import { AccountSession } from '../types/Passport';
 
-const router = express.Router();
+const router = Router();
 
 router.get(
   '/google',
@@ -16,7 +16,7 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
   if (!req.user) return res.redirect('/login');
   const session: AccountSession = req.user;
   if (session.role === 0 || session.role === 1) return res.redirect('/admin');
-  return res.redirect('/');
+  return res.redirect('/club');
 });
 
 router.get('/logout', requiredAuth, (req: Request, res: Response, next: NextFunction) => {

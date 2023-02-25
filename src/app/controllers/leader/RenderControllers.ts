@@ -1,133 +1,199 @@
 import { Request, Response, NextFunction } from 'express';
+import path from 'path'
+import {AccountSession} from '../../../types/Passport'
 import { injectFile } from '../../../utils/inject';
+import {LeaderAccount, Club} from '../../models'
+import {printErrorLog, printLog} from '../../../utils/makeUp'
 
-// Add files to layout
-const files = {
-  cssFile: injectFile('public/css', 'global'),
-  jsFile: injectFile('public/js', 'global')
-};
+/**
+ * @description Render ejs and assets for client (Server-side rendering)
+ * @author Merlin Le
+ */
 
 class RenderControllers {
-  // [GET] /club/:slug
-  dashboard(req: Request, res: Response, next: NextFunction) {
+
+  /**
+   * @constant defaultDir: Get assets relative path
+   */
+
+  private static readonly defaultDir = {
+    css: path.join(__dirname, '../../../../public/css'),
+    js: path.join(__dirname, '../../../../public/js')
+  }
+
+  /**
+   * @constant injectionAssets: Get file name
+   */
+
+  private static readonly injectionAssets = {
+    cssFile: injectFile(RenderControllers.defaultDir.css, 'global'),
+    jsFile: injectFile(RenderControllers.defaultDir.js, 'global')
+  }
+
+  /**
+   * @function dashboard Render leader dashboard page
+   * @method GET /club/dashboard
+   */
+  
+  public dashboard = async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const title = 'Trang chủ | Club Greenwich Vietnam';
-      const dashboard = 'active';
-      const heading = 'Trang chủ';
+      const accountSession: AccountSession = req.user!;
+      const files = RenderControllers.injectionAssets;
+      const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
+      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const infoPage = {
+        title: `Trang chủ | ${clubResult?.name}`,
+        dashboard: 'active',
+        heading: 'Trang chủ'
+      };
+      const queryData = {
+        club: clubResult
+      }
       res.status(200).render('leader/dashboard', {
         layout: 'layouts/leader/index',
         files,
-        title,
-        dashboard,
-        heading
+        accountSession,
+        infoPage,
+        queryData
       });
     } catch (error) {
-      console.log(error);
+      printErrorLog(error)
     }
   }
 
-  // [GET] /club/scores
-  scores(req: Request, res: Response, next: NextFunction) {
+  /**
+   * @function scores Render leader scores page
+   * @method GET /club/scores
+   */
+  
+  public inputScores = async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const title = 'Điểm số | Club Greenwich Vietnam';
-      const scores = 'active';
-      const heading = 'Điểm số';
-      res.status(200).render('leader/scores', {
+      const accountSession: AccountSession = req.user!;
+      const files = RenderControllers.injectionAssets;
+      const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
+      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const infoPage = {
+        title: `Điểm số | ${clubResult?.name}`,
+        inputScores: 'active',
+        scoresMenu: {
+          main: 'hover show',
+          sub: 'show'
+        },
+        heading: 'Nhập điểm số'
+      };
+      const queryData = {
+        club: clubResult
+      }
+      res.status(200).render('leader/manage/scores', {
         layout: 'layouts/leader/index',
         files,
-        title,
-        scores,
-        heading
+        accountSession,
+        infoPage,
+        queryData
       });
     } catch (error) {
-      console.log(error);
+      printErrorLog(error)
     }
   }
 
-  // [GET] /club/profile
-  profile(req: Request, res: Response, next: NextFunction) {
+  /**
+   * 
+   */
+
+  public historyScores = async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const title = 'Câu lạc bộ | Club Greenwich Vietnam';
-      const profile = 'active';
-      const clubMenu = {
-        main: 'hover show',
-        sub: 'show'
+      const accountSession: AccountSession = req.user!;
+      const files = RenderControllers.injectionAssets;
+      const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
+      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const infoPage = {
+        title: `Điểm số | ${clubResult?.name}`,
+        historyScores: 'active',
+        scoresMenu: {
+          main: 'hover show',
+          sub: 'show'
+        },
+        heading: 'Lịch sử điểm số'
       };
-      const heading = 'Thông tin câu lạc bộ';
+      const queryData = {
+        club: clubResult
+      }
+      res.status(200).render('leader/manage/scores', {
+        layout: 'layouts/leader/index',
+        files,
+        accountSession,
+        infoPage,
+        queryData
+      });
+    } catch (error) {
+      printErrorLog(error)
+    }
+  }  
+
+  /**
+   * @function profile Render club profile page
+   * @method GET /club/profile
+   */
+
+  public profile = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+      const accountSession: AccountSession = req.user!;
+      const files = RenderControllers.injectionAssets;
+      const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
+      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const infoPage = {
+        title: 'Câu lạc bộ | Club Greenwich Vietnam',
+        profile: 'active',
+        clubMenu: {
+          main: 'hover show',
+          sub: 'show'
+        },
+        heading: 'Thông tin câu lạc bộ',
+      }
+      const queryData = {
+        club: clubResult
+      }
       res.status(200).render('leader/profile', {
         layout: 'layouts/leader/index',
         files,
-        title,
-        heading,
-        clubMenu,
-        profile
+        accountSession,
+        infoPage,
+        queryData
       });
     } catch (error) {
-      console.log(error);
+      printErrorLog(error)
     }
   }
 
-  // [GET] /club/tutorial
-  tutorial(req: Request, res: Response, next: NextFunction) {
+  /**
+   * 
+   * @function tutorial Render leader tutorial page
+   * @method GET /club/tutorial
+   */
+
+  public tutorial = async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const title = 'Hướng dẫn | Club Greenwich Vietnam';
-      const tutorial = 'active';
-      const heading = 'Hướng dẫn';
+      const accountSession: AccountSession = req.user!;
+      const files = RenderControllers.injectionAssets;
+      const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
+      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const infoPage = {
+        title: `Hướng dẫn | ${clubResult?.name}`,
+        tutorial: 'active',
+        heading: 'Hướng dẫn'
+      }
+      const queryData = {
+        club: clubResult
+      }
       res.status(200).render('leader/tutorial', {
         layout: 'layouts/leader/index',
         files,
-        title,
-        tutorial,
-        heading
+        accountSession,
+        infoPage,
+        queryData
       });
     } catch (error) {
-      console.log(error);
-    }
-  }
-
-  //~ MAIL
-  // [GET] /club/mail/sent
-  mailSent(req: Request, res: Response, next: NextFunction) {
-    try {
-      const title = 'Mail | Club Greenwich Vietnam';
-      const mailMenu = {
-        main: 'hover show',
-        sub: 'show'
-      };
-      const heading = 'Tin nhắn đã gửi';
-      res.status(200).render('', {
-        layout: 'layouts/leader/index',
-        files,
-        title,
-        mailMenu,
-        heading
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  //~ MANAGE
-  // [GET] /club/manage
-  club(req: Request, res: Response, next: NextFunction) {
-    try {
-      const title = 'Câu lạc bộ | Club Greenwich Vietnam';
-      const manageClub = 'active';
-      const clubMenu = {
-        main: 'hover show',
-        sub: 'show'
-      };
-      const heading = 'Quản lý câu lạc bộ';
-      res.status(200).render('leader/manage/members', {
-        layout: 'layouts/leader/index',
-        files,
-        title,
-        clubMenu,
-        heading,
-        manageClub
-      });
-    } catch (error) {
-      console.log(error);
+      printErrorLog(error)
     }
   }
 }

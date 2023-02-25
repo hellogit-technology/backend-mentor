@@ -30,4 +30,9 @@ export const messageVietnamese = {
   // Excel File
   XLS001: (param: string) => `Định dạng tiêu đề không đúng (tiêu đề đúng: ${param})`,
   XLS002: (param: number) => `Không đủ số lượng data (yêu cầu ${param})`,
+  XLS003: (param: string, length: number, current: number) => `${param} tối đa ${length} ký tự. (hiện tại ${current} ký tự.)`,
+  XLS004: (param: string) => `${param} không nhập ký tự icon, ký tự 2 byte.`,
+  XLS005: (param: string) => `${param} đã tồn tại.`,
+  XLS006: (param: string) => `${param} bị trùng lặp.`,
+  XLS007: (param: string) => `Format ${param} bị sai. `
 };

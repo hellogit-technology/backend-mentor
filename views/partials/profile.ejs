@@ -21,15 +21,19 @@
                     <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
                         <% if (typeof(accountSession) !== 'undefined') { %>
                             <% if (accountSession.role === 0) { %>
-                                Admin Greenwich HCM
-                            <% } else { %>
-                                Manager Greenwich HCM
+                                Admin Greenwich University
+                            <% }  %>
+                            <% if(accountSession.role === 1) { %> 
+                                Manager Greenwich University
+                            <% } %> 
+                            <% if(accountSession.role === 2) { %> 
+                               <%= queryData.club.name %> Manager
                             <% } %> 
                         <% } %>
                     </span>
                     <a href="#" class="fw-bold text-center text-muted text-hover-primary fs-7">
                         <% if (typeof(accountSession) !== 'undefined') { %>
-                            <%= accountSession.email %>
+                            <%= accountSession.email %> 
                         <% } %>
                     </a>
                 </div>

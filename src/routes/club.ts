@@ -1,12 +1,15 @@
-import express from 'express';
+import {Request, Response, NextFunction, Router} from 'express';
 import renderControllers from '../app/controllers/leader/RenderControllers';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/manage', renderControllers.club);
-router.get('/scores', renderControllers.scores);
+router.get('/dashboard', renderControllers.dashboard);
+router.get('/input-scores', renderControllers.inputScores);
+router.get('/history-scores', renderControllers.historyScores)
 router.get('/profile', renderControllers.profile);
 router.get('/tutorial', renderControllers.tutorial);
-router.get('/:slug', renderControllers.dashboard);
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
+    res.redirect('/club/dashboard');
+});
 
 export default router;

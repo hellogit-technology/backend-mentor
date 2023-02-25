@@ -1,4 +1,4 @@
-import express from 'express';
+import {Router} from 'express';
 import eventsControllers from '../app/controllers/admin/EventsControllers';
 import studentControllers from '../app/controllers/admin/StudentControllers';
 import clubsControllers from '../app/controllers/admin/ClubsControllers';
@@ -16,10 +16,10 @@ interface Configuration {
     }
 }
 
-const router = express.Router();
+const router = Router();
 
 /**
- * @constant configuration
+ * @constant configuration Rate limit request
  * @constant request: Number of request(s)
  * @constant time: By second(s)
  */
@@ -100,8 +100,8 @@ router.route('/scores/:id')
     .delete([guard.rateLimitation(configuration.scores['delete'], 'delete')], [guard.validationParameter], scoresControllers.deleteScores);
 
 // Helper
-router.post('/check-campus', helpersControllers.campusIsValid);
-router.post('/check-club', helpersControllers.clubIsValid);
+router.post('/valid-campus', helpersControllers.campusIsValid);
+router.post('/valid-club', helpersControllers.clubIsValid);
 router.post('/check-account-email', helpersControllers.accountEmailExist);
 router.post('/check-club-email', helpersControllers.clubEmailExist);
 router.post('/check-club-id', helpersControllers.clubIdExist);
@@ -109,6 +109,7 @@ router.post('/check-club-nickname', helpersControllers.clubNicknameExist);
 router.post('/check-event-id', helpersControllers.eventIdExist);
 router.post('/check-student-email', helpersControllers.studentEmailExist);
 router.post('/check-student-id', helpersControllers.studentIdExist);
+router.post('/check-student-id-available', helpersControllers.schoolIdAvailable)
 router.post('/check-account-email-pdp-update', helpersControllers.accountEmailAdminUpdate);
 router.post('/check-account-email-leader-update', helpersControllers.accountEmailLeaderUpdate);
 router.post('/download-qrcode', helpersControllers.downloadQRCode);

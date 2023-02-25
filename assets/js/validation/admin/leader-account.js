@@ -53,11 +53,11 @@ $(document).ready(function() {
             club: {
                 required: true,
                 remote: {
-                    url: '/api/check-club',
+                    url: '/api/valid-club',
                     type: 'post',
                     data: {
                         club: function() {
-                            return $('#accountPDPForm #club').val();
+                            return $('#accountLeaderForm #club').val();
                         }
                     },
                     dataType: 'json'
@@ -77,7 +77,7 @@ $(document).ready(function() {
                 schoolIdCharacters: true,
                 schoolIdLength: true,
                 remote: {
-                    url: '/api/check-student-id',
+                    url: '/api/check-student-id-available',
                     type: 'post',
                     data: {
                         schoolId: function() {
@@ -90,7 +90,7 @@ $(document).ready(function() {
             campus: {
                 required: true,
                 remote: {
-                    url: '/api/check-campus',
+                    url: '/api/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {
@@ -115,7 +115,7 @@ $(document).ready(function() {
             },
             schoolId: {
                 required: messageVietnamese.ER001('mã số sinh viên'),
-                remote: messageVietnamese.ER007('mã số sinh viên')
+                remote: messageVietnamese.ER007('Mã số sinh viên')
             },
             campus: {
                 required: messageVietnamese.ER001('cơ sở học'),
@@ -220,7 +220,7 @@ $(document).ready(function() {
             },
             club: {
                 remote: {
-                    url: '/api/check-club',
+                    url: '/api/valid-club',
                     type: 'post',
                     data: {
                         club: function() {
@@ -254,7 +254,7 @@ $(document).ready(function() {
             },
             campus: {
                 remote: {
-                    url: '/api/check-campus',
+                    url: '/api/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {

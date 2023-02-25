@@ -6,3 +6,4 @@ export interface AccountSession {
   photo?: string;
   role?: number;
 }
+

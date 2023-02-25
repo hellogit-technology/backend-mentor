@@ -76,7 +76,7 @@ $(document).ready(function() {
             campus: {
                 required: true,
                 remote: {
-                    url: '/api/check-campus',
+                    url: '/api/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {
@@ -214,7 +214,7 @@ $(document).ready(function() {
             },
             campus: {
                 remote: {
-                    url: '/api/check-campus',
+                    url: '/api/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {

@@ -5,6 +5,7 @@ import { Campus, Event, Club, AdminAccount, LeaderAccount, Student } from '../..
 import { AccountSession } from '../../../types/Passport';
 import {InfoPage} from '../../../types/Render'
 import {QueryOptions} from 'mongoose'
+import {printErrorLog, printLog} from '../../../utils/makeUp'
 
 /**
  * @description Render ejs and assets for client (Server-side rendering)
@@ -12,16 +13,20 @@ import {QueryOptions} from 'mongoose'
  */
 
 class RenderControllers {
+  
   /**
    * @constant defaultDir: Get assets relative path
-   * @constant injectionAssets: Get file name
-   * @constant limitItems: Limit items in pagination
    */
 
   private static readonly defaultDir = {
     css: path.join(__dirname, '../../../../public/css'),
     js: path.join(__dirname, '../../../../public/js')
   };
+
+  /**
+   *  @constant injectionAssets: Get file name 
+   */
+
   private static readonly injectionAssets = {
     cssFile: injectFile(RenderControllers.defaultDir.css, 'global'),
     cssValidation: injectFile(RenderControllers.defaultDir.css, 'validation'),
@@ -31,6 +36,11 @@ class RenderControllers {
     jsHelpers: injectFile(RenderControllers.defaultDir.js, 'helpers'),
     jsToast: injectFile(RenderControllers.defaultDir.js, 'toast')
   };
+
+  /**
+   * @constant limitItems: Limit items in pagination
+   */
+
   private static readonly limitItems = {
     clubs: 20,
     events: 20,
@@ -40,12 +50,12 @@ class RenderControllers {
   };
 
   /**
-   * [GET] /admin/dashboard
    * @function dashboard
-   *
+   * @method GET /admin/dashboard
+   * @description Render admin dashboard page
    */
 
-  public async dashboard(req: Request, res: Response, next: NextFunction) {
+  public dashboard = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const accountSession: AccountSession = req.user!;
       const files = RenderControllers.injectionAssets;
@@ -72,7 +82,7 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
@@ -95,17 +105,17 @@ class RenderControllers {
         campus
       });
     } catch (error) {
-      console.table(error);
+      console.error(error);
     }
   }
 
   /**
-   * [GET] /admin/statistics
    * @function statistics
-   *
+   * @method GET /admin/statistics
+   * @description Render statistics page 
    */
 
-  public async statistics(req: Request, res: Response, next: NextFunction) {
+  public statistics = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const files = RenderControllers.injectionAssets;
       const campus = await Campus.find({});
@@ -115,14 +125,14 @@ class RenderControllers {
         campus
       });
     } catch (error) {
-      console.error(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/system
    * @function system
-   *
+   * @method GET /admin/system
+   * @description Render system page 
    */
 
   public async system(req: Request, res: Response, next: NextFunction) {
@@ -156,14 +166,14 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/tutorial
    * @function tutorial
-   *
+   * @method GET /admin/tutorial
+   * @description Render admin tutorial page
    */
 
   public async tutorial(req: Request, res: Response, next: NextFunction) {
@@ -197,19 +207,16 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/scores
    * @function scores
-   * @typedef management
+   * @method GET /admin/scores
+   * @description Render admin scores page
    */
 
-  /**
-   * @implements scores
-   */
   public async scores(req: Request, res: Response, next: NextFunction) {
     try {
       const accountSession: AccountSession = req.user!;
@@ -242,15 +249,14 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/clubs
    * @function clubs
-   * @typedef management
-   *
+   * @method GET /admin/clubs
+   * @description Render clubs page
    */
 
   public async clubs(req: Request, res: Response, next: NextFunction) {
@@ -296,14 +302,14 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/club/:id/:slug
    * @function clubMembers
-   * @typedef detail
+   * @method GET /admin/club/:id/:slug
+   * @description 
    */
 
   public async clubMembers(req: Request, res: Response, next: NextFunction) {
@@ -330,14 +336,14 @@ class RenderControllers {
         queryData
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/events
    * @function events
-   * @typedef management
+   * @method GET /admin/events
+   * @description Render events page
    */
 
   public async events(req: Request, res: Response, next: NextFunction) {
@@ -387,14 +393,14 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/event/:id/:slug
    * @function eventDetail
-   * @typedef detail
+   * @method GET /admin/event/:id/:slug
+   * @description
    */
 
   public async eventDetail(req: Request, res: Response, next: NextFunction) {
@@ -421,14 +427,14 @@ class RenderControllers {
         queryData
       });
     } catch (error) {
-      console.table(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/students
    * @function students
-   * @typedef management
+   * @method GET /admin/students
+   * @description Render students page
    */
 
   public async students(req: Request, res: Response, next: NextFunction) {
@@ -496,14 +502,14 @@ class RenderControllers {
         toastMessage
       });
     } catch (error) {
-      console.error(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/admin-accounts
    * @function adminAccounts
-   * @typedef management
+   * @method GET /admin/admin-accounts
+   * @description Render admin accounts page
    */
 
   public async adminAccounts(req: Request, res: Response, next: NextFunction) {
@@ -574,13 +580,14 @@ class RenderControllers {
         validationMessage
       });
     } catch (error) {
-      console.error(error);
+      printErrorLog(error)
     }
   }
 
   /**
-   * [GET] /admin/leader-accounts
    * @function leaderAccounts
+   * @method GET /admin/leader-accounts
+   * @description Render leader accounts page
    */
 
   public async leaderAccounts(req: Request, res: Response, next: NextFunction) {
@@ -652,7 +659,7 @@ class RenderControllers {
         validationMessage
       });
     } catch (error) {
-      console.error(error);
+      printErrorLog(error)
     }
   }
 }

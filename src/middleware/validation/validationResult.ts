@@ -6,7 +6,7 @@ interface StructureError {
 }
 
 class ValidationResult {
-  private handler(elements: ValidationError[]) {
+  private handler = (elements: ValidationError[]) => {
     const object: StructureError = {};
     for (const element of elements) {
       let msg = element.msg;
@@ -18,7 +18,7 @@ class ValidationResult {
     return object;
   }
 
-  public validationRender(req: Request, res: Response, next: NextFunction) {
+  public validationRender = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const object = this.handler(errors.array());
@@ -31,7 +31,7 @@ class ValidationResult {
     next();
   }
 
-  public validationAPI(req: Request, res: Response, next: NextFunction) {
+  public validationAPI = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });

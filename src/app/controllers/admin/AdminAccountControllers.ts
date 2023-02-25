@@ -9,10 +9,10 @@ import { AccountSession } from '../../../types/Passport';
  */
 
 class AdminAccountControllers {
+
   /**
-   * [POST] /api/admin-account
-   * @function createAdmin
-   * @description Create admin account (PDP role)
+   * @function createAdmin Create admin account 
+   * @method POST /api/admin-accounts
    */
 
   public async createAdmin(req: Request, res: Response, next: NextFunction) {
@@ -48,9 +48,8 @@ class AdminAccountControllers {
   }
 
   /**
-   * [PATCH] /api/admin-account/:id
-   * @function updateAdmin
-   * @description Update admin account (PDP role)
+   * @function updateAdmin Update admin account 
+   * @method PATCH /api/admin-account/:id
    */
 
   public async updateAdmin(req: Request, res: Response, next: NextFunction) {
@@ -86,9 +85,8 @@ class AdminAccountControllers {
   }
 
   /**
-   * [DELETE] /api/admin-account/:id
-   * @function deleteAdmin
-   * @description Delete admin account (PDP role)
+   * @function deleteAdmin Delete admin account 
+   * @method DELETE /api/admin-account/:id
    */
 
   public async deleteAdmin(req: Request, res: Response, next: NextFunction) {

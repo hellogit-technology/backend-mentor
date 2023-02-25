@@ -15,7 +15,7 @@ $(document).ready(function() {
         $parent.append($icon)
         $(`#${$id}`).rules('add',  { 
             remote: {
-                url: '/api/check-club',
+                url: '/api/valid-club',
                 type: 'post',
                 data: {
                     club: function() {
@@ -91,7 +91,7 @@ $(document).ready(function() {
             campus: {
                 required: true,
                 remote: {
-                    url: '/api/check-campus',
+                    url: '/api/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {
@@ -103,7 +103,7 @@ $(document).ready(function() {
             },
             'club[]': {
                 remote: {
-                    url: '/api/check-club',
+                    url: '/api/valid-club',
                     type: 'post',
                     data: {
                         club: function() {
