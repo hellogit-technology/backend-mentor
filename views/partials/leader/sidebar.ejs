@@ -33,14 +33,6 @@
                         <span class="menu-title">Trang chủ</span>
                     </a>
                 </div>
-                <div class="menu-item mb-1">
-                    <a class="menu-link <% if (typeof(infoPage.scores) !== 'undefined') { %><%= infoPage.scores %><% } %>" href="/club/scores">
-                        <span class="menu-icon">
-                            
-                        </span>
-                        <span class="menu-title">Điểm số</span>
-                    </a>
-                </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 <% if (typeof(infoPage.scoresMenu) !== 'undefined' ) { %><%= infoPage.scoresMenu.main %><% } %>">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -60,9 +52,9 @@
                         <span class="menu-title">Điểm số</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion <% if (typeof(infoPage.clubMenu) !== 'undefined' ) { %><%= infoPage.clubMenu.sub %><% } %>">
+                    <div class="menu-sub menu-sub-accordion <% if (typeof(infoPage.scoresMenu) !== 'undefined' ) { %><%= infoPage.scoresMenu.sub %><% } %>">
                         <div class="menu-item">
-                            <a class="menu-link <% if (typeof(profile) !== 'undefined') { %><%= profile %><% } %>" href="/club/profile">
+                            <a class="menu-link <% if (typeof(infoPage.inputScores) !== 'undefined') { %><%= infoPage.inputScores %><% } %>" href="/club/input-scores">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -70,7 +62,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link <% if (typeof(infoPage.manageClub) !== 'undefined') { %><%= infoPage.manageClub%><% } %>" href="/club/manage">
+                            <a class="menu-link <% if (typeof(infoPage.historyScores) !== 'undefined') { %><%= infoPage.historyScores %><% } %>" href="/club/history-scores">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -96,7 +88,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion <% if (typeof(infoPage.clubMenu) !== 'undefined' ) { %><%= infoPage.clubMenu.sub %><% } %>">
                         <div class="menu-item">
-                            <a class="menu-link <% if (typeof(profile) !== 'undefined') { %><%= profile %><% } %>" href="/club/profile">
+                            <a class="menu-link <% if (typeof(infoPage.infoClub) !== 'undefined') { %><%= infoPage.infoClub %><% } %>" href="/club/information">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -104,7 +96,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link <% if (typeof(infoPage.manageClub) !== 'undefined') { %><%= infoPage.manageClub%><% } %>" href="/club/manage">
+                            <a class="menu-link <% if (typeof(infoPage.membersClub) !== 'undefined') { %><%= infoPage.membersClub%><% } %>" href="/club/members">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

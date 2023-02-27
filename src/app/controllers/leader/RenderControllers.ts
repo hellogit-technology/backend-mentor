@@ -62,8 +62,8 @@ class RenderControllers {
   }
 
   /**
-   * @function scores Render leader scores page
-   * @method GET /club/scores
+   * @function scores Render leader input scores page
+   * @method GET /club/input-scores
    */
   
   public inputScores = async(req: Request, res: Response, next: NextFunction) => {
@@ -79,12 +79,16 @@ class RenderControllers {
           main: 'hover show',
           sub: 'show'
         },
-        heading: 'Nhập điểm số'
+        heading: 'Nhập điểm số',
+        breadcrumb: [
+          {title: 'Trang chủ', link: '/club/dashboard'},
+          {title: 'Nhập điểm số', link: '/club/input-scores'}
+        ]
       };
       const queryData = {
         club: clubResult
       }
-      res.status(200).render('leader/manage/scores', {
+      res.status(200).render('leader/manage/input-scores', {
         layout: 'layouts/leader/index',
         files,
         accountSession,
@@ -97,7 +101,8 @@ class RenderControllers {
   }
 
   /**
-   * 
+   * @function historyScores Render leader history scores page
+   * @method GET /club/history-scores
    */
 
   public historyScores = async(req: Request, res: Response, next: NextFunction) => {
@@ -113,12 +118,16 @@ class RenderControllers {
           main: 'hover show',
           sub: 'show'
         },
-        heading: 'Lịch sử điểm số'
+        heading: 'Lịch sử điểm số',
+        breadcrumb: [
+          {title: 'Trang chủ', link: '/club/dashboard'},
+          {title: 'Lịch sử điểm số', link: '/club/history-scores'}
+        ]
       };
       const queryData = {
         club: clubResult
       }
-      res.status(200).render('leader/manage/scores', {
+      res.status(200).render('leader/manage/history-scores', {
         layout: 'layouts/leader/index',
         files,
         accountSession,
@@ -131,29 +140,68 @@ class RenderControllers {
   }  
 
   /**
-   * @function profile Render club profile page
-   * @method GET /club/profile
+   * @function profile Render club information page
+   * @method GET /club/information
    */
 
-  public profile = async(req: Request, res: Response, next: NextFunction) => {
+  public infoClub = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const accountSession: AccountSession = req.user!;
       const files = RenderControllers.injectionAssets;
       const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
-      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const clubResult = await Club.findById(leaderAccountResult?.club).populate('campus')
       const infoPage = {
         title: 'Câu lạc bộ | Club Greenwich Vietnam',
-        profile: 'active',
+        infoClub: 'active',
         clubMenu: {
           main: 'hover show',
           sub: 'show'
         },
         heading: 'Thông tin câu lạc bộ',
+        breadcrumb: [
+          {title: 'Trang Chủ', link: '/club/dashboard'},
+          {title: 'Thông tin câu lạc bộ', link: '/club/information'}
+        ]
       }
       const queryData = {
         club: clubResult
       }
-      res.status(200).render('leader/profile', {
+      res.status(200).render('leader/manage/info-club', {
+        layout: 'layouts/leader/index',
+        files,
+        accountSession,
+        infoPage,
+        queryData
+      });
+    } catch (error) {
+      printErrorLog(error)
+    }
+  }
+
+  /**
+   * @function membersClub Render club members page
+   * @method GET /club/members
+   */
+
+  public membersClub = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+      const accountSession: AccountSession = req.user!
+      const files = RenderControllers.injectionAssets
+      const leaderAccountResult = await LeaderAccount.findById(accountSession.userId)
+      const clubResult = await Club.findById(leaderAccountResult?.club)
+      const infoPage = {
+        title: 'Câu lạc bộ | Club Greenwich Vietnam',
+        membersClub: 'active',
+        clubMenu: {
+          main: 'hover show',
+          sub: 'show'
+        },
+        heading: 'Quản lý thành viên câu lạc bộ',
+      }
+      const queryData = {
+        club: clubResult
+      }
+      res.status(200).render('leader/manage/members', {
         layout: 'layouts/leader/index',
         files,
         accountSession,
