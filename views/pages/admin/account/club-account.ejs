@@ -1,0 +1,81 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <%- include('../../../components/admin/header/account.ejs') %> 
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">		
+        <!--begin::Student--> 
+        <div class="e-panel card" style="margin-left:10px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="e-table" id="payload">
+                    <div class="table-responsive table-lg mt-3">
+                        <table class="table table-bordered">
+                            <% if(payload.queryData.clubAccount.length > 0) { %>
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                        <th style="width:50px;">Stt</th>
+                                        <th style="width:300px;">Tài khoản</th>
+                                        <th style="width:250px;">Tên Leader</th>	
+                                        <th style="width:150px;">Câu lạc bộ</th>
+                                        <th style="width:150px;">Cơ sở đang học</th>
+                                        <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                        <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% payload.queryData.clubAccount.forEach((account, index) => { %>
+                                        <tr> 
+                                            <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                            <td class="text-nowrap align-middle"><%= account.email %></td>
+                                            <td class="text-nowrap align-middle"><%= account.fullname %></td>
+                                            <td class="text-nowrap align-middle"><%= account.club.name %></td>
+                                            <td class="text-nowrap align-middle"><%= account.campus.name %></td>
+                                            <td class="text-center align-middle">
+                                                <a href="#">
+                                                    <%= account.editor.fullname %>
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <div class="btn-group align-top">
+                                                    <button class="btn btn-secondary badge club-update-account" data-id="<%= account._id %>" data-email="<%= account.email %>" data-fullname="<%= account.fullname %>" data-club="<%= account.club %>" data-campus="<%= account.campus %>" data-schoolId="<%= account.schoolId %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_club">Sửa</button>
+                                                    <button class="btn btn-secondary badge club-delete-account" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_club"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>  
+                                    <% }) %> 
+                                </tbody>
+                            <% } else { %>
+                                <div class="row g-3 text-center">
+                                    <h3>No Record</h3>
+                                </div>
+                            <% } %>
+                        </table>
+                    </div>
+                    <% if(payload.queryData.clubAccount.length > 0) { %>
+                        <!--begin::Show result-->
+                        <%- include('../../../components/pagination.ejs') %> 
+                        <!--end::Show result-->
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+        <!--end::Student-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <%- include('../../../components/footer.ejs') %>
+    <!--end::Footer-->
+</div>
+
+<!-- Create modal club account -->
+<%- include('../../../components/admin/modal/account/club.ejs') %>
+
+<!-- Update modal club account -->
+<%- include('../../../components/admin/modal/account/club-update.ejs') %>
+
+<!-- Delete modal club account -->
+<%- include('../../../components/admin/modal/account/club-delete.ejs') %>
+
+
+ 
+

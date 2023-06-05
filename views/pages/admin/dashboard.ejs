@@ -1,0 +1,682 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+        <!--begin::Container-->
+        <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 mb-5 mb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+                <!--begin::Heading-->
+                <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">Trang chủ
+                <small class="text-muted fs-6 fw-normal ms-1"></small></h1>
+                <!--end::Heading-->
+            </div>
+            <!--end::Page title=-->
+            <!--begin::Logo bar-->
+            <div class="d-flex d-lg-none align-items-center flex-grow-1">
+                <!--begin::Aside Toggle-->
+                <div class="btn btn-icon btn-circle btn-active-light-primary ms-n2 me-1" id="kt_aside_toggle">
+                    <!--begin::Svg Icon | path: icons/duotone/Text/Menu.svg-->
+                    <span class="svg-icon svg-icon-2x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24" />
+                                <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
+                                <path d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z" fill="#000000" opacity="0.3" />
+                            </g>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Aside Toggle-->								
+            </div>
+            <!--end::Logo bar-->
+            <!--begin::Toolbar wrapper-->
+            <div class="d-flex align-items-stretch flex-shrink-0">
+                <!--begin:Activities-->
+                <%- include('../../components/activity.ejs') %> 
+                <!--end:Activities-->
+                <!--begin::Notifications-->
+                <%- include('../../components/notification.ejs') %>
+                <!--end::Notifications-->
+                <!--begin::User-->
+                <%- include('../../components/profile.ejs') %>
+                <!--end::User -->
+            </div>
+            <!--end::Toolbar wrapper-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">
+        <!--begin::Container-->
+        <div class="container" id="kt_content_container">
+            <!--begin::Row-->
+            <div class="row g-xl-8">
+                <!--begin:::Col-->
+                <div class="col-xxl-6">
+                    <!--begin::List Widget 3-->
+                    <div class="card card-flush mb-5 mb-xl-8">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <!--begin::Card title-->
+                            <h3 class="card-title fw-boldest">Sự kiện hàng tháng</h3>
+                            <!--end::Card title-->
+                            <!--begin::Card toolbar-->
+                            <div class="card-toolbar">
+                                <!--begin::Icon-->
+                                <a class="btn btn-sm btn-icon btn-circle btn-icon-success btn-active-light-success" href="#" data-bs-toggle="modal" data-bs-target="#pdp_new_event">
+                                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Thêm sự kiện">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Plus-Square.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z" fill="#12131A" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </a>
+                                <!--end::Icon-->
+                                <!--begin::Icon-->
+                                <a class="btn btn-sm btn-icon btn-circle btn-icon-primary btn-active-light-primary" href="#" data-bs-toggle="modal" data-bs-target="#pdp_new_poster">
+                                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Thêm poster">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Image.svg-->
+                                        <span class="svg-icon svg-icon-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M2.45153 5.94826C2.71842 4.12109 4.12109 2.71842 5.94826 2.45153C7.54228 2.21869 9.6618 2 12 2C14.3382 2 16.4577 2.21869 18.0517 2.45153C19.8789 2.71842 21.2816 4.12109 21.5485 5.94826C21.7813 7.54228 22 9.6618 22 12C22 14.3382 21.7813 16.4577 21.5485 18.0517C21.2816 19.8789 19.8789 21.2816 18.0517 21.5485C16.4577 21.7813 14.3382 22 12 22C9.6618 22 7.54228 21.7813 5.94826 21.5485C4.12109 21.2816 2.71842 19.8789 2.45153 18.0517C2.21869 16.4577 2 14.3382 2 12C2 9.6618 2.21869 7.54228 2.45153 5.94826Z" fill="#12131A" />
+                                                <path d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" fill="#12131A" />
+                                                <path d="M21.6642 17.2016C21.7024 16.8989 21.5962 16.5963 21.3805 16.3806L17.4143 12.4144C16.6332 11.6334 15.3669 11.6334 14.5858 12.4144L11.7072 15.2931C11.3166 15.6836 10.6835 15.6836 10.293 15.2931L9.41427 14.4144C8.63322 13.6334 7.36689 13.6334 6.58584 14.4144L2.93337 18.0669C2.68517 18.3151 2.57669 18.679 2.70674 19.005C3.24439 20.3529 4.45448 21.3303 5.94832 21.5485C7.54234 21.7813 9.66186 22 12.0001 22C14.3383 22 16.4578 21.7813 18.0518 21.5485C19.879 21.2816 21.2816 19.8789 21.5485 18.0517C21.5878 17.7828 21.6267 17.499 21.6642 17.2016Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </a>
+                                <!--end::Icon-->
+                            </div>
+                            <!--end::Card toolbar-->
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Body-->
+                        <div class="card-body pt-1">
+                            <!--begin::Tabs-->
+                            <ul class="nav rounded-pill flex-center bg-light overflow-auto flex-nowrap p-2 mb-8">
+                                <!--begin::Tab nav-->
+                                <li class="nav-item flex-equal">
+                                    <a class="nav-link btn btn-active-white btn-color-gray-500 btn-active-color-gray-700 py-2 px-4 fs-6 fw-bold active" data-bs-toggle="tab" href="#kt_lists_widget_3_tab_pane_1">Poster</a>
+                                </li>
+                                <!--end::Tab nav-->
+                                <!--begin::Tab nav-->
+                                <li class="nav-item flex-equal mx-1">
+                                    <a class="nav-link btn btn-active-white btn-color-gray-500 btn-active-color-gray-700 py-2 px-4 fs-6 fw-bold" data-bs-toggle="tab" href="#kt_lists_widget_3_tab_pane_2">Chi tiết sự kiện</a>
+                                </li>
+                                <!--end::Tab nav-->
+                            </ul>
+                            <!--end::Tabs-->
+                            <!--begin:Tab content-->
+                            <div class="tab-content">
+                                <!--begin::Tab pane-->
+                                <div class="tab-pane fade active show" id="kt_lists_widget_3_tab_pane_1">
+                                    <!--begin::Section-->
+                                    <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="3000">
+                                        <!--begin::Carousel-->
+                                        <div class="carousel-inner pt-8">
+                                            <!--begin::Item-->
+                                            <div class="carousel-item active">
+                                                <img src="../assets/media/poster-event/event-t7-dn.png" width="100%">
+                                            </div>
+                                            <!--end::Item-->
+                                    
+                                            <!--begin::Item-->
+                                            <div class="carousel-item">
+                                                <img src="../assets/media/poster-event/event-t7.jpg" width="100%">
+                                            </div>
+                                            <!--end::Item-->
+                                    
+                                            <!--begin::Item-->
+                                            <div class="carousel-item">
+                                                <img src="../assets/media/poster-event/event-t7-hn.jpg" width="100%">
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--begin::Carousel Indicators-->
+                                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
+                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="1" class="ms-1"></li>
+                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="2" class="ms-1"></li>
+                                        </ol>
+                                        <!--end::Carousel Indicators-->
+                                        <!--end::Carousel-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Tab pane-->
+                                <!--begin::Tab pane-->
+                                <div class="tab-pane fade" id="kt_lists_widget_3_tab_pane_2">
+                                    <!--begin::Section-->
+                                    <div class="mb-7">	
+                                        <!--begin::Items-->
+                                        <div class="overflow-auto mb-10">
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-40px symbol-circle me-4">
+                                                    <img alt="Pic" src="../assets/media/avatars/hellogit.png" />
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::List content-->
+                                                <div class="d-flex flex-column min-w-150px me-4">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#pdp_detail_event" class="fw-boldest text-gray-800 text-hover-primary fs-4">Thủ lĩnh Sinh viên 2022 - "Thủ lĩnh là ai ?"</a>
+                                                    <div class="fw-bold fs-6 text-gray-400">Hall of Greenwich VietNam - Cong Hoa Campus</div>
+                                                </div>
+                                                <!--end::List content-->
+                                                <!--begin::Date-->
+                                                <span class="ms-auto rounded-pill badge badge-light-primary fw-bolder fs-6 px-3 py-1">07/2022</span>
+                                                <!--end::Date-->
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--end::Items-->
+                                    </div>
+                                    <!--end::Section-->
+                                    <!--begin::Section-->
+                                    <div class="mb-7">	
+                                        <!--begin::Items-->
+                                        <div class="overflow-auto mb-10">
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-40px symbol-circle me-4">
+                                                    <img alt="Pic" src="../assets/media/avatars/hellogit.png" />
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::List content-->
+                                                <div class="d-flex flex-column min-w-150px me-4">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#pdp_detail_event" class="fw-boldest text-gray-800 text-hover-primary fs-4">Tôn vinh sinh viên kỳ Spring 2022</a>
+                                                    <div class="fw-bold fs-6 text-gray-400">Hall of Greenwich VietNam - Cong Hoa Campus</div>
+                                                </div>
+                                                <!--end::List content-->
+                                                <!--begin::Date-->
+                                                <span class="ms-auto rounded-pill badge badge-light-primary fw-bolder fs-6 px-3 py-1">12/07/2022</span>
+                                                <!--end::Date-->
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--end::Items-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Tab pane-->
+                            </div>
+                            <!--end:Tab content-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::List Widget 3-->
+                </div>
+                <!--end:::Col-->
+                <!--begin:::Col-->
+                <div class="col-xxl-6">
+                    <!--begin::Row-->
+                    <div class="row g-xl-8">
+                        <!--begin:::Col-->
+                        <div class="col">
+                            <!--begin::Table Widget 1-->
+                            <div class="card card-xxl-stretch mb-5 mb-xl-3">
+                                <!--begin::Header-->
+                                <div class="card-header border-0 pt-5 pb-3" style="margin-bottom:10px;">
+                                    <!--begin::Card title-->
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-boldest text-gray-800 fs-2">Câu lạc bộ chưa nhập điểm</span>
+                                        <span class="text-gray-400 fw-bold mt-2 fs-6">Deadline: 28 mỗi tháng</span>
+                                    </h3>
+                                    <!--end::Card title-->
+                                    <!--begin::Card toolbar-->
+                                    <div class="card-toolbar">
+                                        <div class="my-1">
+                                            <!--begin::Select-->
+                                            <select class="form-select form-select-sm form-select-solid fw-bolder w-125px" data-control="select2" data-placeholder="All Users" data-hide-search="true">
+                                                <option value="jan">Tháng 1</option>
+                                                <option value="feb">Tháng 2</option>
+                                                <option value="mar">Tháng 3</option>
+                                                <option value="apr">Tháng 4</option>
+                                                <option value="may">Tháng 5</option>
+                                                <option value="jun">Tháng 6</option>
+                                                <option value="jul" selected>Tháng 7</option>
+                                                <option value="aug">Tháng 8</option>
+                                                <option value="sep">Tháng 9</option>
+                                                <option value="oct">Tháng 10</option>
+                                                <option value="nov">Tháng 11</option>
+                                                <option value="dev">Tháng 12</option>
+                                            </select>
+                                            <!--end::Select-->
+                                        </div>
+                                    </div>
+                                    <!--end::Card toolbar-->
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Body-->
+                                <div class="card-body py-0">
+                                    <!--begin::Table-->
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
+                                            <!--begin::Table body-->
+                                            <tbody>
+                                                <!--begin::Table row-->
+                                                <tr>
+                                                    <!--begin::Clubs-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <a href="club/HelloGIT.html" class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">HELLOGIT_UoG Information Technology Club</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Clubs-->
+                                                </tr>
+                                                <tr>
+                                                    <!--begin::Clubs-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <a href="club/HelloGIT.html" class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">HELLOGIT_UoG Information Technology Club</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Clubs-->
+                                                </tr>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                            <!--end::Table Widget 1-->
+                        </div>
+                        <!--end:::Col-->
+                    </div>
+                    <!--end::Row-->
+                    <!--begin::Row-->
+                    <div class="row g-xl-8">
+                        <!--begin:::Col-->
+                        <div class="col">
+                            <!--begin::Table Widget 1-->
+                            <div class="card card-xxl-stretch mb-5 mb-xl-3">
+                                <!--begin::Header-->
+                                <div class="card-header border-0 pt-5 pb-3">
+                                    <!--begin::Card title-->
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-boldest text-gray-800 fs-2">Top điểm sự kiện</span>
+                                    </h3>
+                                    <!--end::Card title-->
+                                    <!--begin::Card toolbar-->
+                                    <div class="card-toolbar">
+                                        <div class="my-1">
+                                            <!--begin::Select-->
+                                            <select class="form-select form-select-sm form-select-solid fw-bolder w-125px" data-control="select2" data-placeholder="All Users" data-hide-search="true">
+                                                <option value="jan">Tháng 1</option>
+                                                <option value="feb">Tháng 2</option>
+                                                <option value="mar">Tháng 3</option>
+                                                <option value="apr">Tháng 4</option>
+                                                <option value="may">Tháng 5</option>
+                                                <option value="jun">Tháng 6</option>
+                                                <option value="jul" selected>Tháng 7</option>
+                                                <option value="aug">Tháng 8</option>
+                                                <option value="sep">Tháng 9</option>
+                                                <option value="oct">Tháng 10</option>
+                                                <option value="nov">Tháng 11</option>
+                                                <option value="dev">Tháng 12</option>
+                                            </select>
+                                            <!--end::Select-->
+                                        </div>
+                                    </div>
+                                    <!--end::Card toolbar-->
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Body-->
+                                <div class="card-body py-0">
+                                    <!--begin::Table-->
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
+                                            <!--begin::Table body-->
+                                            <tbody>
+                                                <!--begin::Table row-->
+                                                <tr class="text-start text-gray-400 fw-boldest fs-7 text-uppercase">
+                                                    <th class="max-width-50px px-0">Top</th>
+                                                    <th class="min-w-200px px-0">Họ và tên</th>
+                                                    <th class="min-w-200px px-0">Câu lạc bộ</th>
+                                                    <th class="text-center pe-2 min-w-70px">Điểm</th>
+                                                </tr>
+                                                <!--end::Table row-->
+                                                <!--begin::Table row-->
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-light-warning fw-bolder fs-6 px-3 py-1">1</span>
+                                                    </td>
+                                                    <!--begin::Name-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/tienpercy.jpg" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <h4 class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">Trần Vĩnh Tiến</h4>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Name-->
+                                                    <!--begin::Club-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <span class="badge badge-light-primary fw-bolder fs-6 px-3 py-1">HelloGIT</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Club-->
+                                                    <!--begin::Score-->
+                                                    <td class="pe-0 text-center">
+                                                        <span class="badge badge-light-success fw-bolder fs-6 px-3 py-1">50</span>
+                                                    </td>
+                                                    <!--end::Score-->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-light-warning fw-bolder fs-6 px-3 py-1">2</span>
+                                                    </td>
+                                                    <!--begin::Name-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/avt-nam.jpg" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <h4 class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">Phan Hữu Đại Anh</h4>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Name-->
+                                                    <!--begin::Club-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/blank.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <span class="badge badge-light-primary fw-bolder fs-6 px-3 py-1">None</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Club-->
+                                                    <!--begin::Action=-->
+                                                    <td class="pe-0 text-center">
+                                                        <span class="badge badge-light-success fw-bolder fs-6 px-3 py-1">50</span>
+                                                    </td>
+                                                    <!--end::Action=-->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-light-warning fw-bolder fs-6 px-3 py-1">3</span>
+                                                    </td>
+                                                    <!--begin::Name-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/avt-nu.jpg" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <h4 class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">Lê Hứa Uyển Trân</h4>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Name-->
+                                                    <!--begin::Club-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <span class="badge badge-light-primary fw-bolder fs-6 px-3 py-1">HelloGIT</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Club-->
+                                                    <!--begin::Action=-->
+                                                    <td class="pe-0 text-center">
+                                                        <span class="badge badge-light-success fw-bolder fs-6 px-3 py-1">50</span>
+                                                    </td>
+                                                    <!--end::Action=-->
+                                                </tr>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                            <!--end::Table Widget 1-->
+                        </div>
+                        <!--end:::Col-->
+                    </div>
+                    <!--end::Row-->
+                    <!--begin::Row-->
+                    <div class="row g-xl-8">
+                        <!--begin:::Col-->
+                        <div class="col">
+                            <!--begin::Table Widget 1-->
+                            <div class="card card-xxl-stretch mb-5 mb-xl-3">
+                                <!--begin::Header-->
+                                <div class="card-header border-0 pt-5 pb-3">
+                                    <!--begin::Card title-->
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-boldest text-gray-800 fs-2">Top điểm thái độ</span>
+                                    </h3>
+                                    <!--end::Card title-->
+                                    <!--begin::Card toolbar-->
+                                    <div class="card-toolbar">
+                                        <div class="my-1">
+                                            <!--begin::Select-->
+                                            <select class="form-select form-select-sm form-select-solid fw-bolder w-125px" data-control="select2" data-placeholder="All Users" data-hide-search="true">
+                                                <option value="jan">Tháng 1</option>
+                                                <option value="feb">Tháng 2</option>
+                                                <option value="mar">Tháng 3</option>
+                                                <option value="apr">Tháng 4</option>
+                                                <option value="may">Tháng 5</option>
+                                                <option value="jun">Tháng 6</option>
+                                                <option value="jul" selected>Tháng 7</option>
+                                                <option value="aug">Tháng 8</option>
+                                                <option value="sep">Tháng 9</option>
+                                                <option value="oct">Tháng 10</option>
+                                                <option value="nov">Tháng 11</option>
+                                                <option value="dev">Tháng 12</option>
+                                            </select>
+                                            <!--end::Select-->
+                                        </div>
+                                    </div>
+                                    <!--end::Card toolbar-->
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Body-->
+                                <div class="card-body py-0">
+                                    <!--begin::Table-->
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
+                                            <!--begin::Table body-->
+                                            <tbody>
+                                                <!--begin::Table row-->
+                                                <tr class="text-start text-gray-400 fw-boldest fs-7 text-uppercase">
+                                                    <th class="max-width-50px px-0">Top</th>
+                                                    <th class="min-w-200px px-0">Họ và tên</th>
+                                                    <th class="min-w-200px px-0">Câu lạc bộ</th>
+                                                    <th class="text-center pe-2 min-w-70px">Điểm</th>
+                                                </tr>
+                                                <!--end::Table row-->
+                                                <!--begin::Table row-->
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-light-warning fw-bolder fs-6 px-3 py-1">1</span>
+                                                    </td>
+                                                    <!--begin::Name-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/tienpercy.jpg" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <h4 class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">Trần Vĩnh Tiến</h4>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Name-->
+                                                    <!--begin::Club-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <span class="badge badge-light-primary fw-bolder fs-6 px-3 py-1">HelloGIT</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Club-->
+                                                    <!--begin::Score-->
+                                                    <td class="pe-0 text-center">
+                                                        <span class="badge badge-light-success fw-bolder fs-6 px-3 py-1">50</span>
+                                                    </td>
+                                                    <!--end::Score-->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-light-warning fw-bolder fs-6 px-3 py-1">2</span>
+                                                    </td>
+                                                    <!--begin::Name-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/avt-nam.jpg" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <h4 class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">Phan Hữu Đại Anh</h4>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Name-->
+                                                    <!--begin::Club-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <span class="badge badge-light-primary fw-bolder fs-6 px-3 py-1">HelloGIT</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Club-->
+                                                    <!--begin::Action=-->
+                                                    <td class="pe-0 text-center">
+                                                        <span class="badge badge-light-success fw-bolder fs-6 px-3 py-1">50</span>
+                                                    </td>
+                                                    <!--end::Action=-->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-light-warning fw-bolder fs-6 px-3 py-1">3</span>
+                                                    </td>
+                                                    <!--begin::Name-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/avt-nu.jpg" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <h4 class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">Lê Hứa Uyển Trân</h4>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Name-->
+                                                    <!--begin::Club-->
+                                                    <td class="p-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <!--begin::Logo-->
+                                                            <div class="symbol symbol-50px symbol-circle me-5">
+                                                                <img alt="Logo" src="../assets/media/avatars/hellogit.png" />
+                                                            </div>
+                                                            <!--end::Logo-->
+                                                            <div class="ps-3">
+                                                                <span class="badge badge-light-primary fw-bolder fs-6 px-3 py-1">HelloGIT</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Club-->
+                                                    <!--begin::Action=-->
+                                                    <td class="pe-0 text-center">
+                                                        <span class="badge badge-light-success fw-bolder fs-6 px-3 py-1">50</span>
+                                                    </td>
+                                                    <!--end::Action=-->
+                                                </tr>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                            <!--end::Table Widget 1-->
+                        </div>
+                        <!--end:::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end:::Col-->			
+            </div>
+            <!--end::Row-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <%- include('../../components/footer.ejs') %>
+    <!--end::Footer-->
+</div>

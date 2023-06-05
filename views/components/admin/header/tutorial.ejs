@@ -1,0 +1,32 @@
+<div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+    <!--begin::Container-->
+    <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 mb-5 mb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+            <!--begin::Heading-->
+            <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">Câu hỏi thường gặp</h1>
+            <!--end::Heading-->
+            <!--begin::Breadcrumb-->
+            <%- include('../../../components/breadcrumb.ejs') %> 
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title=-->
+        <!--begin::Logo bar-->
+        <%- include('./toggle.ejs') %> 
+        <!--end::Logo bar-->
+        <!--begin::Toolbar wrapper-->
+        <div class="d-flex align-items-stretch flex-shrink-0">
+            <!--begin:Activities-->
+            <%- include('../../../components/activity.ejs') %>
+            <!--end:Activities-->
+            <!--begin::Notifications-->
+            <%- include('../../../components/notification.ejs') %>
+            <!--end::Notifications-->
+            <!--begin::User-->
+            <%- include('../../../components/profile.ejs') %>
+            <!--end::User -->
+        </div>
+        <!--end::Toolbar wrapper-->
+    </div>
+    <!--end::Container-->
+</div>

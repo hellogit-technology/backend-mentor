@@ -1,0 +1,191 @@
+<div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+    <!--begin::Container-->
+    <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 mb-5 mb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+            <!--begin::Heading-->
+            <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">
+                <% if(payload.infoPage.adminAccount) { %>
+                    Quản lý tài khoản Admin
+                <% } else if(payload.infoPage.clubAccount) { %> 
+                    Quản lý tài khoản Club
+                <% } else { %> 
+                    Tổng quan tài khoản
+                <% } %> 
+            </h1>
+            <!--end::Heading-->
+            <!--begin::Breadcrumb-->
+            <%- include('../../../components/breadcrumb.ejs') %> 
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title=-->
+        <!--begin::Logo bar-->
+        <%- include('./toggle.ejs') %> 
+        <!--end::Logo bar-->
+        <!--begin::Toolbar wrapper-->
+        <div class="d-flex align-items-stretch flex-shrink-0">
+
+            <% if(payload.infoPage.adminAccount) { %>
+                <!--begin::Add-->
+                <div class="d-flex align-items-center ms-1 ms-lg-3">
+                    <!--begin::drawer toggle-->
+                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"  data-bs-toggle="modal" data-bs-target="#admin-new-account-modal">
+                        <!--begin::Svg Icon | path: icons/duotone/Design/Substract.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <img src="/img/add.svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"></img>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::drawer toggle-->
+                </div>
+                <!--end:Add-->
+                <!--begin::Search-->
+                <div class="d-flex align-items-stretch ms-1 ms-lg-3">
+                    <!--begin::Search-->
+                    <div id="kt_header_search" class="d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <!--begin::Search toggle-->
+                        <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
+                            <div class="btn btn-icon btn-active-light-primary">
+                                <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                        </g>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                        </div>
+                        <!--end::Search toggle-->
+                        <!--begin::Menu-->
+                        <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px" >
+                            <!--begin::Wrapper-->
+                            <div data-kt-search-element="wrapper">
+                                <!--begin::Form-->
+                                <form data-kt-search-element="form" id="admin-search-account" class="w-100 position-relative mb-3" autocomplete="off">
+                                    <!--begin::Icon-->
+                                    <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                                    <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <!--end::Icon-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-flush ps-10" id="search" name="search" placeholder="Tìm kiếm" data-kt-search-element="input" />
+                                    <!--end::Input-->
+                                    <!--begin::Spinner-->
+                                    <div id="skeleton-loading-search"></div>
+                                    <!--end::Spinner-->            
+                                </form>
+                                <!--end::Form-->
+                                <!--begin::Separator-->
+                                <div class="separator border-gray-200 mb-6"></div>
+                                <!--end::Separator-->
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Menu-->
+                    </div>
+                    <!--end::Search-->
+                </div>
+                <!--end::Search-->
+            <% } %> 
+
+            <% if(payload.infoPage.clubAccount) { %>
+                <!--begin::Add-->
+                <div class="d-flex align-items-center ms-1 ms-lg-3">
+                    <!--begin::drawer toggle-->
+                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"  data-bs-toggle="modal" data-bs-target="#club-new-account-modal">
+                        <!--begin::Svg Icon | path: icons/duotone/Design/Substract.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <img src="/img/add.svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"></img>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::drawer toggle-->
+                </div>
+                <!--end:Add-->
+                <!--begin::Search-->
+                <div class="d-flex align-items-stretch ms-1 ms-lg-3">
+                    <!--begin::Search-->
+                    <div id="kt_header_search" class="d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <!--begin::Search toggle-->
+                        <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
+                            <div class="btn btn-icon btn-active-light-primary">
+                                <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                        </g>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                        </div>
+                        <!--end::Search toggle-->
+                        <!--begin::Menu-->
+                        <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px">
+                            <!--begin::Wrapper-->
+                            <div data-kt-search-element="wrapper">
+                                <!--begin::Form-->
+                                <form data-kt-search-element="form" id="club-search-account" class="w-100 position-relative mb-3" autocomplete="off">
+                                    <!--begin::Icon-->
+                                    <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                                    <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <!--end::Icon-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-flush ps-10" id="search" name="search" placeholder="Tìm kiếm" data-kt-search-element="input" />
+                                    <!--end::Input-->
+                                    <!--begin::Spinner-->
+                                    <div id="skeleton-loading-search"></div>
+                                    <!--end::Spinner-->
+                                </form>
+                                <!--end::Form-->
+                                <!--begin::Separator-->
+                                <div class="separator border-gray-200 mb-6"></div>
+                                <!--end::Separator-->
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Menu-->
+                    </div>
+                    <!--end::Search-->
+                </div>
+                <!--end::Search-->
+            <% } %> 
+
+            <!--begin:Activities-->
+            <%- include('../../../components/activity.ejs') %> 
+            <!--end:Activities-->
+            <!--begin::Notifications-->
+            <%- include('../../../components/notification.ejs') %>
+            <!--end::Notifications-->
+            <!--begin::User-->
+            <%- include('../../../components/profile.ejs') %> 
+            <!--end::User -->
+        </div>
+        <!--end::Toolbar wrapper-->
+    </div>
+    <!--end::Container-->
+</div>

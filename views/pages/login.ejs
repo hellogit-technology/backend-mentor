@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Hệ thống quản lý thông tin câu lạc bộ - Phát triển bởi HelloGIT Team - Greenwich Vietnam">
+    <meta name="author" content="HelloGIT Team">
+    <title><%= payload.title %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script defer src="/js/bootstrap.bundle.min.js"></script>
+    <script defer src="/js/jquery.min.js"></script>
+    <link href="/css/login.min.css" rel="stylesheet">
+    <script defer src="/js/login.bundle.min.js"></script>
+</head>
+<body style="background: url('/img/university.jpg') no-repeat center fixed; background-size: cover;">
+    <div id="overlay">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-lg-5 col-md-7 col-sm-10">
+                    <div class="card o-hidden border-0 shadow-lg" style="margin-top: 15vh;">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="px-5 pt-3">
+                                        <div class="text-center">
+                                            <img src="/img/logo.png" alt="logo" width="60%">
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <h1 class="h4 text-gray-900 mb-4" style="font-size: 30px;"><%= payload.heading %></h1>
+                                        </div>
+                                        <form class="user" id="login-form-input" style="margin-top: 3rem;">
+                                            <!-- <div class="mb-3">
+                                                <select class="form-select" aria-label="Default select example" style="font-weight: 500;">
+                                                    <option selected style="font-weight: 500;">Chọn cơ sở</option>
+                                                    <option value="1" style="font-weight: 500;">Hà Nội</option>
+                                                    <option value="2" style="font-weight: 500;">Đà Nẵng </option>
+                                                    <option value="3" style="font-weight: 500;">Hồ Chí Minh</option>
+                                                    <option value="3" style="font-weight: 500;">Cần Thơ</option>
+                                                </select>
+                                            </div> -->
+                                            <button type="button" id="buttonLogin" class="login-with-google-btn" style="width: 100%; margin-bottom: 10px;">
+                                                <img src="/img/google.svg" alt="Girl in a jacket" width="20" height="20" style="vertical-align:middle; margin-right: 10px">
+                                                Đăng nhập bằng Google
+                                            </button>
+
+                                            <% if(typeof(payload.messages) !== 'undefined') { %>
+                                                <div class="text-center">
+                                                    <h7 style="color: #eb4310;" id="messageError"><%= payload.messages %></h7>
+                                                </div>
+                                            <% } %>
+                                           
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center mt-4" style="margin-bottom: 35px; padding: 0 3px;">       
+                                <p>
+                                  Copyright © 2022 
+                                  <a href="https://www.facebook.com/HelloGIT" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">HelloGIT</a>
+                                  &nbsp;|&nbsp;
+                                  PDP Greenwich
+                                  <br>
+                                  Created by 
+                                  <a href="https://www.facebook.com/TienPercy" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">Tien Percy</a>
+                                  <a href="https://www.facebook.com/fxbite" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">Thinh Le</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,3 +1,5 @@
+'use strict'
+
 // CREATE EVENT
 $(document).ready(function() {
     const $inputForm = $('#kt_modal_evaluation_form_event')

@@ -18,11 +18,13 @@ const messageVietnamese = {
   
     // Auth
     RES001: `Thông tin đăng nhập không đúng.`,
-    RES002A: `Cập nhật thất bại.`,
-    RES002B: `Cập nhật thành công.`,
-    RES003A: `Xóa thất bại.`,
-    RES003B: `Xóa thành công.`,
-    RES004A: `Tạo mới thất bại.`,
-    RES004B: `Tạo mới thành công.`,
-    RES005: `Tài khoản không thể truy cập.`
+    RES002A: (param) => `Cập nhật ${param} thất bại.`,
+    RES002B: (param) => `Cập nhật ${param} thành công.`,
+    RES003A: (param) => `Xóa ${param} thất bại.`,
+    RES003B: (param) => `Xóa ${param} thành công.`,
+    RES004A: (param) => `Tạo mới ${param} thất bại.`,
+    RES004B: (param) => `Tạo mới ${param} thành công.`,
+    RES005: `Tài khoản không thể truy cập.`,
+    RES006: `Đã có sự cố xảy ra.`,
+  
 };

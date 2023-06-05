@@ -1,9 +1,11 @@
+'use strict'
+
 // CREATE STUDENT
-$(document).ready(function() {
-    const $inputForm = $('#kt_modal_evaluation_form_students')
+$(function() {
+    const $inputForm = $('#student-new-form')
 
     // Reset validation and value
-    $('.modal_student_cancel').click(function() {
+    $(document).on('click', '.modal-student-cancel', function() {
         $('.has-error').removeClass('has-error')
         $('.validation-error-message').remove()
         $($inputForm)[0].reset()
@@ -28,6 +30,21 @@ $(document).ready(function() {
 
     methodValidation.email(`${inputName['input3']}Format`, messageVietnamese.ER003)
     methodValidation.maxLength(`${inputName['input3']}Length`, 100, 'email')
+
+    const debounceCreate = _.debounce(function(form) {
+        $.ajax({
+            url: '/api/admin/student',
+            method: 'POST',
+            data: $(form).serialize(), 
+            success: function(response) {
+                $(form)[0].reset();
+                successToast(messageVietnamese.RES004B('sinh viên'))
+            },
+            error: function(xhr, status, error) {
+                failedToast(messageVietnamese.RES004A('sinh viên'))
+            }
+        });
+    }, 1500)
 
     $inputForm.validate({
         onfocusout: function(element) {
@@ -112,9 +129,7 @@ $(document).ready(function() {
         },
         errorClass: 'validation-error-message',
         submitHandler: function(form) {
-            form.method = 'post' 
-            form.action = '/api/student' 
-            form.submit()
+            debounceCreate(form)
         }
     })
 })
@@ -260,4 +275,45 @@ $(document).ready(function() {
         $confirmForm.attr('method', 'post')
         $confirmForm.attr('action', `/api/student/${$studentId}?_method=DELETE`)
     })
+})
+
+
+// SEARCH STUDENT
+$(function() {
+    const searchFunction = _.debounce(function() {
+        const searchValue = $('#student-search #search').val()
+        $.ajax({
+            url: `/api/admin/student?search=${encodeURIComponent(searchValue)}`,
+            method: 'GET',
+            success: function(response) {
+                $('#payload').html(response)
+                closeToast()
+                skeletonSearchHide()
+            },
+            error: function(xhr, status, error) {
+                skeletonSearchHide()
+            }
+        });
+    }, 2500)
+
+    const checkSearch = function(limitLength){
+        const searchValue = $('#student-search #search').val()
+        if(searchValue.length <= limitLength) {
+            pendingToast('Đang tìm kiếm...')
+            searchFunction()
+        } else {
+            warningToast(`Giới hạn tìm kiếm ${limitLength} ký tự. (${searchValue.length} ký tự)`)
+        }
+    }
+
+    $('#student-search #search').on('keydown', function(event) {
+        if (event.keyCode === 13 || event.which === 13) {
+            event.preventDefault();
+        }
+    })
+
+    $('#student-search #search').on('keyup', function() {
+        skeletonSearchShow()
+        checkSearch(20)
+    });
 })

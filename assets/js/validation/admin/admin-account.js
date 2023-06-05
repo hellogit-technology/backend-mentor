@@ -1,11 +1,11 @@
 'use strict'
 
 // CREATE ADMIN ACCOUNT
-$(document).ready(function() {
-    const $inputForm = $('#accountPDPForm')
+$(function() {
+    const $inputForm = $('#admin-new-account-form')
 
     // Reset validation and value
-    $('.modal_account_cancel').click(function() {
+    $(document).on('click', '.modal-account-cancel', function() {
         $('.has-error').removeClass('has-error')
         $('.validation-error-message').remove()
         $($inputForm)[0].reset()
@@ -26,6 +26,8 @@ $(document).ready(function() {
     methodValidation.email(`${inputName['input2']}Format`, messageVietnamese.ER003)
     methodValidation.maxLength(`${inputName['input2']}Length`, 100, 'email')
 
+    methodValidation.maxLength(`${inputName['input3']}Length`, 24, 'campus')
+
     // Check Role
     $.validator.addMethod('checkRole', function(value, element) { 
         if(value !== '0' && value !== '1') {
@@ -33,6 +35,21 @@ $(document).ready(function() {
         }
         return true
     }, messageVietnamese.ER001('loại tài khoản'));
+
+    const debounceCreate = _.debounce(function(form) {
+        $.ajax({
+            url: '/api/admin/admin-account',
+            method: 'POST',
+            data: $(form).serialize(), 
+            success: function(response) {
+                $(form)[0].reset();
+                successToast(messageVietnamese.RES004B('tài khoản admin'))
+            },
+            error: function(xhr, status, error) {
+                failedToast(messageVietnamese.RES004A('tài khoản admin'))
+            }
+        });
+    }, 1500)
 
     $inputForm.validate({
         onfocusout: function(element) {
@@ -51,11 +68,11 @@ $(document).ready(function() {
                 emailFormat: true,
                 emailLength: true ,
                 remote: {
-                    url: '/api/check-account-email',
+                    url: '/api/validation/exist-account-email',
                     type: 'post',
                     data: {
                         email: function() {
-                            return $('#accountPDPForm #email').val();
+                            return $('#admin-new-account-form #email').val();
                         }
                     },
                     dataType: 'json'
@@ -63,12 +80,13 @@ $(document).ready(function() {
             },
             campus: {
                 required: true,
+                campusLength: true,
                 remote: {
-                    url: '/api/valid-campus',
+                    url: '/api/validation/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {
-                            return $('#accountPDPForm #campus').val();
+                            return $('#admin-new-account-form #campus').val();
                         }
                     },
                     dataType: 'json'
@@ -103,30 +121,28 @@ $(document).ready(function() {
         },
         errorClass: 'validation-error-message',
         submitHandler: function(form) {
-            form.method = 'post'
-            form.action = '/api/admin-account'
-            form.submit()
+            debounceCreate(form)
         }
     })
 })
 
 
 // UPDATE ADMIN ACCOUNT
-$(document).ready(function() {
-    const $inputForm = $('#modal_update_pdp_form')
+$(function() {
+    const $inputForm = $('#admin-update-account-form')
 
     let $accountId 
 
     // Pass data to modal form
-    $(document).on('click', '.update-account-pdp', function() {
+    $(document).on('click', '.admin-update-account', function() {
         $accountId = $(this).data('id');
         const $fullname = $(this).data('fullname');
         const $email = $(this).data('email');
         const $campus = $(this).data('campus');
 
-        $('#modal_update_pdp_form #fullname').attr('placeholder', $fullname);
-        $('#modal_update_pdp_form #email').attr('placeholder', $email);
-        $("#modal_update_pdp_form #campus option").each(function() {
+        $('#admin-update-account-form #fullname').attr('placeholder', $fullname);
+        $('#admin-update-account-form #email').attr('placeholder', $email);
+        $('#admin-update-account-form #campus option').each(function() {
             if($(this).val() === $campus) {
                 $(this).attr('selected', 'selected')
             }
@@ -135,7 +151,7 @@ $(document).ready(function() {
     })
 
     // Reset validation and value
-    $('.modal_account_cancel').click(function() {
+    $(document).on('click', '.modal-account-cancel', function() {
         $('.has-error').removeClass('has-error')
         $('.validation-error-message').remove()
     })
@@ -155,6 +171,8 @@ $(document).ready(function() {
     methodValidation.email(`${inputName['input2']}Format`, messageVietnamese.ER003)
     methodValidation.maxLength(`${inputName['input2']}Length`, 100, 'email')
 
+    methodValidation.maxLength(`${inputName['input3']}Length`, 24, 'campus')
+
     // Check Role
     $.validator.addMethod('checkRole', function(value, element) { 
         if(value !== '0' && value !== '1') {
@@ -162,6 +180,22 @@ $(document).ready(function() {
         }
         return true
     }, messageVietnamese.ER001('loại tài khoản'));
+
+    const debounceUpdate = _.debounce(function(form) {
+        $.ajax({
+            url: `/api/admin/admin-account/${$accountId}`,
+            method: 'PATCH',
+            data: $(form).serialize(), 
+            success: function(response) {
+                $(form)[0].reset();
+                successToast(messageVietnamese.RES002B('tài khoản admin'))
+            },
+            error: function(xhr, status, error) {
+                failedToast(messageVietnamese.RES002A('tài khoản admin'))
+            }
+        });
+    }, 1500)
+    
 
     $inputForm.validate({
         onfocusout: function(element) {
@@ -178,11 +212,11 @@ $(document).ready(function() {
                 emailFormat: true,
                 emailLength: true,
                 remote: {
-                    url: '/api/check-account-email-pdp-update',
+                    url: '/api/validation/update-email-admin',
                     type: 'post',
                     data: {
                         email: function() {
-                            return $('#modal_update_pdp_form #email').val();
+                            return $('#admin-update-account-form #email').val();
                         },
                         id: function() {
                             return $accountId
@@ -192,12 +226,13 @@ $(document).ready(function() {
                 }
             },
             campus: {
+                campusLength: true,
                 remote: {
-                    url: '/api/valid-campus',
+                    url: '/api/validation/valid-campus',
                     type: 'post',
                     data: {
                         campus: function() {
-                            return $('#modal_update_pdp_form #campus').val();
+                            return $('#admin-update-account-form #campus').val();
                         }
                     },
                     dataType: 'json'
@@ -223,33 +258,71 @@ $(document).ready(function() {
         },
         errorClass: 'validation-error-message',
         submitHandler: function(form) {
-            form.method = 'post'
-            form.action = `/api/admin-account/${$accountId}?_method=PATCH`
-            form.submit()
+            debounceUpdate(form)
         }
     })
+    
 })
 
 
 // DELETE ADMIN ACCOUNT
-$(document).ready(function() {
-    const $confirmForm = $('#modal_delete_account_pdp_form')
-    $(document).on('click', '.remove-account-pdp', function() {
-        const $accountId = $(this).data('id');
-        $confirmForm.attr('method', 'post')
-        $confirmForm.attr('action', `/api/admin-account/${$accountId}?_method=DELETE`)
+$(function() {
+    let $accountId
+    $(document).on('click', '.admin-delete-account', function() {
+        $accountId = $(this).data('id');
     })
+
+    $(document).on('click', '#admin-delete-account-form #aconfirm-delete-account', _.debounce(function() {
+        $.ajax({
+            url: `/api/admin/admin-account/${$accountId}`,
+            method: 'DELETE',
+            success: function(response) {
+                successToast(messageVietnamese.RES003B('tài khoản admin'))
+            },
+            error: function(xhr, status, error) {
+                failedToast(messageVietnamese.RES003A('tài khoản admin'))
+            }
+        });
+    }, 1500))
 })
 
+
 // SEARCH ADMIN ACCOUNT
-$(document).ready(function() {
-    const $searchForm = $('#search-admin-accounts')
-    $('#search-admin-accounts #search').keyup(function(event) {
-        if (event.which === 13) {
-            event.preventDefault();
-            $searchForm.attr('method', 'get')
-            $searchForm.attr('action', '/admin/admin-accounts')
-            $searchForm.submit();
+$(function() {
+    const searchFunction = _.debounce(function() {
+        const searchValue = $('#admin-search-account #search').val()
+        $.ajax({
+            url: `/api/admin/admin-account?search=${encodeURIComponent(searchValue)}`,
+            method: 'GET',
+            success: function(response) {
+                $('#payload').html(response)
+                closeToast()
+                skeletonSearchHide()
+            },
+            error: function(xhr, status, error) {
+                skeletonSearchHide()
+            }
+        });
+    }, 2500)
+
+    const checkSearch = function(limitLength){
+        const searchValue = $('#admin-search-account #search').val()
+        if(searchValue.length <= limitLength) {
+            pendingToast('Đang tìm kiếm...')
+            searchFunction()
+        } else {
+            warningToast(`Giới hạn tìm kiếm ${limitLength} ký tự. (${searchValue.length} ký tự)`)
         }
-    });
+    }
+
+    $('#admin-search-account #search').on('keydown', function(event) {
+        if (event.keyCode === 13 || event.which === 13) {
+            event.preventDefault();
+        }
+    })
+
+    $('#admin-search-account #search').on('keyup', function() {
+        skeletonSearchShow()
+        checkSearch(20)
+    })
 })

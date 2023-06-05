@@ -1,0 +1,80 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <%- include('../../../components/admin/header/student.ejs') %> 
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">		
+        <!--begin::Student--> 
+        <div class="e-panel card" style="margin-left:10px; margin-right: 10px;" >
+            <div class="card-body" style="font-size:15px;">
+                <div class="e-table" id="payload">
+                    <div class="table-responsive table-lg mt-3">
+                        <table class="table table-bordered">
+                            <% if (payload.queryData.students.length > 0) { %>
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                        <th style="width:50px;">Stt</th>
+                                        <th style="width:100px;">ID</th>
+                                        <th style="width:150px;">Họ và tên</th>
+                                        <th style="width:300px;">Email</th>
+                                        <th style="width:150px;">Câu lạc bộ</th>
+                                        <th style="width:250px;">Cơ sở đang học</th>
+                                        <th style="width:250px;" class="text-center">Được thêm bởi</th>
+                                        <th style="width:250px;" class="text-center">Sửa/Xoá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% payload.queryData.students.forEach((person, index) => { %> 
+                                        <tr> 
+                                            <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                            <td class="text-nowrap align-middle"><%= person.schoolId %></td>
+                                            <td class="text-nowrap align-middle"><%= person.fullname %></td>
+                                            <td class="text-nowrap align-middle"><%= person.email %></td>
+                                            <% if (person.club.length > 0) { %>
+                                                <td class="text-nowrap align-middle">Clubs</td>
+                                            <% } else { %>
+                                                <td class="text-nowrap align-middle">Không có</td>
+                                            <% } %>  
+                                            <td class="text-nowrap align-middle"><%= person.campus.name %></td>
+                                            <td class="text-center align-middle">
+                                                <a href="#">
+                                                    <%= person.editor.fullname %>
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <div class="btn-group align-top">
+                                                    <button class="btn btn-secondary badge update-student" type="button" data-id="<%= person._id %>" data-schoolid="<%= person.schoolId %>" data-fullname="<%= person.fullname %>" data-email="<%= person.email %>" data-campus="<%= person.campus._id %>" data-bs-toggle="modal" data-bs-target="#pdp_edit_student">Sửa</button>
+                                                    <button class="btn btn-secondary badge remove-student" data-id="<%= person._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_student"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }) %> 
+                                </tbody>
+                            <% } else { %>
+                                <div class="row g-3 text-center">
+                                    <h3>No Record</h3>
+                                </div>
+                            <% } %> 
+                        </table>
+                    </div>
+                    <% if (payload.queryData.students.length > 0) { %>
+                        <!--begin::Show result-->
+                        <%- include('../../../components/pagination.ejs') %>
+                        <!--end::Show result-->
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+        <!--end::Student-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <%- include('../../../components/footer.ejs') %>
+    <!--end::Footer-->
+</div>
+
+
+
+
+
+

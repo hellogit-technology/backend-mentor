@@ -1,8 +1,8 @@
 import { Strategy } from 'passport-google-oauth20';
 import { PassportStatic } from 'passport';
-import { LeaderAccount, AdminAccount } from '../app/models';
+import { ClubAccount, AdminAccount } from '../app/models';
 import { messageVietnamese } from '../utils/message';
-import { AccountSession } from '../types/Passport';
+import { IAccountSession } from '../interface/ISession';
 
 const GoogleStrategy = Strategy;
 
@@ -11,7 +11,7 @@ export const googlePassport = (passport: PassportStatic) => {
     done(null, user);
   });
 
-  passport.deserializeUser<AccountSession>((user, done) => {
+  passport.deserializeUser<IAccountSession>((user, done) => {
     done(null, user);
   });
 
@@ -25,7 +25,7 @@ export const googlePassport = (passport: PassportStatic) => {
       async (accessToken, refreshToken, profile, done) => {
         const requestEmail = profile['_json'].email;
         const adminUser = await AdminAccount.findOne({ email: requestEmail });
-        const leaderUser = await LeaderAccount.findOne({ email: requestEmail });
+        const leaderUser = await ClubAccount.findOne({ email: requestEmail });
 
         if (adminUser) {
           let adminSession;

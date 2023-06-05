@@ -1,0 +1,83 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <%- include('../../../components/admin/header/event.ejs')  %> 
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">				
+        <!--begin::Score--> 
+        <div class="e-panel card" style="margin-left:10px; margin-right: 10px;" >
+            <div class="card-body" style="font-size:15px;">
+                <div class="e-table" id="payload">
+                    <div class="table-responsive table-lg mt-3">
+                        <table class="table table-bordered">
+                            <% if (payload.queryData.eventsSchool) { %>
+                                <% if(payload.queryData.eventsSchool.length > 0) { %>
+                                <thead>
+                                    <tr>
+                                        <th style="width:100px;">Stt</th>
+                                        <th style="width:100px;">ID</th>
+                                        <th style="width:400px;">Tên sự kiện</th>
+                                        <th style="width:200px;" class="text-center">Ngày tổ chức</th>
+                                        <th style="width:150px;" class="text-center">Cơ sở</th>
+                                        <th style="width:200px;" class="text-center">Được thêm bởi</th>
+                                        <th style="width: 200px;"></th>
+                                        <th style="width:200px;" class="text-center">Sửa/Xoá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% payload.queryData.eventsSchool.forEach((event, index) => { %>
+                                        <tr>
+                                            <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                                            <td class="text-nowrap align-middle"><%= event.eventId %></td>
+                                            <td class="text-nowrap align-middle">
+                                                <a href="" class="show-detail-event" data-id="<%= event._id %>" data-eventid="<%= event.eventId %>" data-eventname="<%= event.name %>" data-eventdate="<%= formatDate(event.date) %>" data-campus="<%= event.campus.name %>" data-clubs="<%= event.club.map(element => element.name) %>" data-poster="<%= event.poster.photo %>" data-qrcode="<%= event.qrcode.photo %>" data-bs-toggle="modal" data-bs-target="#pdp_detail_event">
+                                                    <%= event.name %> 
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle"><%= formatDate(event.date) %></td>
+                                            <td class="text-center align-middle">
+                                                <span class="badge badge-light-success fw-bolder fs-6"><%= event.campus.name %></span>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a href="pdp/overview.html">
+                                                    <%= event.editor.fullname %> 
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a href="admin/event/learning_blockchain_intellectual_property_on_the_blockchain.html">
+                                                    SV tham dự
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <div class="btn-group align-top">
+                                                    <button class="btn btn-secondary badge update-event" type="button" data-id="<%= event._id %>" data-eventid="<%= event.eventId %>" data-eventname="<%= event.name %>" data-eventdate="<%= formatDate(event.date, 'YYYY-MM-DD') %>" data-campus="<%= event.campus._id %>" data-clubs="<%= event.club.map(element => element.name) %>" data-poster="<%= event.poster.photo %>" data-qrcode="<%= event.qrcode.photo %>" data-bs-toggle="modal" data-bs-target="#pdp_edit_event">Sửa</button>
+                                                    <button class="btn btn-secondary badge remove-event" type="button" data-id="<%= event._id %>" data-bs-toggle="modal" data-bs-target="#delete_event"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>  
+                                    <% }) %> 
+                                </tbody>
+                                <% } else { %>
+                                    <div class="row g-3 text-center">
+                                        <h3>No Record</h3>
+                                    </div>
+                                <% } %> 
+                            <% } %>
+                        </table>
+                    </div>
+                    <!--begin::Show result-->
+                    <%- include('../../../components/pagination.ejs') %>
+                    <!--end::Show result-->
+                </div>
+            </div>
+        </div>
+        <!--end::Score-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <%- include('../../../components/footer.ejs') %>
+    <!--end::Footer-->
+</div>
+
+
+

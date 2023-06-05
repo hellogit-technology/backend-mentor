@@ -39,9 +39,9 @@ import { sessionStore } from './config/sessionStore';
 import route from './routes';
 import { connectDB } from './config/mongodb';
 import { googlePassport } from './config/passport';
-import showData from './middleware/helpers';
-import { clearCache } from './middleware/clearCache';
-import { redirectHTTPS } from './middleware/forceHTTPS';
+import showData from './middleware/pipe/formatData';
+import { clearCache } from './middleware/helpers/clearCache';
+import { redirectHTTPS } from './middleware/helpers/forceHTTPS';
 
 const app = express();
 const server = http.createServer(app);
@@ -114,13 +114,11 @@ app.use(
 const libraryPath = '../public/lib';
 app.use('/js', [
   express.static(path.join(__dirname, `${libraryPath}/jquery-validate`)),
-  express.static(path.join(__dirname, `${libraryPath}/jquery-easing`)),
   express.static(path.join(__dirname, `${libraryPath}/jquery`)),
-  express.static(path.join(__dirname, `${libraryPath}/gsap`)),
   express.static(path.join(__dirname, `${libraryPath}/flatpickr`)),
   express.static(path.join(__dirname, `${libraryPath}/chart`)),
   express.static(path.join(__dirname, `${libraryPath}/bootstrap/js`)),
-  express.static(path.join(__dirname, `${libraryPath}/google`))
+  express.static(path.join(__dirname, `${libraryPath}/lodash`))
 ]);
 app.use('/css', [express.static(path.join(__dirname, `${libraryPath}/bootstrap/css`)), express.static(path.join(__dirname, `../public/helpers`))]);
 app.use(express.static(path.join(__dirname, '../public')));

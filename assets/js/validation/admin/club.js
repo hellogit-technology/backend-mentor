@@ -1,5 +1,7 @@
+'use strict'
+
 // CREATE CLUB
-$(document).ready(function() {
+$(function() {
     const $inputForm = $('#kt_modal_evaluation_form_club')
 
     // Preview photo

@@ -1,4 +1,4 @@
-import LeaderAccount from './LeaderAccount';
+import ClubAccount from './ClubAccount';
 import AdminAccount from './AdminAccount';
 import Campus from './Campus';
 import Club from './Club';
@@ -7,12 +7,12 @@ import Student from './Student';
 import Scores from './Scores';
 
 // Archive deleted data
-import DeletedLeaderAccount from './archive/DeletedLeaderAccount';
-import DeletedAdminAccount from './archive/DeletedAdminAccount';
-import DeletedCampus from './archive/DeletedCampus';
-import DeletedClub from './archive/DeletedClub';
-import DeletedEvent from './archive/DeletedEvent';
-import DeletedStudent from './archive/DeletedStudent';
-import DeletedScores from './archive/DeletedScores';
+import DeletedLeaderAccount from './backup/DeletedLeaderAccount';
+import DeletedAdminAccount from './backup/DeletedAdminAccount';
+import DeletedCampus from './backup/DeletedCampus';
+import DeletedClub from './backup/DeletedClub';
+import DeletedEvent from './backup/DeletedEvent';
+import DeletedStudent from './backup/DeletedStudent';
+import DeletedScores from './backup/DeletedScores';
 
-export { LeaderAccount, AdminAccount, Campus, Club, Event, Student, Scores, DeletedAdminAccount, DeletedLeaderAccount, DeletedCampus, DeletedClub, DeletedEvent, DeletedStudent, DeletedScores };
+export { ClubAccount, AdminAccount, Campus, Club, Event, Student, Scores, DeletedAdminAccount, DeletedLeaderAccount, DeletedCampus, DeletedClub, DeletedEvent, DeletedStudent, DeletedScores };

@@ -1,9 +1,0 @@
-<ul class="breadcrumb fw-bold fs-base mb-1">
-    <% if (typeof(infoPage) !== 'undefined') { %>
-        <% infoPage.breadcrumb.forEach((element, index) => { %>
-            <li class="breadcrumb-item text-muted">
-                <a href="<%= element.link %>" class="text-muted text-hover-primary"><%= element.title %></a>
-            </li>
-        <% }) %> 
-    <% } %>
-</ul>

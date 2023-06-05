@@ -9,10 +9,12 @@ const ClubSchema = new Schema(
     nickname: { type: String, maxlength: 50, required: true },
     fanpage: { type: String, maxlength: 300, required: true },
     founding: { type: Date },
-    members: [{
-      memberId: {type: Schema.Types.ObjectId, ref: 'Student'},
-      position: {type: Number, max: 2}
-    }],
+    members: [
+      {
+        memberId: { type: Schema.Types.ObjectId, ref: 'Student' },
+        position: { type: Number, max: 2 }
+      }
+    ],
     avatar: {
       photo: { type: String, required: true },
       cloudinaryId: { type: String, required: true }

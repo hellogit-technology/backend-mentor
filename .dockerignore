@@ -2,12 +2,9 @@ node_modules
 Test
 .prettierrc
 .env.example
-.env
 .vscode
 .gitignore
 README.md 
-gulpfile.js
-assets
 yarn.lock
 dist
-tsconfig.json
+fly.toml

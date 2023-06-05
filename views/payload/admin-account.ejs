@@ -1,0 +1,57 @@
+<% if(payload.queryData.length > 0) { %>
+    <p style="color: #a1a5b7; font-weight: bold;">Đã tìm thấy: <%= payload.queryData.length %> kết quả</p>
+<% } %> 
+<div class="table-responsive table-lg mt-3">
+    <table class="table table-bordered">
+        <% if(payload.queryData.length > 0) { %>
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                    <th style="width:50px;">Stt</th>
+                    <th style="width:150px;">Họ và tên</th>
+                    <th style="width:300px;">Tài khoản</th>	
+                    <th style="width:250px;">Cơ sở đang làm việc</th>
+                    <th style="width:150px;">Quyền hạn</th>
+                    <th style="width:250px;" class="text-center">Được thêm bởi</th>
+                    <th style="width:250px;" class="text-center">Sửa/Xoá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% payload.queryData.forEach((account, index) => { %>
+                    <tr> 
+                        <td class="text-nowrap align-middle"><%= index + 1 %></td>
+                        <td class="text-nowrap align-middle"><%= account.fullname %></td>
+                        <td class="text-nowrap align-middle"><%= account.email %></td>
+                        <td class="text-nowrap align-middle"><%= account.campus.name %></td>
+                        <td class="text-nowrap align-middle">
+                            <% if (accountSession['role'] === 0) { %>
+                                Administator
+                            <% } else { %>
+                                PDP
+                            <% } %> 
+                        </td>
+                        <td class="text-center align-middle">
+                            <a href="#">
+                                <%= account.editor.fullname %> 
+                            </a>
+                        </td>
+                        <td class="text-center align-middle">
+                            <div class="btn-group align-top">
+                                <button class="btn btn-secondary badge admin-update-account" data-id="<%= account._id %>" data-fullname="<%= account.fullname %>" data-email="<%= account.email %>" data-campus="<%= account.campus._id %>" type="button" data-bs-toggle="modal" data-bs-target="#edit_account_pdp">Sửa</button>
+                                <button class="btn btn-secondary badge admin-delete-account" data-id="<%= account._id %>" type="button" data-bs-toggle="modal" data-bs-target="#delete_account_pdp"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        <% } else { %> 
+            <div class="row g-3 text-center">
+                <h3>No Record</h3>
+            </div>
+        <% } %> 
+    </table>
+</div>
+<% if(payload.queryData.length > 0) { %>
+    <!--begin::Show result-->
+    <%- include('../components/pagination.ejs') %> 
+    <!--end::Show result-->
+<% } %> 

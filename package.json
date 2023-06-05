@@ -4,17 +4,14 @@
   "description": "CMS grading for mentors",
   "main": "src/server.ts",
   "scripts": {
-    "minify": "rimraf ./public && gulp minify-files",
+    "minify": "rimraf ./public && gulp minify",
     "minify:watch": "watch 'npm run minify' ./assets",
     "build": "rimraf ./dist && npx tsc -b",
     "dev:run": "cross-env NODE_ENV=development ts-node-dev src/server.ts",
     "dev": "npm run minify && cross-env NODE_ENV=development ts-node-dev src/server.ts",
-    "start": "npm run minify && cross-env NODE_ENV=development ts-node src/server.ts",
-    "check": "prettier --check \"src/**/*.ts\" ",
+    "start": "npm run minify && cross-env NODE_ENV=production ts-node src/server.ts",
     "format": "prettier --write \"src/**/*.ts\" ",
-    "deploy": "npm run minify && npm run build && rimraf ./deploy && webpack && rimraf ./dist",
-    "image": "docker build -t web-mentor-image . ",
-    "test": "docker run -p 8080:8080 --name web-mentor web-mentor-image"
+    "deploy": "npm run minify && npm run build && rimraf ./build && webpack && rimraf ./dist"
   },
   "keywords": [
     "CMS",
@@ -59,7 +56,6 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.4",
-    "watch": "^1.0.2",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-node-externals": "^3.0.0"
@@ -98,6 +94,7 @@
     "pdfkit": "^0.13.0",
     "qrcode": "^1.5.1",
     "rate-limiter-flexible": "^2.4.1",
+    "redis": "^4.6.6",
     "serve-favicon": "^2.5.0",
     "slugify": "^1.6.5",
     "socket.io": "^4.5.3",

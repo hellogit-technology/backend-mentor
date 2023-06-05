@@ -1,0 +1,50 @@
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+    <!--begin::Header-->
+    <%- include('../../../components/admin/header/account.ejs') %> 
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">		
+        <!--begin::Student--> 
+        <div class="e-panel card" style="margin-left:10px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="e-table" id="payload">
+                    <div class="table-responsive table-lg mt-3">
+                        <table class="table table-bordered">
+                            <div class="row text-center">
+                                <h2>No Record</h2>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Student-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Footer-->
+    <%- include('../../../components/footer.ejs') %>
+    <!--end::Footer-->
+</div>
+
+<!-- Create modal admin account -->
+<%- include('../../../components/admin/modal/account/admin.ejs') %>
+
+<!-- Update modal admin account -->
+<%- include('../../../components/admin/modal/account/admin-update.ejs') %>
+
+<!-- Delete modal admin account -->
+<%- include('../../../components/admin/modal/account/admin-delete.ejs') %>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
